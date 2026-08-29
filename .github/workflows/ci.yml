@@ -12,15 +12,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
-          cache: npm
-          cache-dependency-path: '**/package-lock.json'
-      - run: npm ci --ignore-scripts
-        if: hashFiles('package-lock.json') != ''
-      - run: npm run build
-        if: hashFiles('package-lock.json') != ''
+          cache: ${{ hashFiles('package-lock.json') != '' && 'npm' || '' }}
+
+      - name: Scaffold notice
+        if: hashFiles('package.json') == ''
+        run: echo "No package.json found. Skipping npm steps during repository scaffolding phase."
+
+      - name: Install dependencies
+        if: hashFiles('package.json') != ''
+        run: |
+          if [ -f "package-lock.json" ]; then
+            npm ci
+          else
+            npm install
+          fi
+
+      - name: Build
+        if: hashFiles('package.json') != ''
+        run: npm run build
 
   lint:
     name: Lint (non-blocking)
@@ -28,12 +41,25 @@ jobs:
     continue-on-error: true
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
-          cache: npm
-          cache-dependency-path: '**/package-lock.json'
-      - run: npm ci --ignore-scripts
-        if: hashFiles('package-lock.json') != ''
-      - run: npm run lint --if-present
-        if: hashFiles('package-lock.json') != ''
+          cache: ${{ hashFiles('package-lock.json') != '' && 'npm' || '' }}
+
+      - name: Scaffold notice
+        if: hashFiles('package.json') == ''
+        run: echo "No package.json found. Skipping lint during repository scaffolding phase."
+
+      - name: Install dependencies
+        if: hashFiles('package.json') != ''
+        run: |
+          if [ -f "package-lock.json" ]; then
+            npm ci
+          else
+            npm install
+          fi
+
+      - name: Lint
+        if: hashFiles('package.json') != ''
+        run: npm run lint --if-present
