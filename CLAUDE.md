@@ -4,29 +4,34 @@
 
 The public website for The AI Hub, Ghana — content-driven marketing/info site (about, programs, partners, news).
 
-**Current state:** repo scaffolding only. The initial application code will arrive via import of an existing prototype (built by the product designer) rather than being scaffolded fresh — see `README.md` for that process.
-
 ## Who's driving
 
-This repo is contributed to by engineers and by a non-technical product designer working entirely through Claude Code. When the person you're working with describes a visual or interaction change in plain, non-technical language, that is expected — translate their intent into working code yourself, choosing sensible implementation details without asking them to specify technical details they won't know.
+This repo is contributed to by engineers and by non-technical contributors (product manager, product designer) working entirely through Claude Code. When the person you're working with describes a visual, content, or interaction change in plain, non-technical language, that is expected — translate their intent into working code yourself, choosing sensible implementation details without asking them to specify technical details they won't know.
 
 ## Ground rules
 
 **Always:**
-- Create a new branch before making any change: `git checkout -b design/<short-description>` for design/visual work, `feat/...` or `fix/...` for engineering work
-- Run the project's build command before finishing and confirm it succeeds with no errors
-- Open a pull request against `dev` when done — never push directly to `dev`, `staging`, or `main`. All three are protected and the push will be rejected anyway.
+
+- Never commit directly to `dev`, `staging`, or `main`. Every change starts as a new branch off `dev` — never off `staging` or `main`, and never a direct push (all three are protected and it'll be rejected anyway).
+- Branch naming: `design/<short-description>` for design/content work, `feat/...` or `fix/...` for engineering work
 - Use Conventional Commits style messages (`feat:`, `fix:`, `style:`, `chore:`)
+- Update `CHANGELOG.md` in the same PR — add a line under an `## Unreleased` heading describing the change in plain language (what changed and why, not a code diff summary). Newest entry at the top of the list.
 - Keep changes scoped to what was actually asked — don't refactor unrelated code in the same PR
+- Open a pull request against `dev` when ready. **Do not merge it.** Review and merge is handled by the engineering team per `CODEOWNERS` — your job ends at opening the PR.
 
-**Never touch, even if it seems related to the task:**
-- `package.json` / lockfiles
-- Framework/build config files
-- `.github/workflows/`
-- Backend, API, or data-fetching logic
-- `.env` or anything handling secrets/credentials
+## Before opening a PR — replicate CI locally
 
-If a requested change seems to require touching one of the above, stop and explain why in the PR description instead of making the change yourself.
+Run the exact same steps the CI pipeline runs, in this order, before opening the PR:
+
+```bash
+npm ci
+npm run build
+npm run lint --if-present
+```
+
+`npm run build` must succeed with no errors — this is a required, blocking CI check, and the PR can't merge without it passing on GitHub either way. `npm run lint` is informational in CI (non-blocking), but running it locally and fixing anything straightforward first saves the engineering team a review cycle.
+
+This closely mirrors what GitHub Actions runs, but isn't a guarantee — differences in environment can still cause CI to behave differently than local. If the local run passes but CI still fails after opening the PR, don't guess at a fix: report exactly what CI's error output says in the PR description so the engineering team can diagnose it.
 
 ## Where design/content changes live
 

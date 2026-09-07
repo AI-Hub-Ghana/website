@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Hub, Ghana — the bridge between Ghana and Europe</title>
+<meta name="description" content="A not-for-profit AI innovation centre in Accra, and a bilaterally governed bridge between Ghana's AI ecosystem and European markets. European organisations gain trusted access to Ghanaian AI talent and solutions; Ghanaian companies, entrepreneurs and AI professionals gain access to European clients, projects and partnerships.">
+<meta name="theme-color" content="#F2F2EF">
+
+<link rel="icon" href="img/favicon/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="img/favicon/favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="img/favicon/apple-touch-icon-180.png">
+<link rel="manifest" href="img/favicon/site.webmanifest">
+
+<script>document.documentElement.className += " js";</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mona+Sans:wdth,wght@75..125,400..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.print.css" media="print">
+<!-- One continuous page rather than a paginated one: the page box is the
+     whole document, measured at the 1600px print layout width. Re-measure
+     and update this if the page gets longer. -->
+<style media="print">@page { size: 1600px 8800px; margin: 0; }</style>
+</head>
+
+<body>
+
+<a href="#main" class="btn btn-ink sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100]">Skip to content</a>
+
+<!-- Icon sprite (Lucide, ISC) ------------------------------------------- -->
+<svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute"><symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></symbol>
+<symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></symbol>
+<symbol id="i-plane-takeoff" viewBox="0 0 24 24"><path d="M2 22h20" /><path d="M6.36 17.4 4 17l-2-4 1.1-.55a2 2 0 0 1 1.8 0l.17.1a2 2 0 0 0 1.8 0L8 12 5 6l.9-.45a2 2 0 0 1 2.09.2l4.02 3a2 2 0 0 0 2.1.2l4.19-2.06a2.41 2.41 0 0 1 1.73-.17L21 7a1.4 1.4 0 0 1 .87 1.99l-.38.76c-.23.46-.6.84-1.07 1.08L7.58 17.2a2 2 0 0 1-1.22.18Z" /></symbol>
+<symbol id="i-plane-landing" viewBox="0 0 24 24"><path d="M2 22h20" /><path d="M3.77 10.77 2 9l2-4.5 1.1.55c.55.28.9.84.9 1.45s.35 1.17.9 1.45L8 8.5l3-6 1.05.53a2 2 0 0 1 1.09 1.52l.72 5.4a2 2 0 0 0 1.09 1.52l4.4 2.2c.42.22.78.55 1.01.96l.6 1.03c.49.88-.06 1.98-1.06 2.1l-1.18.15c-.47.06-.95-.02-1.37-.24L4.29 11.15a2 2 0 0 1-.52-.38Z" /></symbol>
+<symbol id="i-lightbulb" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" /><path d="M9 18h6" /><path d="M10 22h4" /></symbol>
+<symbol id="i-graduation-cap" viewBox="0 0 24 24"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" /><path d="M22 10v6" /><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" /></symbol>
+<symbol id="i-shield-check" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /><path d="m9 12 2 2 4-4" /></symbol>
+<symbol id="i-flask-conical" viewBox="0 0 24 24"><path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2" /><path d="M6.453 15h11.094" /><path d="M8.5 2h7" /></symbol>
+<symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><path d="M16 3.128a4 4 0 0 1 0 7.744" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><circle cx="9" cy="7" r="4" /></symbol>
+<symbol id="i-sprout" viewBox="0 0 24 24"><path d="M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 0 1 .5.5V5a4 4 0 0 1-4 4 4 4 0 0 0-4 4c0 2 1 3 1 5a5 5 0 0 1-1 3" /><path d="M4 9a5 5 0 0 1 8 4 5 5 0 0 1-8-4" /><path d="M5 21h14" /></symbol>
+<symbol id="i-network" viewBox="0 0 24 24"><rect x="16" y="16" width="6" height="6" rx="1" /><rect x="2" y="16" width="6" height="6" rx="1" /><rect x="9" y="2" width="6" height="6" rx="1" /><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3" /><path d="M12 12V8" /></symbol>
+<symbol id="i-book-open" viewBox="0 0 24 24"><path d="M12 5v16" /><path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" /></symbol>
+<symbol id="i-landmark" viewBox="0 0 24 24"><path d="M10 18v-7" /><path d="M11.119 2.205a2 2 0 0 1 1.762 0l7.84 3.846A.5.5 0 0 1 20.5 7h-17a.5.5 0 0 1-.22-.949z" /><path d="M14 18v-7" /><path d="M18 18v-7" /><path d="M3 22h18" /><path d="M6 18v-7" /></symbol>
+<symbol id="i-building-2" viewBox="0 0 24 24"><path d="M10 12h4" /><path d="M10 8h4" /><path d="M14 21v-3a2 2 0 0 0-4 0v3" /><path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2" /><path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16" /></symbol>
+<symbol id="i-handshake" viewBox="0 0 24 24"><path d="m11 17 2 2a1 1 0 1 0 3-3" /><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4" /><path d="m21 3 1 11h-2" /><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3" /><path d="M3 4h8" /></symbol>
+<symbol id="i-rocket" viewBox="0 0 24 24"><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" /><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09" /><path d="M9 12a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2z" /><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 .05 5 .05" /></symbol>
+<symbol id="i-calendar-days" viewBox="0 0 24 24"><path d="M8 2v3" /><path d="M16 2v3" /><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M3 9h18" /><path d="M8 13h.01" /><path d="M12 13h.01" /><path d="M16 13h.01" /><path d="M8 17h.01" /><path d="M12 17h.01" /><path d="M16 17h.01" /></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /><rect x="2" y="4" width="20" height="16" rx="2" /></symbol>
+<symbol id="i-map-pin" viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /><circle cx="12" cy="10" r="3" /></symbol>
+<symbol id="i-quote" viewBox="0 0 24 24"><path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z" /><path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z" /></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 5h16" /><path d="M4 12h16" /><path d="M4 19h16" /></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5" /></symbol>
+<symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14" /><path d="m19 12-7 7-7-7" /></symbol></svg>
+
+<!-- =====================================================================
+     NAV
+     ===================================================================== -->
+<header id="nav" class="sticky top-0 z-50 bg-paper transition-[background,box-shadow] duration-200">
+  <div class="shell flex items-center justify-between gap-6 py-[15px] transition-[padding] duration-200" data-nav-inner>
+
+    <!-- PLACEHOLDER LOGOTYPE — swap for the real mark once it is signed off -->
+    <a href="#main" class="logotype shrink-0 [--lt:18px] md:[--lt:21px]" aria-label="AI Hub, Ghana — home">
+      <span class="lt-1">AI Hub</span>
+      <span class="lt-2">Ghana</span>
+    </a>
+
+    <!-- The write-up's four nav items are: Who we are · What we do ·
+         Register interest · Contact us. "Register interest" is the button to
+         the right, so listing it here as well would print it twice. -->
+    <nav class="hidden lg:flex items-center gap-9" aria-label="Primary">
+      <a href="#why"  class="text-[13px] font-bold hover:text-teal transition-colors">Who we are</a>
+      <a href="#work" class="text-[13px] font-bold hover:text-teal transition-colors">What we do</a>
+      <a href="get-involved.html#register" class="text-[13px] font-bold hover:text-teal transition-colors">Contact us</a>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <a href="get-involved.html#register" class="btn btn-ink hidden sm:inline-flex !min-h-[44px] !py-[11px] !px-[22px] !text-[12.5px]">
+        Register interest <svg class="w-[14px] h-[14px]" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-arrow-up-right"/></svg>
+      </a>
+      <button type="button" id="menu-btn"
+              class="lg:hidden grid place-items-center w-[46px] h-[46px] rounded-full border-[1.5px] border-line-strong"
+              aria-expanded="false" aria-controls="mobile-menu">
+        <span class="sr-only">Open menu</span>
+        <svg class="w-5 h-5" data-menu-icon fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-menu"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" hidden class="lg:hidden bg-paper border-t border-hairline">
+    <nav class="shell flex flex-col py-3" aria-label="Primary, mobile">
+      <a href="get-involved.html#register" class="btn btn-ink self-start my-3">
+        Register interest <svg class="w-[14px] h-[14px]" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-arrow-up-right"/></svg>
+      </a>
+      <a href="#why"  class="py-[15px] text-[15px] font-bold border-t border-hairline">Who we are</a>
+      <a href="#work" class="py-[15px] text-[15px] font-bold border-t border-hairline">What we do</a>
+      <a href="get-involved.html#register" class="py-[15px] text-[15px] font-bold border-y border-hairline mb-4">Contact us</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- =====================================================================
+     HERO
+     ===================================================================== -->
+<!-- items-start, not items-center: the photograph is 606px tall and the text
+     column is not, so centring pushed the headline a third of the way down the
+     first screen with 167px of nothing above it.
+
+     The top padding is a core utility rather than an arbitrary clamp: the
+     equivalent `pt-[clamp(...)]` compiled but computed to 0, which is how the
+     first attempt overshot into the opposite problem. -->
+<section class="shell pt-[clamp(28px,3.4vw,52px)] pb-[clamp(44px,5vw,80px)]">
+  <div class="grid lg:grid-cols-[minmax(0,1.08fr)_minmax(0,42%)] gap-x-[clamp(28px,4vw,72px)] gap-y-10 items-center">
+
+    <div class="flex flex-col gap-7 reveal">
+      <h1 class="display d-xl">
+        The bridge between Ghana and Europe.
+      </h1>
+
+      <p class="lead">
+        A not-for-profit AI innovation centre in Accra. European organisations gain
+        trusted access to Ghanaian AI talent and solutions; Ghanaian companies,
+        entrepreneurs and AI professionals gain access to European clients,
+        projects and partnerships.
+      </p>
+
+      <div class="flex flex-wrap items-center gap-x-7 gap-y-3">
+        <a href="#work" class="btn btn-ink btn-down">
+          What the Hub does <svg class="w-[15px] h-[15px]" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-arrow-down"/></svg>
+        </a>
+        <a href="#partners" class="link">
+          Partner with the Hub <svg class="w-[15px] h-[15px]" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-arrow-up-right"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Photo, held by two hooks -->
+    <div class="relative">
+      <div class="absolute accent-tr w-[36%] h-[30%] bg-gold hook-tr hook-s-bl pointer-events-none reveal" style="--d:220ms" aria-hidden="true"></div>
+      <div class="absolute accent-br w-[28%] h-[24%] bg-coral hook-br hook-s-tl pointer-events-none reveal" style="--d:320ms" aria-hidden="true"></div>
+
+      <div class="relative aspect-[5/4] sm:aspect-[4/3] lg:aspect-[10/11] overflow-hidden hook-tl-br">
+        <div class="absolute inset-0 overflow-hidden">
+          <img src="img/photos/team-portrait-02.jpg" width="1122" height="1402" fetchpriority="high" decoding="async"
+               alt="Colleagues around a table in Accra working on laptops, a wall screen behind them"
+               class="w-full h-full object-cover crop-hero drift" data-scrub="through">
+        </div>
+        <span class="tag tag-teal absolute left-4 bottom-4 sm:left-6 sm:bottom-6 z-10">Launching Nov 2026</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     OFFICIAL LAUNCH — the summit strip, promoted from the foot of the page.
+     The hero still leads with the positioning; this sits directly under it
+     because the launch is the near-term news.
+     ===================================================================== -->
+<section id="launch" class="bg-gabs-navy on-dark text-paper scroll-mt-20">
+  <div class="shell band-sm flex flex-col gap-[clamp(26px,3vw,44px)]">
+
+    <div class="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,300px)] gap-x-[clamp(28px,5vw,80px)] gap-y-6 items-end">
+      <div class="flex flex-col gap-4">
+        <p class="kicker kicker-light reveal">Official launch and side event</p>
+        <h2 class="display d-md text-paper reveal" style="--d:80ms">
+        6th German-African Business Summit (GABS)
+      </h2>
+        <p class="text-[15px] leading-[1.6] text-paper/85 max-w-[46ch] reveal" style="--d:140ms">
+          24th &ndash; 25th November, 2026, Accra
+        </p>
+      </div>
+
+      <!-- The summit's own mark, on its white cut so it sits on the dark
+           ground without a tile behind it. It carries the summit's full run of
+           dates (23-25 November); ours are the two Hub sessions inside it. -->
+      <a href="https://gabs2026.com" target="_blank" rel="noopener noreferrer"
+         class="group flex flex-col gap-3 self-start lg:self-end reveal" style="--d:200ms">
+        <img src="img/partners/GABS_2026_logo_white.png" width="1181" height="406"
+             loading="lazy" decoding="async"
+             alt="6th German-African Business Summit (GABS), 23 to 25 November 2026 in Accra, Ghana"
+             class="w-[clamp(190px,17vw,250px)] h-auto">
+        <span class="text-[12px] font-bold text-gold inline-flex items-center gap-1.5">
+          gabs2026.com
+          <svg class="w-[13px] h-[13px] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-arrow-up-right"/></svg>
+        </span>
+      </a>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-3">
+      <div class="bg-paper/10 hook-s-tl hook-s-bl p-[clamp(22px,2.4vw,34px)] flex flex-col gap-3 reveal" style="--d:120ms">
+        <span class="text-[10.5px] font-extrabold tracking-[0.18em] uppercase text-gold">Official Launch</span>
+        <p class="text-[14.5px] leading-[1.6] text-paper font-semibold">
+          Tuesday, 24 November 2026, 15:00 &ndash; 17:00
+        </p>
+        <p class="text-[13px] leading-[1.6] text-paper/75">Westerwelle Startup Haus, Accra</p>
+      </div>
+      <div class="bg-paper/10 hook-s-tr hook-s-bl p-[clamp(22px,2.4vw,34px)] flex flex-col gap-3 reveal" style="--d:200ms">
+        <span class="text-[10.5px] font-extrabold tracking-[0.18em] uppercase text-gold">Live AI Showcase &amp; Panel Discussion</span>
+        <p class="text-[14.5px] leading-[1.6] text-paper font-semibold">
+          Wednesday 25 November 2026, 10:00 &ndash; 12:00
+        </p>
+        <p class="text-[13px] leading-[1.6] text-paper/75">Kempinski Hotel Gold Coast City, Accra</p>
+      </div>
+    </div>
+
+    <div class="grid lg:grid-cols-[minmax(0,240px)_minmax(0,1fr)] gap-x-[clamp(28px,5vw,72px)] gap-y-5 items-start pt-[clamp(6px,1vw,14px)]">
+      <p class="kicker kicker-light reveal">Who should attend</p>
+      <ul class="grid sm:grid-cols-2 gap-x-[clamp(20px,3vw,44px)] reveal" style="--d:90ms">
+        <li class="border-t border-paper/20 py-[13px] text-[14px] leading-[1.5] text-paper">European corporates exploring Ghanaian AI delivery capacity and access to talent</li>
+        <li class="border-t border-paper/20 py-[13px] text-[14px] leading-[1.5] text-paper">Investors and development finance institutions</li>
+        <li class="border-t border-paper/20 py-[13px] text-[14px] leading-[1.5] text-paper">Ghanaian AI companies, start-ups and researchers</li>
+        <li class="border-t border-paper/20 py-[13px] text-[14px] leading-[1.5] text-paper">Government institutions, Policymakers and ecosystem partners</li>
+      </ul>
+    </div>
+
+    <!-- Two different registrations, and the page was conflating them. Coming
+         to the launch means being a GABS delegate, which is the summit's own
+         registration; telling us you are interested in the Hub is ours. The
+         attendance line is the Concept document's own sentence. -->
+    <div class="flex flex-wrap items-center gap-x-7 gap-y-4 pt-[clamp(4px,0.8vw,10px)] reveal" style="--d:260ms">
+      <a href="https://gabs2026.com" target="_blank" rel="noopener noreferrer" class="btn btn-paper">
+        Register as a GABS delegate <svg class="w-[15px] h-[15px]" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-arrow-up-right"/></svg>
+      </a>
+      <a href="get-involved.html#register" class="link link-light">
+        Or tell us you are interested <svg class="w-[15px] h-[15px]" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-arrow-up-right"/></svg>
+      </a>
+    </div>
+    <p class="text-[12.5px] leading-[1.55] text-paper/70 max-w-[52ch] reveal" style="--d:300ms">
+      Attendance is open to all registered GABS 2026 delegates.
+    </p>
+  </div>
+</section>
+
+<!-- =====================================================================
+     WHO WE ARE
+     ===================================================================== -->
+<section id="why" class="scroll-mt-24 border-t border-hairline relative overflow-clip">
+
+  <!-- Slides in from off the right edge, level with the heading, when the
+       section is reached. Fills a half that was empty and gives the page its
+       one piece of movement here. -->
+  <span class="slab slab-head" data-scrub="enter" aria-hidden="true"></span>
+
+  <div class="shell band flex flex-col gap-[clamp(34px,4.4vw,68px)]">
+
+    <!-- One stack, not two columns. The half-and-half split was built to
+         counterweight a 90px heading; at the current size it left a paragraph
+         floating in the right half with nothing holding it. -->
+    <div class="flex flex-col gap-5 max-w-[52ch]">
+      <p class="kicker reveal">Who we are</p>
+      <h2 class="display d-lg reveal" style="--d:80ms">
+        The talent is here. The route was not.
+      </h2>
+      <p class="lead reveal max-w-none" style="--d:140ms">
+        The AI Hub, Ghana is a not-for-profit initiative that connects
+        Ghana&rsquo;s fast-growing artificial intelligence ecosystem with Europe.
+      </p>
+    </div>
+
+    <!-- The detail. Two columns at a readable measure, with a photograph
+         holding the left third so the section is not a wall of text. -->
+    <!-- items-stretch, not items-start: the photograph fills the row rather
+         than sitting as a short 4:3 cell against two much taller columns of
+         text. Square, and wider — a rounded corner here read as a sticker at
+         this size, and at 0.82fr the image was the smallest thing in the row. -->
+    <div class="grid lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)_minmax(0,1fr)] gap-x-[clamp(24px,3.4vw,52px)] gap-y-10 items-stretch">
+
+      <div class="reveal overflow-hidden min-h-[260px] lg:min-h-0">
+        <img src="img/photos/photo-table-four.png" width="1672" height="941" loading="lazy" decoding="async"
+             alt="Four Ghanaian AI professionals working together around a table in Accra"
+             class="w-full h-full object-cover">
+      </div>
+
+      <div class="flex flex-col gap-4 reveal" style="--d:140ms">
+        <p class="copy">
+          Ghana has strong AI talent, entrepreneurial energy, and clear government
+          backing through the National AI Strategy &mdash; what has been missing is
+          a structured access point to European markets.
+        </p>
+        <p class="copy">
+          The Hub closes this gap: it serves as a bilateral bridge between Ghana
+          and Europe, through which European organisations gain trusted access to
+          Ghanaian AI talent and solutions, and Ghanaian companies, entrepreneurs,
+          and AI professionals gain access to European clients, projects, and
+          partnerships.
+        </p>
+      </div>
+
+      <div class="flex flex-col gap-4 reveal" style="--d:220ms">
+        <p class="copy">
+          A particular focus lies on Ghana&rsquo;s growing start-up sector: the Hub
+          enables young companies to implement their business ideas faster through
+          AI tools, training, and incubation support.
+        </p>
+        <p class="copy">
+          All surpluses are reinvested in the mission &mdash; building AI skills,
+          jobs, and businesses.
+        </p>
+        <a href="#work" class="link self-start btn-down mt-1">
+          See how it works <svg class="w-[15px] h-[15px]" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-arrow-down"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- The corridor, reading Accra to Europe. Four fields, not six, and no ink
+       among them: BRAND-GUIDELINES §5 allows two to four, and ink is not a
+       ground colour. -->
+  <div class="corridor reveal" data-scrub="enter" aria-hidden="true">
+    <i class="bg-coral" style="width:26%"></i>
+    <i class="bg-gold"  style="width:22%"></i>
+    <i class="bg-mint" style="width:24%"></i>
+    <i class="bg-teal"  style="width:28%"></i>
+  </div>
+</section>
+
+<!-- =====================================================================
+     WHAT WE DO — five service lines
+     ===================================================================== -->
+<section id="work" class="bg-teal on-teal scroll-mt-20 relative overflow-hidden">
+  <span class="absolute inset-0 pat-grid pat-sweep pointer-events-none" style="--pat:#F2F2EF" aria-hidden="true"></span>
+
+  <div class="shell band relative">
+    <div class="flex flex-col gap-5 max-w-[56ch] mb-[clamp(30px,3.6vw,56px)]">
+      <p class="kicker kicker-light reveal">What we do</p>
+      <h2 class="display d-lg text-paper reveal" style="--d:80ms">
+        Five lines of work.
+      </h2>
+      <p class="text-[15px] leading-[1.62] text-paper reveal" style="--d:140ms">
+        We make the introduction, and we stand behind it. The Hub finds and prepares
+        Ghanaian AI professionals and teams, matches them to European work, and
+        stays involved so that quality, governance and communication are
+        somebody&rsquo;s job rather than nobody&rsquo;s. For you, that means a way
+        into a new talent market without having to build a presence there first.
+      </p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 xl:grid-cols-6 gap-3">
+
+      <a href="get-involved.html?interest=Access%20to%20AI%20professionals#register" class="pathway bg-paper reveal on-colour xl:col-span-2" style="--d:0ms">
+        <div class="flex items-start justify-between">
+          <span class="p-num">01</span>
+          <svg class="w-[18px] h-[18px] p-arrow" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-arrow-up-right"/></svg>
+        </div>
+        <h3 class="display p-title relative mt-auto">Access to<br>AI talent</h3>
+        <p class="text-[13px] leading-[1.55] text-body relative">
+          Trusted, vetted access to Ghanaian AI professionals and teams &mdash; for projects, for capacity, or for the long term.
+        </p>
+      </a>
+
+      <a href="get-involved.html?interest=Training%20%26%20capacity%20building#register" class="pathway bg-coral text-paper reveal on-colour xl:col-span-2" style="--d:80ms">
+        <div class="flex items-start justify-between">
+          <span class="p-num">02</span>
+          <svg class="w-[18px] h-[18px] p-arrow" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-arrow-up-right"/></svg>
+        </div>
+        <h3 class="display p-title relative mt-auto">Training &amp;<br>capacity building</h3>
+        <p class="text-[13px] leading-[1.55] text-paper relative">
+          Practical programmes in AI fundamentals, applied machine learning and responsible AI that prepare Ghanaian talent for international project work and help companies build AI capability.
+        </p>
+      </a>
+
+      <a href="get-involved.html?interest=Research%20%26%20development#register" class="pathway bg-gold reveal on-colour xl:col-span-2" style="--d:160ms">
+        <div class="flex items-start justify-between">
+          <span class="p-num">03</span>
+          <svg class="w-[18px] h-[18px] p-arrow" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-arrow-up-right"/></svg>
+        </div>
+        <h3 class="display p-title relative mt-auto">Research &amp;<br>development</h3>
+        <p class="text-[13px] leading-[1.55] text-[#4A3F18] relative">
+          Collaborative R&amp;D with Hub-affiliated universities and specialists on applied research, datasets and pilots, feasibility studies, and proof-of-concept development for new AI use cases.
+        </p>
+      </a>
+
+      <a href="get-involved.html?interest=Innovation%20%26%20AI%20use%20cases#register" class="pathway bg-mint reveal on-colour xl:col-span-3" style="--d:240ms">
+        <div class="flex items-start justify-between">
+          <span class="p-num">04</span>
+          <svg class="w-[18px] h-[18px] p-arrow" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-arrow-up-right"/></svg>
+        </div>
+        <h3 class="display p-title relative mt-auto">Innovation &amp;<br>AI use cases</h3>
+        <p class="text-[13px] leading-[1.55] text-[#123F2F] relative max-w-[52ch]">
+          Co-developing practical AI solutions and use cases with a quality-assured pool of Ghanaian AI professionals: feasibility, solution scoping and rapid prototyping.
+        </p>
+      </a>
+
+      <a href="get-involved.html?interest=AI%20governance%20%26%20compliance#register" class="pathway bg-coral-tint reveal on-colour xl:col-span-3" style="--d:320ms">
+        <div class="flex items-start justify-between">
+          <span class="p-num">05</span>
+          <svg class="w-[18px] h-[18px] p-arrow" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-arrow-up-right"/></svg>
+        </div>
+        <h3 class="display p-title relative mt-auto">AI governance<br>&amp; compliance</h3>
+        <p class="text-[13px] leading-[1.55] text-[#7A2E24] relative max-w-[52ch]">
+          Advisory on responsible deployment: risk classification, regulatory alignment, ethics review and governance design, data protection, and European regulatory requirements (e.g. EU AI Act readiness).
+        </p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     THE CORRIDOR — two directions
+     ===================================================================== -->
+<section id="corridor" class="shell band scroll-mt-20">
+  <div class="flex flex-col gap-[clamp(28px,3.4vw,52px)]">
+    <div class="flex flex-col gap-4">
+      <p class="kicker reveal">The corridor</p>
+      <h2 class="display d-md reveal" style="--d:80ms">
+        One route. Both directions.
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-4">
+
+      <div class="bg-coral-tint panel-hook-tl-br p-[clamp(26px,3vw,44px)] flex flex-col gap-6 reveal on-colour">
+        <div class="flex items-center gap-3">
+          <svg class="w-[22px] h-[22px] text-[#A83E32]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-plane-takeoff"/></svg>
+          <span class="text-[10.5px] font-extrabold tracking-[0.18em] uppercase text-[#A83E32]">Accra → Europe</span>
+        </div>
+        <h3 class="heading text-[clamp(20px,2vw,28px)]">For Ghanaian talent and ventures</h3>
+        <ul class="flex flex-col">
+          <li class="border-t border-[#E0B0A8] py-[15px] text-[14.5px] font-semibold">European clients and project work</li>
+          <li class="border-t border-[#E0B0A8] py-[15px] text-[14.5px] font-semibold">Training and certification to international standards</li>
+          <li class="border-t border-[#E0B0A8] py-[15px] text-[14.5px] font-semibold">Incubation support for AI-enabled ventures</li>
+          <li class="border-y border-[#E0B0A8] py-[15px] text-[14.5px] font-semibold">Placement on international assignments</li>
+        </ul>
+      </div>
+
+      <div class="bg-mint-tint panel-hook-tr-bl p-[clamp(26px,3vw,44px)] flex flex-col gap-6 reveal on-colour" style="--d:110ms">
+        <div class="flex items-center gap-3">
+          <svg class="w-[22px] h-[22px] text-teal" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-plane-landing"/></svg>
+          <span class="text-[10.5px] font-extrabold tracking-[0.18em] uppercase text-[#26654D]">Europe → Accra</span>
+        </div>
+        <h3 class="heading text-[clamp(20px,2vw,28px)]">For European organisations</h3>
+        <ul class="flex flex-col">
+          <li class="border-t border-[#BFD9CD] py-[15px] text-[14.5px] font-semibold">Vetted Ghanaian AI professionals</li>
+          <li class="border-t border-[#BFD9CD] py-[15px] text-[14.5px] font-semibold">Cost-effective delivery capacity for practical AI work</li>
+          <li class="border-t border-[#BFD9CD] py-[15px] text-[14.5px] font-semibold">Transparent governance and EU AI Act readiness</li>
+          <li class="border-y border-[#BFD9CD] py-[15px] text-[14.5px] font-semibold">On-the-ground presence in Accra</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     MEMBERSHIP
+     ===================================================================== -->
+<section id="membership" class="shell band-sm pb-[clamp(48px,6vw,96px)] scroll-mt-20">
+  <div class="grid lg:grid-cols-[minmax(0,46%)_minmax(0,1fr)] gap-x-[clamp(28px,4.5vw,80px)] gap-y-10 items-center">
+
+    <div class="relative min-w-0">
+      <div class="absolute accent-tr w-[34%] h-[24%] bg-gold hook-tr hook-s-bl pat-grid pat-sweep pointer-events-none hidden sm:block" style="--pat:#1D1D1B" aria-hidden="true"></div>
+      <div class="relative aspect-[5/4] sm:aspect-[4/3] lg:aspect-[9/10] overflow-hidden hook-tl-br">
+        <div class="absolute inset-0 overflow-hidden">
+          <img src="img/photos/photo-standing.png" width="1672" height="941" loading="lazy" decoding="async"
+               alt="A team at work in Accra, one colleague standing to talk the others through something"
+               class="w-full h-full object-cover crop-community">
+        </div>
+        <span class="tag tag-paper absolute left-4 bottom-4 sm:left-6 sm:bottom-6 z-10">Community story 01</span>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-7 min-w-0">
+      <div class="flex flex-col gap-4">
+        <p class="kicker reveal">Membership</p>
+        <h2 class="display d-md reveal" style="--d:80ms">
+        Built around people who build.
+      </h2>
+      </div>
+
+      <ul class="grid sm:grid-cols-2 gap-x-8 gap-y-5">
+        <li class="flex flex-col gap-1.5 border-t border-hairline pt-4 reveal" style="--d:120ms">
+          <h3 class="font-bold text-[15px]">A practitioner network</h3>
+          <p class="text-[13px] leading-[1.6] text-body">Founders, engineers, researchers and operators working on the same problems.</p>
+        </li>
+        <li class="flex flex-col gap-1.5 border-t border-hairline pt-4 reveal" style="--d:180ms">
+          <h3 class="font-bold text-[15px]">Incubation for early ventures</h3>
+          <p class="text-[13px] leading-[1.6] text-body">Support to validate an idea, build with AI tools and reach a first customer faster.</p>
+        </li>
+        <li class="flex flex-col gap-1.5 border-t border-hairline pt-4 reveal" style="--d:240ms">
+          <h3 class="font-bold text-[15px]">Access to the talent pool</h3>
+          <p class="text-[13px] leading-[1.6] text-body">Quality-assured professionals matched to European project work.</p>
+        </li>
+        <li class="flex flex-col gap-1.5 border-t border-hairline pt-4 reveal" style="--d:300ms">
+          <h3 class="font-bold text-[15px]">University collaboration</h3>
+          <p class="text-[13px] leading-[1.6] text-body">Joint research, student projects and knowledge exchange across both regions.</p>
+        </li>
+      </ul>
+
+      <a href="get-involved.html" class="btn btn-teal self-start mt-1 reveal" style="--d:340ms">
+        Join the community <svg class="w-[15px] h-[15px]" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-arrow-up-right"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     STAT BAND
+     ===================================================================== -->
+<section class="bg-gold on-colour">
+  <!-- Only what a source document actually says. "150+ AI jobs targeted by
+       Year 3" came from the Stakeholder Brief but is not a figure the Hub
+       stands behind, so it is gone; "one contract party" appeared in no source
+       at all. What is left is the five service lines the write-up lists, the
+       launch date the summit itself publishes, and the surplus commitment the
+       write-up states word for word. -->
+  <div class="shell band-sm grid gap-x-8 gap-y-9 md:grid-cols-3 items-center">
+
+    <div class="flex flex-col gap-2 reveal">
+      <span class="stat-figure" data-count="5">0</span>
+      <span class="text-[10px] font-extrabold tracking-[0.16em] uppercase text-[#4A3F18]">Service lines</span>
+    </div>
+
+    <div class="flex flex-col gap-2 md:border-l md:border-[#C9A343] md:pl-8 reveal" style="--d:90ms">
+      <span class="stat-figure">Nov&nbsp;26</span>
+      <span class="text-[10px] font-extrabold tracking-[0.16em] uppercase text-[#4A3F18]">Launch at GABS, Accra</span>
+    </div>
+
+    <p class="heading text-[clamp(17px,1.6vw,22px)] reveal md:border-l md:border-[#C9A343] md:pl-8" style="--d:180ms">
+      Surpluses reinvested in<br>AI skills, jobs and businesses.
+    </p>
+  </div>
+</section>
+
+<!-- =====================================================================
+     PARTNERS
+     ===================================================================== -->
+<section id="partners" class="scroll-mt-20">
+  <div class="shell band-sm">
+    <div class="flex flex-col gap-5 max-w-[54ch]">
+      <p class="kicker reveal">For partners</p>
+      <h2 class="display d-md reveal" style="--d:80ms">
+        Anchored in a bilateral network.
+      </h2>
+      <p class="copy reveal max-w-none" style="--d:140ms">
+        Government institutions, universities, chambers of commerce, development
+        organisations and companies on both sides, each with a defined role in
+        keeping quality and trust in the corridor.
+      </p>
+      <a href="get-involved.html#register" class="btn btn-ink self-start reveal mt-1" style="--d:200ms">
+        Start a conversation <svg class="w-[15px] h-[15px]" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-arrow-up-right"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- The five roles were a plain white list inside one solid coral panel:
+       five near-identical rows, nothing to look at, nothing to enter by. This
+       is the colour column set from BRAND-GUIDELINES §9 — one full-bleed
+       column per item, no gaps and no radius, the colour change doing the
+       dividing, with the icon each role is already assigned in §7. -->
+  <div class="grid sm:grid-cols-2 lg:grid-cols-5 mt-[clamp(26px,3vw,44px)]">
+      <div class="bg-paper-alt flex flex-col gap-3 p-[clamp(20px,2vw,28px)] reveal" style="--d:0ms">
+        <svg class="w-[26px] h-[26px] text-ink" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-landmark"/></svg>
+        <h3 class="heading text-[clamp(17px,1.5vw,21px)] text-ink mt-1">Government</h3>
+        <p class="text-[13px] leading-[1.55] text-body">Policy alignment with the National AI Strategy.</p>
+      </div>
+      <div class="bg-mint-tint flex flex-col gap-3 p-[clamp(20px,2vw,28px)] reveal" style="--d:70ms">
+        <svg class="w-[26px] h-[26px] text-[#26654D]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-book-open"/></svg>
+        <h3 class="heading text-[clamp(17px,1.5vw,21px)] text-ink mt-1">Universities</h3>
+        <p class="text-[13px] leading-[1.55] text-body">Research, talent development and responsible AI.</p>
+      </div>
+      <div class="bg-gold-tint flex flex-col gap-3 p-[clamp(20px,2vw,28px)] reveal" style="--d:140ms">
+        <svg class="w-[26px] h-[26px] text-[#7A5C10]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-building-2"/></svg>
+        <h3 class="heading text-[clamp(17px,1.5vw,21px)] text-ink mt-1">Business chambers</h3>
+        <p class="text-[13px] leading-[1.55] text-body">Market access and member introductions.</p>
+      </div>
+      <div class="bg-coral-tint flex flex-col gap-3 p-[clamp(20px,2vw,28px)] reveal" style="--d:210ms">
+        <svg class="w-[26px] h-[26px] text-[#A83E32]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-handshake"/></svg>
+        <h3 class="heading text-[clamp(17px,1.5vw,21px)] text-ink mt-1">Development partners</h3>
+        <p class="text-[13px] leading-[1.55] text-body">Co-funded programmes and inclusive growth.</p>
+      </div>
+      <div class="bg-white flex flex-col gap-3 p-[clamp(20px,2vw,28px)] reveal" style="--d:280ms">
+        <svg class="w-[26px] h-[26px] text-teal" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-rocket"/></svg>
+        <h3 class="heading text-[clamp(17px,1.5vw,21px)] text-ink mt-1">Companies &amp; start-ups</h3>
+        <p class="text-[13px] leading-[1.55] text-body">Clients, sponsors, members and pilot partners.</p>
+      </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     CLOSING CTA — the one call to action
+     ===================================================================== -->
+<section id="join" class="bg-mint on-colour relative overflow-hidden scroll-mt-20">
+  <span class="absolute inset-0 pat-grid pat-sweep pointer-events-none" style="--pat:#1D1D1B" aria-hidden="true"></span>
+  <div class="shell band relative flex flex-wrap items-center justify-between gap-x-10 gap-y-9">
+    <div class="flex flex-col gap-5 min-w-0">
+      <p class="text-[10.5px] font-extrabold tracking-[0.18em] uppercase text-[#123F2F] reveal">Get involved</p>
+      <h2 class="display d-lg reveal" style="--d:80ms">
+        Shape the corridor from the start.
+      </h2>
+      <p class="text-[14.5px] leading-[1.6] text-ink max-w-[46ch] reveal" style="--d:140ms">
+        Join as a member, a project partner or a supporter. Registering your
+        interest is non-binding and carries no obligation to procure.
+      </p>
+    </div>
+    <a href="get-involved.html" class="badge-round reveal shrink-0" style="--d:200ms">
+      Register<br>interest
+      <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-arrow-up-right"/></svg>
+    </a>
+  </div>
+</section>
+
+</main>
+
+<!-- =====================================================================
+     FOOTER
+     ===================================================================== -->
+<footer class="bg-ink on-dark text-paper">
+  <div class="shell pt-[clamp(44px,4.6vw,72px)] pb-7 flex flex-col gap-11">
+    <div class="grid gap-x-9 gap-y-10 sm:grid-cols-2 lg:grid-cols-[230px_minmax(0,1fr)_140px_150px_240px]">
+
+      <div class="flex flex-col gap-4 items-start">
+        <!-- PLACEHOLDER LOGOTYPE -->
+        <a href="#main" class="logotype logotype-light [--lt:24px]" aria-label="AI Hub, Ghana — home">
+          <span class="lt-1">AI Hub</span>
+          <span class="lt-2">Ghana</span>
+        </a>
+        <p class="text-[10px] font-extrabold tracking-[0.16em] text-paper/70">ACCRA · OPERATIONS FROM 2026</p>
+      </div>
+
+      <p class="text-[13px] leading-[1.7] text-paper/80 max-w-[46ch]">
+        A not-for-profit AI innovation centre in Accra, working as a bilateral bridge
+        between Ghana's AI ecosystem and European markets. Surpluses are reinvested in
+        skills, jobs and businesses.
+      </p>
+
+      <nav class="flex flex-col gap-2.5" aria-label="The Hub">
+        <h2 class="text-[10px] font-extrabold tracking-[0.16em] text-paper/60 mb-1">THE HUB</h2>
+        <a href="#launch"     class="text-[13px] text-paper/90 hover:text-gold transition-colors">Official launch</a>
+        <a href="#work"       class="text-[13px] text-paper/90 hover:text-gold transition-colors">What we do</a>
+        <a href="#corridor"   class="text-[13px] text-paper/90 hover:text-gold transition-colors">The corridor</a>
+        <a href="#membership" class="text-[13px] text-paper/90 hover:text-gold transition-colors">Membership</a>
+        <a href="#partners"   class="text-[13px] text-paper/90 hover:text-gold transition-colors">Partners</a>
+      </nav>
+
+      <nav class="flex flex-col gap-2.5" aria-label="Engage">
+        <h2 class="text-[10px] font-extrabold tracking-[0.16em] text-paper/60 mb-1">ENGAGE</h2>
+        <a href="get-involved.html#register"     class="text-[13px] text-paper/90 hover:text-gold transition-colors">Register interest</a>
+        <a href="#corridor"         class="text-[13px] text-paper/90 hover:text-gold transition-colors">Services in detail</a>
+        <a href="#why"                     class="text-[13px] text-paper/90 hover:text-gold transition-colors">About</a>
+      </nav>
+
+      <div class="flex flex-col gap-3">
+        <h2 class="text-[10px] font-extrabold tracking-[0.16em] text-paper/60">CONTACT</h2>
+        <a href="mailto:b.janischowsky@4th-ir.com" class="flex items-center gap-2.5 text-[13px] font-semibold text-paper hover:text-gold transition-colors">
+          <svg class="w-[15px] h-[15px] text-mint shrink-0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-mail"/></svg>
+          b.janischowsky@4th-ir.com
+        </a>
+        <p class="flex items-center gap-2.5 text-[12.5px] text-paper/80">
+          <svg class="w-[15px] h-[15px] text-mint shrink-0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-map-pin"/></svg>
+          Accra, Ghana
+        </p>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap justify-between items-center gap-4 border-t border-paper/15 pt-6">
+      <p class="text-[10.5px] tracking-[0.16em] font-bold text-paper/60">© 2026 AI HUB, GHANA</p>
+      <div class="flex gap-7">
+        <a href="#privacy" class="text-[10.5px] tracking-[0.16em] font-bold text-paper/60 hover:text-gold transition-colors">PRIVACY</a>
+        <a href="#imprint" class="text-[10.5px] tracking-[0.16em] font-bold text-paper/60 hover:text-gold transition-colors">IMPRINT</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ?static=1 — drop the .js hook so every reveal starts visible, and take the
+     reduced-motion path throughout. The hidden start states are all scoped to
+     .js, and the counters animate via requestAnimationFrame, which never runs
+     in a headless render — the reduced-motion path writes the final figure
+     synchronously instead. Used for screenshots and PDF exports. */
+  var STATIC = /[?&]static=1/.test(location.search);
+  if (STATIC) document.documentElement.classList.remove("js");
+
+  var reduce = STATIC || window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---- Nav: two states -------------------------------------------------- */
+  var nav = document.getElementById("nav");
+  var inner = nav.querySelector("[data-nav-inner]");
+  var last = null;
+  function onScroll() {
+    var s = (window.scrollY || document.documentElement.scrollTop || 0) > 40;
+    if (s === last) return;
+    last = s;
+    nav.style.background = s ? "rgba(244,240,232,0.82)" : "";
+    nav.style.backdropFilter = s ? "saturate(1.4) blur(14px)" : "";
+    nav.style.webkitBackdropFilter = s ? "saturate(1.4) blur(14px)" : "";
+    nav.style.boxShadow = s ? "0 1px 20px rgba(29,29,27,0.08)" : "none";
+    inner.style.paddingBlock = s ? "10px" : "";
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  /* ---- Mobile menu ------------------------------------------------------ */
+  var btn = document.getElementById("menu-btn");
+  var menu = document.getElementById("mobile-menu");
+  var iconUse = btn.querySelector("[data-menu-icon] use");
+  function setMenu(open) {
+    menu.hidden = !open;
+    btn.setAttribute("aria-expanded", String(open));
+    btn.querySelector(".sr-only").textContent = open ? "Close menu" : "Open menu";
+    iconUse.setAttribute("href", open ? "#i-x" : "#i-menu");
+  }
+  btn.addEventListener("click", function () { setMenu(menu.hidden); });
+  menu.addEventListener("click", function (e) { if (e.target.closest("a")) setMenu(false); });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && !menu.hidden) { setMenu(false); btn.focus(); }
+  });
+  window.addEventListener("resize", function () {
+    if (window.innerWidth >= 1024 && !menu.hidden) setMenu(false);
+  });
+
+  /* ---- Reveal ------------------------------------------------------------
+   * Motion is an enhancement. Anything the observer has not reached after
+   * 2.5s is shown anyway.                                                  */
+  var targets = [].slice.call(document.querySelectorAll(".reveal, .reveal-img, .pat-sweep, .slab"));
+
+  function show(el) {
+    if (el.classList.contains("is-in")) return;
+    el.classList.add("is-in");
+    var p = el.parentElement;
+    if (p) p.classList.add("is-in");
+    [].forEach.call(el.querySelectorAll("[data-count]"), countUp);
+    if (el.hasAttribute("data-count")) countUp(el);
+  }
+
+  if (!("IntersectionObserver" in window)) {
+    targets.forEach(show);
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        show(en.target);
+        io.unobserve(en.target);
+      });
+    }, { rootMargin: "0px 0px -6% 0px", threshold: 0 });
+
+    targets.forEach(function (el) { io.observe(el); });
+
+    var vh = window.innerHeight || 800, i = 0;
+    targets.forEach(function (el) {
+      if (el.getBoundingClientRect().top < vh * 0.94) {
+        setTimeout(function () { show(el); io.unobserve(el); }, i++ * 45);
+      }
+    });
+
+    setTimeout(function () { targets.forEach(show); }, 2500);
+  }
+
+  /* ---- Figures count up -------------------------------------------------- */
+  function countUp(el) {
+    if (el.dataset.done) return;
+    el.dataset.done = "1";
+    var end = parseInt(el.dataset.count, 10);
+    var suffix = el.dataset.suffix || "";
+    if (reduce || isNaN(end)) { el.textContent = end + suffix; return; }
+    var dur = 1100, t0 = null;
+    function step(t) {
+      if (t0 === null) t0 = t;
+      var p = Math.min((t - t0) / dur, 1);
+      el.textContent = Math.round(end * (1 - Math.pow(1 - p, 3))) + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+})();
+
+/* ---- Scrubbed decoration ------------------------------------------------
+   Writes a 0-to-1 scroll progress into `--p` on anything carrying
+   `data-scrub`, so decorative shapes follow scroll position in both
+   directions instead of firing once on entry.
+
+   · Only elements currently near the viewport are tracked, so the scroll
+     handler stays cheap no matter how long the page gets.
+   · Reads are batched into one rAF per frame; the handler itself is passive
+     and never writes layout-triggering properties.
+   · Under reduced motion every element is pinned to its settled value and no
+     listener is attached at all.
+
+   `data-scrub="enter"`   completes shortly after the element appears.
+   `data-scrub="through"` runs the whole time the element crosses the screen. */
+(function () {
+  "use strict";
+  var nodes = [].slice.call(document.querySelectorAll("[data-scrub]"));
+  if (!nodes.length) return;
+
+  /* ?static=1 is the screenshot/export mode; it also takes the reduced-motion
+     path. STATIC lives inside the other IIFE, so it is re-derived here rather
+     than reached for — reaching for it would throw and take this block down. */
+  var isStatic = /[?&]static=1/.test(location.search);
+  var still = window.matchMedia("(prefers-reduced-motion: reduce)");
+  function settle() {
+    nodes.forEach(function (el) {
+      el.style.setProperty("--p", el.getAttribute("data-scrub") === "through" ? "0.5" : "1");
+    });
+  }
+  if (isStatic || still.matches) { settle(); return; }
+
+  var ticking = false;
+
+  /* No IntersectionObserver gate. With a handful of decorative nodes the rect
+     read costs nothing, and gating on the observer means the whole effect
+     silently does nothing wherever its callbacks do not arrive — which is
+     exactly what happened while this was being built. Off-screen elements are
+     skipped by a plain bounds check instead, which cannot fail quietly. */
+  function paint() {
+    ticking = false;
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    for (var i = 0; i < nodes.length; i++) {
+      var el = nodes[i];
+      var r = el.getBoundingClientRect();
+      if (r.bottom < -vh || r.top > vh * 2) continue;   /* far away: leave it */
+      var p = el.getAttribute("data-scrub") === "through"
+        ? (vh - r.top) / (vh + r.height)      /* the whole crossing */
+        : (vh - r.top) / (vh * 0.62);         /* settled a little past halfway */
+      el.style.setProperty("--p", (p < 0 ? 0 : p > 1 ? 1 : p).toFixed(4));
+    }
+  }
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(paint);
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll, { passive: true });
+  if (still.addEventListener) {
+    still.addEventListener("change", function (e) {
+      if (e.matches) { window.removeEventListener("scroll", onScroll); settle(); }
+    });
+  }
+  paint();
+})();
+</script>
+
+</body>
+</html>
