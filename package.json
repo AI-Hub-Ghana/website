@@ -1,0 +1,17 @@
+{
+  "name": "ai-hub-ghana-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AI Hub, Ghana — static two-page site (landing + register interest)",
+  "scripts": {
+    "dev": "tailwindcss -i styles.src.css -o styles.css --watch",
+    "build": "npm run build:screen && npm run build:print",
+    "build:screen": "tailwindcss -i styles.src.css -o styles.css --minify",
+    "build:print": "tailwindcss -i styles.print.src.css -o styles.print.css --minify",
+    "serve": "python3 -m http.server 8000"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "tailwindcss": "^4.3.3"
+  }
+}

@@ -1,13 +1,3 @@
-# Generic JS/Node baseline — review once the initial code import lands
-# and adjust for whatever framework/tooling it actually uses.
 node_modules/
-dist/
-build/
-.output/
-.astro/
-.next/
-.env
-.env.*
-!.env.example
 .DS_Store
 *.log
