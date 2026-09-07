@@ -8,6 +8,7 @@
     "build": "npm run build:screen && npm run build:print",
     "build:screen": "tailwindcss -i styles.src.css -o styles.css --minify",
     "build:print": "tailwindcss -i styles.print.src.css -o styles.print.css --minify",
+    "lint": "npm run build",
     "serve": "python3 -m http.server 8000"
   },
   "devDependencies": {
