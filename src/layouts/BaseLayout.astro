@@ -1,0 +1,89 @@
+---
+import '../styles/global.css';
+import printUrl from '../styles/print.css?url';
+import IconSprite from '../components/common/IconSprite.astro';
+import Navbar from '../components/navigation/Navbar.astro';
+import Footer from '../components/common/Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  printPageSize?: string;
+  currentPage?: 'home' | 'get-involved';
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage = '/images/visuals/og-share.png',
+  printPageSize = '1600px 8800px',
+  currentPage = 'home',
+} = Astro.props;
+
+const canonicalUrl = canonical || (Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined);
+const socialImageUrl = Astro.site && ogImage ? new URL(ogImage, Astro.site).href : ogImage;
+---
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{title}</title>
+  <meta name="description" content={description}>
+  <meta name="theme-color" content="#F2F2EF">
+
+  {canonicalUrl && <link rel="canonical" href={canonicalUrl}>}
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content={title}>
+  <meta property="og:description" content={description}>
+  <meta property="og:type" content="website">
+  {canonicalUrl && <meta property="og:url" content={canonicalUrl}>}
+  {socialImageUrl && <meta property="og:image" content={socialImageUrl}>}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content={title}>
+  <meta name="twitter:description" content={description}>
+  {socialImageUrl && <meta name="twitter:image" content={socialImageUrl}>}
+
+  <!-- Favicons -->
+  <link rel="icon" href="/images/favicon/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="/images/favicon/favicon-48.png" sizes="48x48" type="image/png">
+  <link rel="apple-touch-icon" href="/images/favicon/apple-touch-icon-180.png">
+  <link rel="manifest" href="/images/favicon/site.webmanifest">
+
+  <!-- JS Capability Hook -->
+  <script is:inline>document.documentElement.className += " js";</script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mona+Sans:wdth,wght@75..125,400..800&display=swap" rel="stylesheet">
+
+  <!-- Print Stylesheet -->
+  <link rel="stylesheet" href={printUrl} media="print">
+  <!-- Page-specific continuous print height -->
+  <style media="print" is:inline set:html={`@page { size: ${printPageSize}; margin: 0; }`}></style>
+</head>
+<body>
+  <a href="#main" class="btn btn-ink sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100]">Skip to content</a>
+
+  <IconSprite />
+
+  <Navbar currentPage={currentPage} />
+
+  <main id="main">
+    <slot />
+  </main>
+
+  <Footer currentPage={currentPage} />
+
+  <script>
+    import '../scripts/navigation';
+    import '../scripts/animations';
+    import '../scripts/scroll-scrub';
+  </script>
+</body>
+</html>

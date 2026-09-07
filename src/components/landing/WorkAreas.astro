@@ -1,0 +1,111 @@
+---
+// Five lines of work / pathways
+interface Pathway {
+  num: string;
+  interest: string;
+  bgClass: string;
+  textClass?: string;
+  bodyClass: string;
+  colSpan: string;
+  delay: string;
+  titleLines: [string, string];
+  description: string;
+  maxW?: string;
+}
+
+const pathways: Pathway[] = [
+  {
+    num: '01',
+    interest: 'Access to AI professionals',
+    bgClass: 'bg-paper',
+    bodyClass: 'text-body',
+    colSpan: 'xl:col-span-2',
+    delay: '0ms',
+    titleLines: ['Access to', 'AI talent'],
+    description: 'Trusted, vetted access to Ghanaian AI professionals and teams — for projects, for capacity, or for the long term.',
+  },
+  {
+    num: '02',
+    interest: 'Training & capacity building',
+    bgClass: 'bg-coral text-paper',
+    bodyClass: 'text-paper',
+    colSpan: 'xl:col-span-2',
+    delay: '80ms',
+    titleLines: ['Training &', 'capacity building'],
+    description: 'Practical programmes in AI fundamentals, applied machine learning and responsible AI that prepare Ghanaian talent for international project work and help companies build AI capability.',
+  },
+  {
+    num: '03',
+    interest: 'Research & development',
+    bgClass: 'bg-gold',
+    bodyClass: 'text-[#4A3F18]',
+    colSpan: 'xl:col-span-2',
+    delay: '160ms',
+    titleLines: ['Research &', 'development'],
+    description: 'Collaborative R&D with Hub-affiliated universities and specialists on applied research, datasets and pilots, feasibility studies, and proof-of-concept development for new AI use cases.',
+  },
+  {
+    num: '04',
+    interest: 'Innovation & AI use cases',
+    bgClass: 'bg-mint',
+    bodyClass: 'text-[#123F2F]',
+    colSpan: 'xl:col-span-3',
+    delay: '240ms',
+    titleLines: ['Innovation &', 'AI use cases'],
+    description: 'Co-developing practical AI solutions and use cases with a quality-assured pool of Ghanaian AI professionals: feasibility, solution scoping and rapid prototyping.',
+    maxW: 'max-w-[52ch]',
+  },
+  {
+    num: '05',
+    interest: 'AI governance & compliance',
+    bgClass: 'bg-coral-tint',
+    bodyClass: 'text-[#7A2E24]',
+    colSpan: 'xl:col-span-3',
+    delay: '320ms',
+    titleLines: ['AI governance', '& compliance'],
+    description: 'Advisory on responsible deployment: risk classification, regulatory alignment, ethics review and governance design, data protection, and European regulatory requirements (e.g. EU AI Act readiness).',
+    maxW: 'max-w-[52ch]',
+  },
+];
+---
+<!-- =====================================================================
+     WHAT WE DO — five service lines
+     ===================================================================== -->
+<section id="work" class="bg-teal on-teal scroll-mt-20 relative overflow-hidden">
+  <span class="absolute inset-0 pat-grid pat-sweep pointer-events-none" style="--pat:#F2F2EF" aria-hidden="true"></span>
+
+  <div class="shell band relative">
+    <div class="flex flex-col gap-5 max-w-[56ch] mb-[clamp(30px,3.6vw,56px)]">
+      <p class="kicker kicker-light reveal">What we do</p>
+      <h2 class="display d-lg text-paper reveal" style="--d:80ms">
+        Five lines of work.
+      </h2>
+      <p class="text-[15px] leading-[1.62] text-paper reveal" style="--d:140ms">
+        We make the introduction, and we stand behind it. The Hub finds and prepares
+        Ghanaian AI professionals and teams, matches them to European work, and
+        stays involved so that quality, governance and communication are
+        somebody&rsquo;s job rather than nobody&rsquo;s. For you, that means a way
+        into a new talent market without having to build a presence there first.
+      </p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 xl:grid-cols-6 gap-3">
+      {pathways.map((p) => (
+        <a
+          href={`/get-involved?interest=${encodeURIComponent(p.interest)}#register`}
+          class={`pathway ${p.bgClass} reveal on-colour ${p.colSpan}`}
+          style={`--d:${p.delay}`}
+        >
+          <div class="flex items-start justify-between">
+            <span class="p-num">{p.num}</span>
+            <svg class="w-[18px] h-[18px] p-arrow" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-arrow-up-right"/></svg>
+          </div>
+          <h3 class="display p-title relative mt-auto">{p.titleLines[0]}<br />{p.titleLines[1]}</h3>
+          <p class={`text-[13px] leading-[1.55] ${p.bodyClass} relative ${p.maxW || ''}`}>
+            {p.description}
+          </p>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

@@ -11,28 +11,19 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version-file: '.nvmrc'
-          cache: ${{ hashFiles('package-lock.json') != '' && 'npm' || '' }}
-
-      - name: Scaffold notice
-        if: hashFiles('package.json') == ''
-        run: echo "No package.json found. Skipping npm steps during repository scaffolding phase."
+          node-version-file: .nvmrc
+          cache: npm
 
       - name: Install dependencies
-        if: hashFiles('package.json') != ''
-        run: |
-          if [ -f "package-lock.json" ]; then
-            npm ci
-          else
-            npm install
-          fi
+        run: npm ci
 
-      - name: Build
-        if: hashFiles('package.json') != ''
+      - name: Build site
         run: npm run build
 
   lint:
@@ -40,26 +31,17 @@ jobs:
     runs-on: ubuntu-latest
     continue-on-error: true
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version-file: '.nvmrc'
-          cache: ${{ hashFiles('package-lock.json') != '' && 'npm' || '' }}
-
-      - name: Scaffold notice
-        if: hashFiles('package.json') == ''
-        run: echo "No package.json found. Skipping lint during repository scaffolding phase."
+          node-version-file: .nvmrc
+          cache: npm
 
       - name: Install dependencies
-        if: hashFiles('package.json') != ''
-        run: |
-          if [ -f "package-lock.json" ]; then
-            npm ci
-          else
-            npm install
-          fi
+        run: npm ci
 
       - name: Lint
-        if: hashFiles('package.json') != ''
         run: npm run lint --if-present

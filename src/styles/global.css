@@ -1,0 +1,713 @@
+/* ==========================================================================
+   AI Hub, Ghana — stylesheet source
+   Build:  npm run build        (npm run dev to watch)
+
+   Shape language: pills, and one or two oversized rounded corners per shape.
+   Nothing here has a cut corner.
+   ========================================================================== */
+
+@import "tailwindcss";
+
+@source "../**/*.{astro,html,js,jsx,md,mdx,ts,tsx}";
+
+/* --------------------------------------------------------------------------
+   1. Tokens
+   -------------------------------------------------------------------------- */
+@theme {
+  /* Grounds */
+  --color-paper:        #F2F2EF;
+  --color-paper-alt:    #EAEAE6;
+  --color-white:        #FFFFFF;
+
+  /* Ink + text */
+  --color-ink:          #1D1D1B;
+  --color-body:         #5A554C;
+  --color-muted:        #6E675B;   /* was #8A8378 — that read 3.3:1 on paper, failing §12 */
+
+  /* Rules */
+  --color-hairline:     #DFDFDC;
+  --color-card-line:    #D6D6D3;
+  --color-line-strong:  #C3C3C0;
+
+  /* Brand */
+  --color-teal:         #2A7A5E;
+  --color-teal-deep:    #0B3D33;
+  /* The German-African Business Summit's own navy and sky, sampled from their
+     mark. The launch section is the event's, not ours, so it takes the event's
+     ground — the same decision the GABS Concept document already makes. */
+  --color-gabs-navy:    #0D3559;
+  --color-gabs-sky:     #93CEDE;
+  --color-coral:        #BF4639;
+  --color-gold:         #EAC15D;
+  --color-mint:         #74C2AC;
+
+  /* Tints */
+  --color-mint-tint:    #DCECE4;
+  --color-mint-tint-2:  #D7E6DD;
+  --color-coral-tint:   #ECDCD7;
+  --color-gold-tint:    #F7E7C2;
+
+  /* Text-safe steps on tints */
+  --color-on-coral-tint: #A83E32;
+  --color-on-gold-tint:  #7A5C10;
+  --color-on-mint-tint:  #26654D;
+
+  /* Type — one family. The display voice is caps, heavy and very tight;
+     it is a treatment, not a second typeface. Mona Sans carries a width axis,
+     so the condensed cut covers the data/figures role on its own. */
+  --font-sans: "Mona Sans", "Helvetica Neue", Helvetica, system-ui, sans-serif;
+
+  /* Motion */
+  --ease-brand:    cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@property --sweep {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+
+:root {
+  --shell: 1440px;
+  --gutter: clamp(20px, 4vw, 64px);
+  /* Accent blocks sit behind a photograph and reach past it. The reach is
+     derived from the gutter and can never exceed it, so an accent is never
+     clipped by the viewport edge at any width. */
+  --accent-out: min(clamp(14px, 2.4vw, 40px), calc(var(--gutter) - 6px));
+}
+
+/* --------------------------------------------------------------------------
+   2. Base
+   -------------------------------------------------------------------------- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+
+  h1, h2, h3, h4 { font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+  p { text-wrap: pretty; }
+
+  :focus-visible {
+    outline: 2px solid var(--color-teal);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  .on-teal :focus-visible,
+  .on-dark :focus-visible { outline-color: var(--color-paper); }
+  .on-colour :focus-visible { outline-color: var(--color-ink); }
+
+  ::selection { background: var(--color-gold); color: var(--color-ink); }
+
+  img { display: block; max-width: 100%; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. Components
+   -------------------------------------------------------------------------- */
+@layer components {
+
+  /* ---- Shell -----------------------------------------------------------
+   * Bands run full bleed; their content is always held to one centred
+   * measure. This is what stops the page falling apart on a wide monitor. */
+  .shell {
+    width: 100%;
+    max-width: var(--shell);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  .band    { padding-block: clamp(56px, 7vw, 112px); }
+  .band-sm { padding-block: clamp(34px, 4.2vw, 64px); }
+
+  /* ---- Type ------------------------------------------------------------ */
+
+  /* The display voice: caps, three to six words (§3).
+   *
+   * Roughly half the size it was, sentence case, and two weights lighter.
+   * Measured against dexghana.org, which Sara set as the reference: its H1 is
+   * 48px at weight 500, its largest display is 96px at weight 300, leading
+   * runs 1.20–1.25, tracking -2.5%, and there is no uppercase anywhere on the
+   * site. Caps at 800 with 0.88 leading shouted over everything near them.
+   *
+   * This overrides BRAND-GUIDELINES §3 ("Caps for statements of three to six
+   * words"). That rule is what produced the shouting, and Sara has asked twice
+   * for quieter headings — the guideline should be updated to match. */
+  .display {
+    font-weight: 650;
+    letter-spacing: -0.025em;
+    line-height: 1.12;
+    text-wrap: balance;
+  }
+  .d-xl { font-size: clamp(34px, 4.4vw, 58px); }
+  .d-lg { font-size: clamp(30px, 3.6vw, 46px); }
+  .d-md { font-size: clamp(25px, 2.8vw, 36px); }
+  .d-sm { font-size: clamp(21px, 2vw, 27px);   }
+
+  /* Anything with an argument in it stays sentence case at normal tracking. */
+  .heading {
+    font-weight: 700;
+    letter-spacing: -0.028em;
+    line-height: 1.14;
+    text-wrap: balance;
+  }
+
+  .kicker {
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    line-height: 1.4;
+  }
+  .kicker-light { color: var(--color-paper); }
+
+  .lead {
+    font-size: clamp(15px, 1.1vw, 17px);
+    line-height: 1.62;
+    color: var(--color-body);
+    max-width: 44ch;
+  }
+  .copy {
+    font-size: 14.5px;
+    line-height: 1.68;
+    color: var(--color-body);
+    max-width: 58ch;
+  }
+
+  /* ---- Tags ------------------------------------------------------------- */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    border-radius: 999px;
+    padding: 9px 17px;
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .tag-gold    { background: var(--color-gold); color: var(--color-ink); }
+  .tag-outline { border: 1.5px solid var(--color-line-strong); color: var(--color-ink); }
+  .tag-teal    { background: var(--color-teal); color: var(--color-paper); }
+  .tag-paper   { background: var(--color-paper); color: var(--color-ink); }
+
+  /* ---- Buttons ---------------------------------------------------------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 999px;
+    min-height: 48px;
+    padding: 14px 28px;
+    font-size: 13.5px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1.5px solid transparent;
+    transition: background 200ms var(--ease-brand),
+                color 200ms var(--ease-brand),
+                border-color 200ms var(--ease-brand);
+  }
+  .btn svg { flex: none; transition: transform 280ms var(--ease-brand); }
+  .btn:hover svg { transform: translate(3px, -3px); }
+  .btn-down:hover svg { transform: translateY(3px); }
+
+  .btn-ink       { background: var(--color-ink);   color: var(--color-paper); }
+  .btn-ink:hover { background: var(--color-teal); }
+
+  .btn-teal       { background: var(--color-teal);  color: var(--color-paper); }
+  .btn-teal:hover { background: var(--color-ink); }
+
+  /* Brick is dark enough that even pure black only reaches 4.34:1 on it, so
+     this button carries a paper label. Do not flip it back to ink. */
+  .btn-coral       { background: var(--color-coral); color: var(--color-paper); }
+  .btn-coral:hover { background: var(--color-ink);   color: var(--color-paper); }
+
+  .btn-gold       { background: var(--color-gold); color: var(--color-ink); }
+  .btn-gold:hover { background: var(--color-ink);  color: var(--color-paper); }
+
+  .btn-outline       { border-color: var(--color-line-strong); color: var(--color-ink); }
+  .btn-outline:hover { border-color: var(--color-teal); color: var(--color-teal); }
+
+  .btn-paper       { background: var(--color-paper); color: var(--color-ink); }
+  .btn-paper:hover { background: var(--color-gold); }
+
+  /* The round badge — one per page, the closing invitation */
+  .badge-round {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    width: clamp(126px, 13vw, 168px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--color-ink);
+    color: var(--color-paper);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    padding: 16px;
+    line-height: 1.5;
+    transition: background 240ms var(--ease-brand), transform 420ms var(--ease-out-soft);
+  }
+  .badge-round svg { transition: transform 320ms var(--ease-brand); }
+  .badge-round:hover { background: var(--color-teal); transform: rotate(-4deg); }
+  .badge-round:hover svg { transform: translate(3px, -3px); }
+
+
+  /* ---- Logotype (PLACEHOLDER) -------------------------------------------
+   * Standing in for the mark until the real lockup is signed off. It is the
+   * display voice, stacked: "AI HUB" over "GHANA", the second line stepped
+   * down and tracked out so both lines set to the same optical width.     */
+  .logotype {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.16em;
+    text-decoration: none;
+    color: var(--color-ink);
+    font-size: var(--lt, 19px);
+    line-height: 0.86;
+    transition: color 200ms var(--ease-brand);
+  }
+  .logotype:hover { color: var(--color-teal); }
+  .lt-1,
+  .lt-2 {
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+  /* Both lines set at the same size in one colour. "GHANA" is the wider word,
+     so line 1 carries the looser tracking — that is what squares the block off
+     flush on both edges instead of leaving a ragged right. */
+  /* Fitted for Mona Sans by measuring the glyphs, half by size and half by
+     tracking. "GHANA" is the wider word in every weight, so it takes the
+     scale; "AI HUB" is tracked out to meet it. margin-right drops the dead
+     gap letter-spacing leaves after the last glyph, so both lines sit flush
+     left AND flush right. Ratios are size-independent — do not hand-tune. */
+  .lt-1 { letter-spacing: 0.021em;  margin-right: -0.021em; }
+  .lt-2 { font-size: 0.9464em; letter-spacing: -0.02em; margin-right: 0.02em; }
+  .logotype-light { color: var(--color-paper); }
+  .logotype-light:hover { color: var(--color-gold); }
+
+  /* ---- Form controls ----------------------------------------------------
+   * Same shape language as everything else: pills for the controls that are
+   * single-line, one soft corner on the block that is not.                */
+  .field { display: flex; flex-direction: column; gap: 8px; }
+  .field-label {
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+  .input,
+  .textarea,
+  .select {
+    width: 100%;
+    background: var(--color-white);
+    border: 1.5px solid var(--color-card-line);
+    color: var(--color-ink);
+    font-family: inherit;
+    font-size: 14.5px;
+    line-height: 1.5;
+    padding: 13px 20px;
+    border-radius: 999px;
+    transition: border-color 200ms var(--ease-brand), background 200ms var(--ease-brand);
+  }
+  .textarea {
+    border-radius: 20px 20px 20px 0;
+    min-height: 118px;
+    resize: vertical;
+  }
+  .input::placeholder,
+  .textarea::placeholder { color: var(--color-muted); opacity: 0.7; }
+  .input:hover,
+  .textarea:hover { border-color: var(--color-line-strong); }
+  .input:focus,
+  .textarea:focus { border-color: var(--color-teal); outline: none; }
+  .input:focus-visible,
+  .textarea:focus-visible { outline: 2px solid var(--color-teal); outline-offset: 2px; }
+
+  /* Radio row — the control is the pill itself, not a dot beside it. */
+  .choice { position: relative; display: inline-flex; }
+  .choice input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+  .choice span {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 46px;
+    padding: 11px 22px;
+    border-radius: 999px;
+    border: 1.5px solid var(--color-card-line);
+    background: var(--color-white);
+    font-size: 13px;
+    font-weight: 700;
+    transition: background 200ms var(--ease-brand),
+                border-color 200ms var(--ease-brand),
+                color 200ms var(--ease-brand);
+  }
+  .choice input:hover + span { border-color: var(--color-line-strong); }
+  .choice input:checked + span {
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+    color: var(--color-paper);
+  }
+  .choice input:focus-visible + span {
+    outline: 2px solid var(--color-teal);
+    outline-offset: 3px;
+  }
+
+  /* ---- Timeline rail ----------------------------------------------------- */
+  .rail-step { position: relative; padding-top: 26px; }
+  .rail-step::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--color-line-strong);
+  }
+  .rail-step::after {
+    content: "";
+    position: absolute;
+    top: -5px; left: 0;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--color-ink);
+  }
+  .rail-step.is-now::after { background: var(--color-coral); }
+
+  /* ---- Text link with a rule that redraws from the left ----------------- */
+  .link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--color-ink);
+    text-decoration: none;
+    padding-block: 7px;
+    transition: color 200ms var(--ease-brand);
+  }
+  .link::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 1.5px;
+    background: currentColor;
+    transform-origin: left;
+    transition: transform 340ms var(--ease-brand);
+  }
+  .link:hover { color: var(--color-teal); }
+  .link:hover::after { animation: link-sweep 440ms var(--ease-brand); }
+  .link svg { transition: transform 280ms var(--ease-brand); }
+  .link:hover svg { transform: translate(3px, -3px); }
+  .link-light { color: var(--color-paper); }
+  .link-light:hover { color: var(--color-gold); }
+
+  @keyframes link-sweep {
+    0%   { transform: scaleX(1); transform-origin: right; }
+    49%  { transform: scaleX(0); transform-origin: right; }
+    50%  { transform: scaleX(0); transform-origin: left; }
+    100% { transform: scaleX(1); transform-origin: left; }
+  }
+
+  /* ---- The hook ---------------------------------------------------------
+   * One or two oversized rounded corners per shape. Photographs, colour
+   * panels and accents all read from the same rule.                       */
+  .hook-tl    { border-radius: clamp(56px, 10vw, 160px) 0 0 0; }
+  .hook-tr    { border-radius: 0 clamp(56px, 10vw, 160px) 0 0; }
+  .hook-br    { border-radius: 0 0 clamp(56px, 10vw, 160px) 0; }
+  .hook-bl    { border-radius: 0 0 0 clamp(56px, 10vw, 160px); }
+  .hook-tl-br { border-radius: clamp(56px, 10vw, 160px) 0 clamp(56px, 10vw, 160px) 0; }
+  .hook-tr-bl { border-radius: 0 clamp(56px, 10vw, 160px) 0 clamp(56px, 10vw, 160px); }
+  .hook-s-tr  { border-radius: 0 clamp(26px, 3.6vw, 52px) 0 0; }
+  .hook-s-bl  { border-radius: 0 0 0 clamp(26px, 3.6vw, 52px); }
+  .hook-s-tl  { border-radius: clamp(26px, 3.6vw, 52px) 0 0 0; }
+
+  /* Colour panels carrying body copy take a calmer step than photographs do. */
+  .panel-hook-tl-br { border-radius: clamp(40px, 6vw, 104px) 0 clamp(40px, 6vw, 104px) 0; }
+  .panel-hook-tr-bl { border-radius: 0 clamp(40px, 6vw, 104px) 0 clamp(40px, 6vw, 104px); }
+
+  /* Accent reach — one token, so no breakpoint can push a block off-screen. */
+  .accent-tr { top: calc(-1 * var(--accent-out)); right: calc(-1 * var(--accent-out)); }
+  .accent-br { bottom: calc(-1 * var(--accent-out)); right: calc(-1 * var(--accent-out)); }
+
+  /* ---- Scrubbed decoration ------------------------------------------------
+   * Decorative shapes that follow scroll position rather than firing once.
+   * The page script writes a 0-to-1 progress value into `--p` while the
+   * element is near the viewport; everything here is a function of that, so
+   * the motion runs forwards on the way down and backwards on the way up, at
+   * whatever speed the reader scrolls.
+   *
+   * `animation-timeline: view()` would express this in pure CSS and was tried
+   * first. `CSS.supports()` reports it available, but the timelines resolve
+   * inactive here — a control element sat at `currentTime: null` — so this
+   * uses a scroll listener instead: rAF-throttled, passive, and only attached
+   * while the section is actually near the viewport.
+   *
+   * Only `transform` and `opacity` are animated, so every frame composites on
+   * the GPU and nothing can trigger layout.
+   *
+   * Content reveals deliberately do NOT scrub. Text that re-hides when a
+   * reader scrolls back up costs them the content; those stay one-shot.
+   * Reversible motion is for decoration only.                              */
+  /* The moved states are scoped to `.js`, exactly as the reveals are. Without
+     the script every one of these sits at its settled value — a decorative
+     band that is hidden by CSS and only revealed by JavaScript is one script
+     error away from being invisible for good. */
+  .slab {
+    --p: 0;
+    position: absolute;
+    right: 0;
+    height: clamp(26px, 3.2vw, 46px);
+    width: min(46vw, 620px);
+    background: var(--color-gold);
+    pointer-events: none;
+  }
+  .js .slab {
+    transform: translate3d(calc((1 - var(--p)) * 101%), 0, 0);
+    will-change: transform;
+  }
+  .slab-coral { background: var(--color-coral); }
+  .slab-mint  { background: var(--color-mint); }
+  .slab-teal  { background: var(--color-teal); }
+
+  /* Level with the section heading: the section's top padding, plus the
+     kicker and the gap under it. */
+  .slab-head { top: calc(clamp(56px, 7vw, 112px) + 34px); }
+
+  /* The corridor draws itself left to right — Accra to Europe, the only
+     direction it is allowed to read (§5). Each band trails the one before it
+     so the strip builds rather than snapping in. */
+  .corridor { --p: 0; }
+  .js .corridor > i {
+    transform-origin: left center;
+    transform: scale3d(clamp(0, calc((var(--p) - var(--lag, 0)) * 2.4), 1), 1, 1);
+  }
+  .corridor > i:nth-child(2) { --lag: 0.10; }
+  .corridor > i:nth-child(3) { --lag: 0.20; }
+  .corridor > i:nth-child(4) { --lag: 0.30; }
+
+  /* A photograph drifts a little slower than the page around it. Six percent
+     of its own height reads as depth without being noticed as an effect. */
+  .drift { --p: 0.5; }
+  .js .drift {
+    transform: translate3d(0, calc((var(--p) - 0.5) * 6%), 0) scale(1.06);
+    will-change: transform;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .js .slab,
+    .js .corridor > i,
+    .js .drift { transform: none; }
+  }
+
+  /* ---- The corridor ------------------------------------------------------ */
+  .corridor {
+    display: flex;
+    height: clamp(26px, 3.2vw, 46px);
+    width: 100%;
+    overflow: hidden;
+  }
+  .corridor > i { display: block; height: 100%; }
+  /* `.round-end` is retired: the half-round only works where the strip sits on
+     chalk with space beneath it. Flush against the next section it cut a notch
+     out of the band and showed the ground through. */
+
+  /* The corridor draws itself, left to right — Accra to Europe, which is the
+     only direction it is allowed to read (§5). Scroll-linked like the slab, so
+     it draws as the section arrives and undraws as it leaves. Each band is
+     delayed a little behind the one before it via its own range, so the strip
+     builds rather than snapping into place all at once. */
+  /* A photograph drifts a little slower than the page it sits in. Six percent
+     of its own height is enough to read as depth and small enough that nobody
+     notices it as an effect — which is the point. */
+  @media (prefers-reduced-motion: reduce) {
+    .corridor > i { animation: none; transform: none; }
+    .drift        { animation: none; transform: none; }
+  }
+
+  /* ---- Pathway card ------------------------------------------------------ */
+  .pathway {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    border-radius: 12px;
+    padding: clamp(20px, 1.9vw, 28px);
+    min-height: clamp(230px, 23vw, 310px);
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--color-ink);
+    transition: transform 420ms var(--ease-out-soft);
+  }
+  .pathway::after {
+    /* the module glyph, tone on tone */
+    content: "";
+    position: absolute;
+    right: -16%;
+    top: 30%;
+    width: 64%;
+    aspect-ratio: 1;
+    border-radius: 34% 0 34% 0;
+    background: currentColor;
+    opacity: 0.08;
+    pointer-events: none;
+    transition: transform 640ms var(--ease-out-soft);
+  }
+  .pathway:hover { transform: translateY(-6px); }
+  .pathway:hover::after { transform: scale(1.12) rotate(-7deg); }
+  .pathway .p-num {
+    display: grid;
+    place-items: center;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    border: 1.5px solid currentColor;
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+  }
+  .pathway .p-title {
+    font-size: clamp(22px, 2.3vw, 34px);
+    margin-top: auto;
+  }
+  .pathway .p-arrow { transition: transform 320ms var(--ease-brand); }
+  .pathway:hover .p-arrow { transform: translate(4px, -4px); }
+
+  /* ---- Photograph crops --------------------------------------------------
+   * The hero cell is 5:4 on phones, 4:3 on tablets and 10:11 on desktop, so a
+   * single object-position cannot serve all three. The working scene sits in
+   * the lower two thirds of the frame; the wide crops have to sit low to keep
+   * the screen, the faces and the laptops, while the tall desktop crop can
+   * afford to sit higher.                                                    */
+  .crop-hero      { object-position: 50% 88%; }
+  /* The membership photograph is a 1.78 landscape and the three people sit
+   * right of centre, so the crop has to follow them. The narrow cells lose
+   * only a third of the width and centre the group at 62%; the 9:10 desktop
+   * cell loses half the frame and needs 78% to keep the standing figure and
+   * the colleague on the right from being cut off at the edge.              */
+  .crop-community { object-position: 62% 50%; }
+  /* Every stand-in is portrait (0.63–0.80). Cropped into a wide band they
+     default to the middle of the frame, which lands on foreheads — the people
+     sit in the lower half of all three. */
+  .crop-band      { object-position: 50% 72%; }
+  @media (min-width: 1024px) {
+    .crop-hero      { object-position: 50% 62%; }
+    .crop-community { object-position: 78% 50%; }
+  }
+
+  /* ---- Stat -------------------------------------------------------------- */
+  .stat-figure {
+    font-weight: 800;
+    font-size: clamp(38px, 4.8vw, 72px);
+    line-height: 0.9;
+    letter-spacing: -0.05em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---- Patterns ---------------------------------------------------------- */
+  .pat-grid {
+    background-image:
+      repeating-linear-gradient(90deg, color-mix(in srgb, var(--pat, #1D1D1B) 8%, transparent) 0 1px, transparent 1px 30px),
+      repeating-linear-gradient(0deg,  color-mix(in srgb, var(--pat, #1D1D1B) 8%, transparent) 0 1px, transparent 1px 30px);
+  }
+  .js .pat-sweep {
+    -webkit-mask-image: linear-gradient(115deg, #000 0 var(--sweep), transparent calc(var(--sweep) + 24%));
+    mask-image: linear-gradient(115deg, #000 0 var(--sweep), transparent calc(var(--sweep) + 24%));
+    transition: --sweep 1600ms var(--ease-out-soft);
+  }
+  .js .is-in .pat-sweep,
+  .js .pat-sweep.is-in { --sweep: 132%; }
+
+  /* ---- Reveal ------------------------------------------------------------
+   * Progressive enhancement only. The hidden start state is scoped to .js
+   * and a watchdog in the page script reveals anything the observer misses,
+   * so a throttled tab never costs a reader the content.                   */
+  .js .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 720ms var(--ease-out-soft) var(--d, 0ms),
+      transform 720ms var(--ease-out-soft) var(--d, 0ms);
+  }
+  .js .reveal.is-in { opacity: 1; transform: none; }
+
+  .js .reveal-img { clip-path: inset(0 0 100% 0); transition: clip-path 1000ms var(--ease-out-soft); }
+  .js .reveal-img.is-in { clip-path: inset(0 0 0 0); }
+  .js .reveal-img img { transform: scale(1.08); transition: transform 1600ms var(--ease-out-soft); }
+  .js .reveal-img.is-in img { transform: scale(1); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .js .reveal { opacity: 1; transform: none; }
+    .js .reveal-img { clip-path: none; }
+    .js .reveal-img img { transform: none; }
+    .js .pat-sweep { -webkit-mask-image: none; mask-image: none; }
+    .pathway:hover { transform: none; }
+  }
+}
+
+/* --------------------------------------------------------------------------
+   4. Print
+   The reveal animations start at opacity 0 and are driven by an
+   IntersectionObserver that never fires in a print context, so without this
+   every animated block prints blank. Colour is part of the brand, so the
+   grounds and tints are forced through rather than dropped.
+   -------------------------------------------------------------------------- */
+@media print {
+  /* px, not a paper name: the page box IS the layout viewport in print, so
+     this is what keeps the desktop breakpoints (lg: = 1024px) alive. */
+  @page { size: 1600px 1100px; margin: 0; }
+
+  *, *::before, *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .js .reveal,
+  .js .reveal-img {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+  .js .reveal-img img { transform: none !important; }
+  .js .pat-sweep { -webkit-mask-image: none !important; mask-image: none !important; }
+
+  #nav { position: static !important; box-shadow: none !important; background: var(--color-paper) !important; }
+  #menu-btn, #mobile-menu, .sr-only { display: none !important; }
+
+  a { text-decoration: none !important; }
+  .pathway:hover { transform: none !important; }
+}
