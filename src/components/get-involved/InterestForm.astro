@@ -1,0 +1,103 @@
+---
+interface Props {
+  selectedInterest?: string;
+}
+
+const { selectedInterest = '' } = Astro.props;
+
+const interestOptions = [
+  { value: 'Access to AI professionals', label: 'Access to AI professionals' },
+  { value: 'Training & capacity building', label: 'Training & capacity building' },
+  { value: 'Research & development', label: 'Research & development' },
+  { value: 'Access to clients', label: 'Access to clients' },
+  { value: 'Innovation & AI use cases', label: 'Innovation & AI use cases' },
+  { value: 'AI governance & compliance', label: 'AI governance & compliance' },
+  { value: 'Something else', label: 'Something else' },
+];
+---
+<!-- =====================================================================
+     THE FORM
+     ===================================================================== -->
+<section id="register" class="bg-paper-alt scroll-mt-20">
+  <div class="shell band">
+    <div class="grid lg:grid-cols-[minmax(0,34%)_minmax(0,1fr)] gap-x-[clamp(28px,4.5vw,80px)] gap-y-10 items-start">
+
+      <div class="flex flex-col gap-4 lg:sticky lg:top-28">
+        <p class="kicker reveal">Register your interest</p>
+        <h2 class="display d-sm reveal" style="--d:80ms">
+          We reply within five working days.
+        </h2>
+        <p class="text-[13.5px] leading-[1.6] text-body max-w-[38ch] reveal" style="--d:140ms">
+          Tell us who you are and how you would like to be involved. We confirm
+          receipt and propose a short call.
+        </p>
+        <p class="text-[13px] leading-[1.6] text-body reveal" style="--d:180ms">
+          Prefer email? Write to <a href="mailto:b.janischowsky@4th-ir.com" class="font-bold text-ink underline underline-offset-4 decoration-line-strong hover:text-teal transition-colors">b.janischowsky@4th-ir.com</a> with the same details.
+        </p>
+      </div>
+
+      <!-- TODO: not wired to a backend. Submitting opens a pre-filled email
+           instead. Point action= at a real endpoint when there is one. -->
+      <form id="register-form" class="reveal" style="--d:120ms" novalidate>
+        <div class="grid sm:grid-cols-2 gap-x-5 gap-y-6">
+
+          <div class="field">
+            <label class="field-label" for="f-name">Name</label>
+            <input class="input" id="f-name" name="name" type="text" autocomplete="name" required>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="f-org">Organisation</label>
+            <input class="input" id="f-org" name="organisation" type="text" autocomplete="organization" required>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="f-email">Email</label>
+            <input class="input" id="f-email" name="email" type="email" autocomplete="email" required>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="f-country">Country</label>
+            <input class="input" id="f-country" name="country" type="text" autocomplete="country-name" required>
+          </div>
+
+          <fieldset class="field sm:col-span-2 border-0 p-0 m-0">
+            <legend class="field-label p-0 mb-2">What would you like to get involved in?</legend>
+            <div class="flex flex-wrap gap-2.5">
+              {interestOptions.map((opt) => {
+                const isChecked = selectedInterest === opt.value;
+                return (
+                  <label class="choice">
+                    <input
+                      type="checkbox"
+                      name="interest"
+                      value={opt.value}
+                      checked={isChecked}
+                    />
+                    <span>{opt.label}</span>
+                  </label>
+                );
+              })}
+            </div>
+          </fieldset>
+
+          <div class="field sm:col-span-2">
+            <label class="field-label" for="f-context">Context <span class="font-bold normal-case tracking-normal text-[11px]">(optional)</span></label>
+            <textarea class="textarea" id="f-context" name="context" rows="4" placeholder="Tell us what you have in mind."></textarea>
+          </div>
+
+          <div class="sm:col-span-2 flex flex-wrap items-center gap-x-6 gap-y-4 pt-1">
+            <button type="submit" class="btn btn-teal">
+              Send registration <svg class="w-[15px] h-[15px]" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-arrow-up-right"/></svg>
+            </button>
+            <p class="text-[12px] leading-[1.5] text-muted max-w-[34ch]">
+              Your details are used only for the AI Hub initiative.
+            </p>
+          </div>
+
+          <p id="form-note" class="sm:col-span-2 text-[13px] leading-[1.6] text-on-mint-tint bg-mint-tint rounded-xl hook-s-tl px-5 py-4" hidden role="status"></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
