@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/get-involved/PageHeader.astro';
+import WaysToJoin from '../components/get-involved/WaysToJoin.astro';
+import InterestForm from '../components/get-involved/InterestForm.astro';
+import Timeline from '../components/get-involved/Timeline.astro';
+import Reasons from '../components/get-involved/Reasons.astro';
+
+const title = "Get involved — AI Hub, Ghana";
+const description = "Three ways to join the AI Hub, Ghana before the launch: as a member, a project partner or a supporter. Register your interest and name the service areas you care about — non-binding, and we reply within five working days.";
+
+const selectedInterest = Astro.url.searchParams.get('interest') || '';
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  printPageSize="1600px 4200px"
+  currentPage="get-involved"
+>
+  <PageHeader />
+  <WaysToJoin />
+  <InterestForm selectedInterest={selectedInterest} />
+  <Timeline />
+  <Reasons />
+
+  <script>
+    import '../scripts/form';
+  </script>
+</BaseLayout>
