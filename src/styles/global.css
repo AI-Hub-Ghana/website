@@ -15,42 +15,42 @@
    -------------------------------------------------------------------------- */
 @theme {
   /* Grounds */
-  --color-paper:        #F2F2EF;
-  --color-paper-alt:    #EAEAE6;
-  --color-white:        #FFFFFF;
+  --color-paper: #f2f2ef;
+  --color-paper-alt: #eaeae6;
+  --color-white: #ffffff;
 
   /* Ink + text */
-  --color-ink:          #1D1D1B;
-  --color-body:         #5A554C;
-  --color-muted:        #6E675B;   /* was #8A8378 — that read 3.3:1 on paper, failing §12 */
+  --color-ink: #1d1d1b;
+  --color-body: #5a554c;
+  --color-muted: #6e675b; /* was #8A8378 — that read 3.3:1 on paper, failing §12 */
 
   /* Rules */
-  --color-hairline:     #DFDFDC;
-  --color-card-line:    #D6D6D3;
-  --color-line-strong:  #C3C3C0;
+  --color-hairline: #dfdfdc;
+  --color-card-line: #d6d6d3;
+  --color-line-strong: #c3c3c0;
 
   /* Brand */
-  --color-teal:         #2A7A5E;
-  --color-teal-deep:    #0B3D33;
+  --color-teal: #2a7a5e;
+  --color-teal-deep: #0b3d33;
   /* The German-African Business Summit's own navy and sky, sampled from their
      mark. The launch section is the event's, not ours, so it takes the event's
      ground — the same decision the GABS Concept document already makes. */
-  --color-gabs-navy:    #0D3559;
-  --color-gabs-sky:     #93CEDE;
-  --color-coral:        #BF4639;
-  --color-gold:         #EAC15D;
-  --color-mint:         #74C2AC;
+  --color-gabs-navy: #0d3559;
+  --color-gabs-sky: #93cede;
+  --color-coral: #bf4639;
+  --color-gold: #eac15d;
+  --color-mint: #74c2ac;
 
   /* Tints */
-  --color-mint-tint:    #DCECE4;
-  --color-mint-tint-2:  #D7E6DD;
-  --color-coral-tint:   #ECDCD7;
-  --color-gold-tint:    #F7E7C2;
+  --color-mint-tint: #dcece4;
+  --color-mint-tint-2: #d7e6dd;
+  --color-coral-tint: #ecdcd7;
+  --color-gold-tint: #f7e7c2;
 
   /* Text-safe steps on tints */
-  --color-on-coral-tint: #A83E32;
-  --color-on-gold-tint:  #7A5C10;
-  --color-on-mint-tint:  #26654D;
+  --color-on-coral-tint: #a83e32;
+  --color-on-gold-tint: #7a5c10;
+  --color-on-mint-tint: #26654d;
 
   /* Type — one family. The display voice is caps, heavy and very tight;
      it is a treatment, not a second typeface. Mona Sans carries a width axis,
@@ -58,7 +58,7 @@
   --font-sans: "Mona Sans", "Helvetica Neue", Helvetica, system-ui, sans-serif;
 
   /* Motion */
-  --ease-brand:    cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-brand: cubic-bezier(0.22, 0.61, 0.36, 1);
   --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -82,8 +82,14 @@
    -------------------------------------------------------------------------- */
 @layer base {
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
+    scroll-padding-top: 96px;
     -webkit-text-size-adjust: 100%;
+  }
+
+  section[id],
+  [id] {
+    scroll-margin-top: 96px;
   }
 
   body {
@@ -96,8 +102,17 @@
     overflow-x: clip;
   }
 
-  h1, h2, h3, h4 { font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
-  p { text-wrap: pretty; }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  p {
+    text-wrap: pretty;
+  }
 
   :focus-visible {
     outline: 2px solid var(--color-teal);
@@ -105,16 +120,30 @@
     border-radius: 4px;
   }
   .on-teal :focus-visible,
-  .on-dark :focus-visible { outline-color: var(--color-paper); }
-  .on-colour :focus-visible { outline-color: var(--color-ink); }
+  .on-dark :focus-visible {
+    outline-color: var(--color-paper);
+  }
+  .on-colour :focus-visible {
+    outline-color: var(--color-ink);
+  }
 
-  ::selection { background: var(--color-gold); color: var(--color-ink); }
+  ::selection {
+    background: var(--color-gold);
+    color: var(--color-ink);
+  }
 
-  img { display: block; max-width: 100%; }
+  img {
+    display: block;
+    max-width: 100%;
+  }
 
   @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    *, *::before, *::after {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
@@ -126,7 +155,6 @@
    3. Components
    -------------------------------------------------------------------------- */
 @layer components {
-
   /* ---- Shell -----------------------------------------------------------
    * Bands run full bleed; their content is always held to one centred
    * measure. This is what stops the page falling apart on a wide monitor. */
@@ -137,8 +165,12 @@
     padding-inline: var(--gutter);
   }
 
-  .band    { padding-block: clamp(56px, 7vw, 112px); }
-  .band-sm { padding-block: clamp(34px, 4.2vw, 64px); }
+  .band {
+    padding-block: clamp(56px, 7vw, 112px);
+  }
+  .band-sm {
+    padding-block: clamp(34px, 4.2vw, 64px);
+  }
 
   /* ---- Type ------------------------------------------------------------ */
 
@@ -159,10 +191,18 @@
     line-height: 1.12;
     text-wrap: balance;
   }
-  .d-xl { font-size: clamp(34px, 4.4vw, 58px); }
-  .d-lg { font-size: clamp(30px, 3.6vw, 46px); }
-  .d-md { font-size: clamp(25px, 2.8vw, 36px); }
-  .d-sm { font-size: clamp(21px, 2vw, 27px);   }
+  .d-xl {
+    font-size: clamp(34px, 4.4vw, 58px);
+  }
+  .d-lg {
+    font-size: clamp(30px, 3.6vw, 46px);
+  }
+  .d-md {
+    font-size: clamp(25px, 2.8vw, 36px);
+  }
+  .d-sm {
+    font-size: clamp(21px, 2vw, 27px);
+  }
 
   /* Anything with an argument in it stays sentence case at normal tracking. */
   .heading {
@@ -180,7 +220,9 @@
     color: var(--color-muted);
     line-height: 1.4;
   }
-  .kicker-light { color: var(--color-paper); }
+  .kicker-light {
+    color: var(--color-paper);
+  }
 
   .lead {
     font-size: clamp(15px, 1.1vw, 17px);
@@ -208,10 +250,22 @@
     text-transform: uppercase;
     white-space: nowrap;
   }
-  .tag-gold    { background: var(--color-gold); color: var(--color-ink); }
-  .tag-outline { border: 1.5px solid var(--color-line-strong); color: var(--color-ink); }
-  .tag-teal    { background: var(--color-teal); color: var(--color-paper); }
-  .tag-paper   { background: var(--color-paper); color: var(--color-ink); }
+  .tag-gold {
+    background: var(--color-gold);
+    color: var(--color-ink);
+  }
+  .tag-outline {
+    border: 1.5px solid var(--color-line-strong);
+    color: var(--color-ink);
+  }
+  .tag-teal {
+    background: var(--color-teal);
+    color: var(--color-paper);
+  }
+  .tag-paper {
+    background: var(--color-paper);
+    color: var(--color-ink);
+  }
 
   /* ---- Buttons ---------------------------------------------------------- */
   .btn {
@@ -227,33 +281,74 @@
     text-decoration: none;
     cursor: pointer;
     border: 1.5px solid transparent;
-    transition: background 200ms var(--ease-brand),
-                color 200ms var(--ease-brand),
-                border-color 200ms var(--ease-brand);
+    transition:
+      background 200ms var(--ease-brand),
+      color 200ms var(--ease-brand),
+      border-color 200ms var(--ease-brand);
   }
-  .btn svg { flex: none; transition: transform 280ms var(--ease-brand); }
-  .btn:hover svg { transform: translate(3px, -3px); }
-  .btn-down:hover svg { transform: translateY(3px); }
+  .btn svg {
+    flex: none;
+    transition: transform 280ms var(--ease-brand);
+  }
+  .btn:hover svg {
+    transform: translate(3px, -3px);
+  }
+  .btn-down:hover svg {
+    transform: translateY(3px);
+  }
 
-  .btn-ink       { background: var(--color-ink);   color: var(--color-paper); }
-  .btn-ink:hover { background: var(--color-teal); }
+  .btn-ink {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+  .btn-ink:hover {
+    background: var(--color-teal);
+  }
 
-  .btn-teal       { background: var(--color-teal);  color: var(--color-paper); }
-  .btn-teal:hover { background: var(--color-ink); }
+  .btn-teal {
+    background: var(--color-teal);
+    color: var(--color-paper);
+  }
+  .btn-teal:hover {
+    background: var(--color-ink);
+  }
 
   /* Brick is dark enough that even pure black only reaches 4.34:1 on it, so
      this button carries a paper label. Do not flip it back to ink. */
-  .btn-coral       { background: var(--color-coral); color: var(--color-paper); }
-  .btn-coral:hover { background: var(--color-ink);   color: var(--color-paper); }
+  .btn-coral {
+    background: var(--color-coral);
+    color: var(--color-paper);
+  }
+  .btn-coral:hover {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
 
-  .btn-gold       { background: var(--color-gold); color: var(--color-ink); }
-  .btn-gold:hover { background: var(--color-ink);  color: var(--color-paper); }
+  .btn-gold {
+    background: var(--color-gold);
+    color: var(--color-ink);
+  }
+  .btn-gold:hover {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
 
-  .btn-outline       { border-color: var(--color-line-strong); color: var(--color-ink); }
-  .btn-outline:hover { border-color: var(--color-teal); color: var(--color-teal); }
+  .btn-outline {
+    border-color: var(--color-line-strong);
+    color: var(--color-ink);
+  }
+  .btn-outline:hover {
+    border-color: var(--color-teal);
+    color: var(--color-teal);
+  }
 
-  .btn-paper       { background: var(--color-paper); color: var(--color-ink); }
-  .btn-paper:hover { background: var(--color-gold); }
+  .btn-paper {
+    background: var(--color-paper);
+    color: var(--color-ink);
+  }
+  .btn-paper:hover {
+    background: var(--color-gold);
+  }
 
   /* The round badge — one per page, the closing invitation */
   .badge-round {
@@ -275,12 +370,20 @@
     text-decoration: none;
     padding: 16px;
     line-height: 1.5;
-    transition: background 240ms var(--ease-brand), transform 420ms var(--ease-out-soft);
+    transition:
+      background 240ms var(--ease-brand),
+      transform 420ms var(--ease-out-soft);
   }
-  .badge-round svg { transition: transform 320ms var(--ease-brand); }
-  .badge-round:hover { background: var(--color-teal); transform: rotate(-4deg); }
-  .badge-round:hover svg { transform: translate(3px, -3px); }
-
+  .badge-round svg {
+    transition: transform 320ms var(--ease-brand);
+  }
+  .badge-round:hover {
+    background: var(--color-teal);
+    transform: rotate(-4deg);
+  }
+  .badge-round:hover svg {
+    transform: translate(3px, -3px);
+  }
 
   /* ---- Logotype (PLACEHOLDER) -------------------------------------------
    * Standing in for the mark until the real lockup is signed off. It is the
@@ -296,7 +399,9 @@
     line-height: 0.86;
     transition: color 200ms var(--ease-brand);
   }
-  .logotype:hover { color: var(--color-teal); }
+  .logotype:hover {
+    color: var(--color-teal);
+  }
   .lt-1,
   .lt-2 {
     font-weight: 800;
@@ -310,15 +415,30 @@
      scale; "AI HUB" is tracked out to meet it. margin-right drops the dead
      gap letter-spacing leaves after the last glyph, so both lines sit flush
      left AND flush right. Ratios are size-independent — do not hand-tune. */
-  .lt-1 { letter-spacing: 0.021em;  margin-right: -0.021em; }
-  .lt-2 { font-size: 0.9464em; letter-spacing: -0.02em; margin-right: 0.02em; }
-  .logotype-light { color: var(--color-paper); }
-  .logotype-light:hover { color: var(--color-gold); }
+  .lt-1 {
+    letter-spacing: 0.021em;
+    margin-right: -0.021em;
+  }
+  .lt-2 {
+    font-size: 0.9464em;
+    letter-spacing: -0.02em;
+    margin-right: 0.02em;
+  }
+  .logotype-light {
+    color: var(--color-paper);
+  }
+  .logotype-light:hover {
+    color: var(--color-gold);
+  }
 
   /* ---- Form controls ----------------------------------------------------
    * Same shape language as everything else: pills for the controls that are
    * single-line, one soft corner on the block that is not.                */
-  .field { display: flex; flex-direction: column; gap: 8px; }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
   .field-label {
     font-size: 10.5px;
     font-weight: 800;
@@ -338,7 +458,9 @@
     line-height: 1.5;
     padding: 13px 20px;
     border-radius: 999px;
-    transition: border-color 200ms var(--ease-brand), background 200ms var(--ease-brand);
+    transition:
+      border-color 200ms var(--ease-brand),
+      background 200ms var(--ease-brand);
   }
   .textarea {
     border-radius: 20px 20px 20px 0;
@@ -346,16 +468,30 @@
     resize: vertical;
   }
   .input::placeholder,
-  .textarea::placeholder { color: var(--color-muted); opacity: 0.7; }
+  .textarea::placeholder {
+    color: var(--color-muted);
+    opacity: 0.7;
+  }
   .input:hover,
-  .textarea:hover { border-color: var(--color-line-strong); }
+  .textarea:hover {
+    border-color: var(--color-line-strong);
+  }
   .input:focus,
-  .textarea:focus { border-color: var(--color-teal); outline: none; }
+  .textarea:focus {
+    border-color: var(--color-teal);
+    outline: none;
+  }
   .input:focus-visible,
-  .textarea:focus-visible { outline: 2px solid var(--color-teal); outline-offset: 2px; }
+  .textarea:focus-visible {
+    outline: 2px solid var(--color-teal);
+    outline-offset: 2px;
+  }
 
   /* Radio row — the control is the pill itself, not a dot beside it. */
-  .choice { position: relative; display: inline-flex; }
+  .choice {
+    position: relative;
+    display: inline-flex;
+  }
   .choice input {
     position: absolute;
     inset: 0;
@@ -373,11 +509,14 @@
     background: var(--color-white);
     font-size: 13px;
     font-weight: 700;
-    transition: background 200ms var(--ease-brand),
-                border-color 200ms var(--ease-brand),
-                color 200ms var(--ease-brand);
+    transition:
+      background 200ms var(--ease-brand),
+      border-color 200ms var(--ease-brand),
+      color 200ms var(--ease-brand);
   }
-  .choice input:hover + span { border-color: var(--color-line-strong); }
+  .choice input:hover + span {
+    border-color: var(--color-line-strong);
+  }
   .choice input:checked + span {
     background: var(--color-ink);
     border-color: var(--color-ink);
@@ -389,23 +528,32 @@
   }
 
   /* ---- Timeline rail ----------------------------------------------------- */
-  .rail-step { position: relative; padding-top: 26px; }
+  .rail-step {
+    position: relative;
+    padding-top: 26px;
+  }
   .rail-step::before {
     content: "";
     position: absolute;
-    top: 0; left: 0; right: 0;
+    top: 0;
+    left: 0;
+    right: 0;
     height: 2px;
     background: var(--color-line-strong);
   }
   .rail-step::after {
     content: "";
     position: absolute;
-    top: -5px; left: 0;
-    width: 12px; height: 12px;
+    top: -5px;
+    left: 0;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     background: var(--color-ink);
   }
-  .rail-step.is-now::after { background: var(--color-coral); }
+  .rail-step.is-now::after {
+    background: var(--color-coral);
+  }
 
   /* ---- Text link with a rule that redraws from the left ----------------- */
   .link {
@@ -430,40 +578,92 @@
     transform-origin: left;
     transition: transform 340ms var(--ease-brand);
   }
-  .link:hover { color: var(--color-teal); }
-  .link:hover::after { animation: link-sweep 440ms var(--ease-brand); }
-  .link svg { transition: transform 280ms var(--ease-brand); }
-  .link:hover svg { transform: translate(3px, -3px); }
-  .link-light { color: var(--color-paper); }
-  .link-light:hover { color: var(--color-gold); }
+  .link:hover {
+    color: var(--color-teal);
+  }
+  .link:hover::after {
+    animation: link-sweep 440ms var(--ease-brand);
+  }
+  .link svg {
+    transition: transform 280ms var(--ease-brand);
+  }
+  .link:hover svg {
+    transform: translate(3px, -3px);
+  }
+  .link-light {
+    color: var(--color-paper);
+  }
+  .link-light:hover {
+    color: var(--color-gold);
+  }
 
   @keyframes link-sweep {
-    0%   { transform: scaleX(1); transform-origin: right; }
-    49%  { transform: scaleX(0); transform-origin: right; }
-    50%  { transform: scaleX(0); transform-origin: left; }
-    100% { transform: scaleX(1); transform-origin: left; }
+    0% {
+      transform: scaleX(1);
+      transform-origin: right;
+    }
+    49% {
+      transform: scaleX(0);
+      transform-origin: right;
+    }
+    50% {
+      transform: scaleX(0);
+      transform-origin: left;
+    }
+    100% {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
   }
 
   /* ---- The hook ---------------------------------------------------------
    * One or two oversized rounded corners per shape. Photographs, colour
    * panels and accents all read from the same rule.                       */
-  .hook-tl    { border-radius: clamp(56px, 10vw, 160px) 0 0 0; }
-  .hook-tr    { border-radius: 0 clamp(56px, 10vw, 160px) 0 0; }
-  .hook-br    { border-radius: 0 0 clamp(56px, 10vw, 160px) 0; }
-  .hook-bl    { border-radius: 0 0 0 clamp(56px, 10vw, 160px); }
-  .hook-tl-br { border-radius: clamp(56px, 10vw, 160px) 0 clamp(56px, 10vw, 160px) 0; }
-  .hook-tr-bl { border-radius: 0 clamp(56px, 10vw, 160px) 0 clamp(56px, 10vw, 160px); }
-  .hook-s-tr  { border-radius: 0 clamp(26px, 3.6vw, 52px) 0 0; }
-  .hook-s-bl  { border-radius: 0 0 0 clamp(26px, 3.6vw, 52px); }
-  .hook-s-tl  { border-radius: clamp(26px, 3.6vw, 52px) 0 0 0; }
+  .hook-tl {
+    border-radius: clamp(56px, 10vw, 160px) 0 0 0;
+  }
+  .hook-tr {
+    border-radius: 0 clamp(56px, 10vw, 160px) 0 0;
+  }
+  .hook-br {
+    border-radius: 0 0 clamp(56px, 10vw, 160px) 0;
+  }
+  .hook-bl {
+    border-radius: 0 0 0 clamp(56px, 10vw, 160px);
+  }
+  .hook-tl-br {
+    border-radius: clamp(56px, 10vw, 160px) 0 clamp(56px, 10vw, 160px) 0;
+  }
+  .hook-tr-bl {
+    border-radius: 0 clamp(56px, 10vw, 160px) 0 clamp(56px, 10vw, 160px);
+  }
+  .hook-s-tr {
+    border-radius: 0 clamp(26px, 3.6vw, 52px) 0 0;
+  }
+  .hook-s-bl {
+    border-radius: 0 0 0 clamp(26px, 3.6vw, 52px);
+  }
+  .hook-s-tl {
+    border-radius: clamp(26px, 3.6vw, 52px) 0 0 0;
+  }
 
   /* Colour panels carrying body copy take a calmer step than photographs do. */
-  .panel-hook-tl-br { border-radius: clamp(40px, 6vw, 104px) 0 clamp(40px, 6vw, 104px) 0; }
-  .panel-hook-tr-bl { border-radius: 0 clamp(40px, 6vw, 104px) 0 clamp(40px, 6vw, 104px); }
+  .panel-hook-tl-br {
+    border-radius: clamp(40px, 6vw, 104px) 0 clamp(40px, 6vw, 104px) 0;
+  }
+  .panel-hook-tr-bl {
+    border-radius: 0 clamp(40px, 6vw, 104px) 0 clamp(40px, 6vw, 104px);
+  }
 
   /* Accent reach — one token, so no breakpoint can push a block off-screen. */
-  .accent-tr { top: calc(-1 * var(--accent-out)); right: calc(-1 * var(--accent-out)); }
-  .accent-br { bottom: calc(-1 * var(--accent-out)); right: calc(-1 * var(--accent-out)); }
+  .accent-tr {
+    top: calc(-1 * var(--accent-out));
+    right: calc(-1 * var(--accent-out));
+  }
+  .accent-br {
+    bottom: calc(-1 * var(--accent-out));
+    right: calc(-1 * var(--accent-out));
+  }
 
   /* ---- Scrubbed decoration ------------------------------------------------
    * Decorative shapes that follow scroll position rather than firing once.
@@ -492,38 +692,74 @@
     --p: 0;
     position: absolute;
     right: 0;
+    z-index: 0;
     height: clamp(26px, 3.2vw, 46px);
     width: min(46vw, 620px);
     background: var(--color-gold);
     pointer-events: none;
+    opacity: 1;
   }
   .js .slab {
     transform: translate3d(calc((1 - var(--p)) * 101%), 0, 0);
     will-change: transform;
   }
-  .slab-coral { background: var(--color-coral); }
-  .slab-mint  { background: var(--color-mint); }
-  .slab-teal  { background: var(--color-teal); }
+  .slab-coral {
+    background: var(--color-coral);
+  }
+  .slab-mint {
+    background: var(--color-mint);
+  }
+  .slab-teal {
+    background: var(--color-teal);
+  }
 
   /* Level with the section heading: the section's top padding, plus the
      kicker and the gap under it. */
-  .slab-head { top: calc(clamp(56px, 7vw, 112px) + 34px); }
+  .slab-head {
+    top: calc(clamp(56px, 7vw, 112px) + 34px);
+  }
+
+  @media (max-width: 640px) {
+    .slab {
+      width: min(74vw, 420px);
+      height: 18px;
+      opacity: 1;
+    }
+
+    .slab-head {
+      top: clamp(72px, 14vw, 96px);
+    }
+  }
 
   /* The corridor draws itself left to right — Accra to Europe, the only
      direction it is allowed to read (§5). Each band trails the one before it
      so the strip builds rather than snapping in. */
-  .corridor { --p: 0; }
+  .corridor {
+    --p: 0;
+  }
   .js .corridor > i {
     transform-origin: left center;
-    transform: scale3d(clamp(0, calc((var(--p) - var(--lag, 0)) * 2.4), 1), 1, 1);
+    transform: scale3d(
+      clamp(0, calc((var(--p) - var(--lag, 0)) * 2.4), 1),
+      1,
+      1
+    );
   }
-  .corridor > i:nth-child(2) { --lag: 0.10; }
-  .corridor > i:nth-child(3) { --lag: 0.20; }
-  .corridor > i:nth-child(4) { --lag: 0.30; }
+  .corridor > i:nth-child(2) {
+    --lag: 0.1;
+  }
+  .corridor > i:nth-child(3) {
+    --lag: 0.2;
+  }
+  .corridor > i:nth-child(4) {
+    --lag: 0.3;
+  }
 
   /* A photograph drifts a little slower than the page around it. Six percent
      of its own height reads as depth without being noticed as an effect. */
-  .drift { --p: 0.5; }
+  .drift {
+    --p: 0.5;
+  }
   .js .drift {
     transform: translate3d(0, calc((var(--p) - 0.5) * 6%), 0) scale(1.06);
     will-change: transform;
@@ -532,7 +768,9 @@
   @media (prefers-reduced-motion: reduce) {
     .js .slab,
     .js .corridor > i,
-    .js .drift { transform: none; }
+    .js .drift {
+      transform: none;
+    }
   }
 
   /* ---- The corridor ------------------------------------------------------ */
@@ -542,7 +780,10 @@
     width: 100%;
     overflow: hidden;
   }
-  .corridor > i { display: block; height: 100%; }
+  .corridor > i {
+    display: block;
+    height: 100%;
+  }
   /* `.round-end` is retired: the half-round only works where the strip sits on
      chalk with space beneath it. Flush against the next section it cut a notch
      out of the band and showed the ground through. */
@@ -556,8 +797,14 @@
      of its own height is enough to read as depth and small enough that nobody
      notices it as an effect — which is the point. */
   @media (prefers-reduced-motion: reduce) {
-    .corridor > i { animation: none; transform: none; }
-    .drift        { animation: none; transform: none; }
+    .corridor > i {
+      animation: none;
+      transform: none;
+    }
+    .drift {
+      animation: none;
+      transform: none;
+    }
   }
 
   /* ---- Pathway card ------------------------------------------------------ */
@@ -588,12 +835,17 @@
     pointer-events: none;
     transition: transform 640ms var(--ease-out-soft);
   }
-  .pathway:hover { transform: translateY(-6px); }
-  .pathway:hover::after { transform: scale(1.12) rotate(-7deg); }
+  .pathway:hover {
+    transform: translateY(-6px);
+  }
+  .pathway:hover::after {
+    transform: scale(1.12) rotate(-7deg);
+  }
   .pathway .p-num {
     display: grid;
     place-items: center;
-    width: 32px; height: 32px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     border: 1.5px solid currentColor;
     font-size: 10.5px;
@@ -604,8 +856,12 @@
     font-size: clamp(22px, 2.3vw, 34px);
     margin-top: auto;
   }
-  .pathway .p-arrow { transition: transform 320ms var(--ease-brand); }
-  .pathway:hover .p-arrow { transform: translate(4px, -4px); }
+  .pathway .p-arrow {
+    transition: transform 320ms var(--ease-brand);
+  }
+  .pathway:hover .p-arrow {
+    transform: translate(4px, -4px);
+  }
 
   /* ---- Photograph crops --------------------------------------------------
    * The hero cell is 5:4 on phones, 4:3 on tablets and 10:11 on desktop, so a
@@ -613,20 +869,30 @@
    * the lower two thirds of the frame; the wide crops have to sit low to keep
    * the screen, the faces and the laptops, while the tall desktop crop can
    * afford to sit higher.                                                    */
-  .crop-hero      { object-position: 50% 88%; }
+  .crop-hero {
+    object-position: 50% 88%;
+  }
   /* The membership photograph is a 1.78 landscape and the three people sit
    * right of centre, so the crop has to follow them. The narrow cells lose
    * only a third of the width and centre the group at 62%; the 9:10 desktop
    * cell loses half the frame and needs 78% to keep the standing figure and
    * the colleague on the right from being cut off at the edge.              */
-  .crop-community { object-position: 62% 50%; }
+  .crop-community {
+    object-position: 62% 50%;
+  }
   /* Every stand-in is portrait (0.63–0.80). Cropped into a wide band they
      default to the middle of the frame, which lands on foreheads — the people
      sit in the lower half of all three. */
-  .crop-band      { object-position: 50% 72%; }
+  .crop-band {
+    object-position: 50% 72%;
+  }
   @media (min-width: 1024px) {
-    .crop-hero      { object-position: 50% 62%; }
-    .crop-community { object-position: 78% 50%; }
+    .crop-hero {
+      object-position: 50% 62%;
+    }
+    .crop-community {
+      object-position: 78% 50%;
+    }
   }
 
   /* ---- Stat -------------------------------------------------------------- */
@@ -641,16 +907,34 @@
   /* ---- Patterns ---------------------------------------------------------- */
   .pat-grid {
     background-image:
-      repeating-linear-gradient(90deg, color-mix(in srgb, var(--pat, #1D1D1B) 8%, transparent) 0 1px, transparent 1px 30px),
-      repeating-linear-gradient(0deg,  color-mix(in srgb, var(--pat, #1D1D1B) 8%, transparent) 0 1px, transparent 1px 30px);
+      repeating-linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--pat, #1d1d1b) 8%, transparent) 0 1px,
+        transparent 1px 30px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        color-mix(in srgb, var(--pat, #1d1d1b) 8%, transparent) 0 1px,
+        transparent 1px 30px
+      );
   }
   .js .pat-sweep {
-    -webkit-mask-image: linear-gradient(115deg, #000 0 var(--sweep), transparent calc(var(--sweep) + 24%));
-    mask-image: linear-gradient(115deg, #000 0 var(--sweep), transparent calc(var(--sweep) + 24%));
+    -webkit-mask-image: linear-gradient(
+      115deg,
+      #000 0 var(--sweep),
+      transparent calc(var(--sweep) + 24%)
+    );
+    mask-image: linear-gradient(
+      115deg,
+      #000 0 var(--sweep),
+      transparent calc(var(--sweep) + 24%)
+    );
     transition: --sweep 1600ms var(--ease-out-soft);
   }
   .js .is-in .pat-sweep,
-  .js .pat-sweep.is-in { --sweep: 132%; }
+  .js .pat-sweep.is-in {
+    --sweep: 132%;
+  }
 
   /* ---- Reveal ------------------------------------------------------------
    * Progressive enhancement only. The hidden start state is scoped to .js
@@ -663,19 +947,44 @@
       opacity 720ms var(--ease-out-soft) var(--d, 0ms),
       transform 720ms var(--ease-out-soft) var(--d, 0ms);
   }
-  .js .reveal.is-in { opacity: 1; transform: none; }
+  .js .reveal.is-in {
+    opacity: 1;
+    transform: none;
+  }
 
-  .js .reveal-img { clip-path: inset(0 0 100% 0); transition: clip-path 1000ms var(--ease-out-soft); }
-  .js .reveal-img.is-in { clip-path: inset(0 0 0 0); }
-  .js .reveal-img img { transform: scale(1.08); transition: transform 1600ms var(--ease-out-soft); }
-  .js .reveal-img.is-in img { transform: scale(1); }
+  .js .reveal-img {
+    clip-path: inset(0 0 100% 0);
+    transition: clip-path 1000ms var(--ease-out-soft);
+  }
+  .js .reveal-img.is-in {
+    clip-path: inset(0 0 0 0);
+  }
+  .js .reveal-img img {
+    transform: scale(1.08);
+    transition: transform 1600ms var(--ease-out-soft);
+  }
+  .js .reveal-img.is-in img {
+    transform: scale(1);
+  }
 
   @media (prefers-reduced-motion: reduce) {
-    .js .reveal { opacity: 1; transform: none; }
-    .js .reveal-img { clip-path: none; }
-    .js .reveal-img img { transform: none; }
-    .js .pat-sweep { -webkit-mask-image: none; mask-image: none; }
-    .pathway:hover { transform: none; }
+    .js .reveal {
+      opacity: 1;
+      transform: none;
+    }
+    .js .reveal-img {
+      clip-path: none;
+    }
+    .js .reveal-img img {
+      transform: none;
+    }
+    .js .pat-sweep {
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+    .pathway:hover {
+      transform: none;
+    }
   }
 }
 
@@ -689,9 +998,14 @@
 @media print {
   /* px, not a paper name: the page box IS the layout viewport in print, so
      this is what keeps the desktop breakpoints (lg: = 1024px) alive. */
-  @page { size: 1600px 1100px; margin: 0; }
+  @page {
+    size: 1600px 1100px;
+    margin: 0;
+  }
 
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
@@ -702,12 +1016,29 @@
     transform: none !important;
     clip-path: none !important;
   }
-  .js .reveal-img img { transform: none !important; }
-  .js .pat-sweep { -webkit-mask-image: none !important; mask-image: none !important; }
+  .js .reveal-img img {
+    transform: none !important;
+  }
+  .js .pat-sweep {
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+  }
 
-  #nav { position: static !important; box-shadow: none !important; background: var(--color-paper) !important; }
-  #menu-btn, #mobile-menu, .sr-only { display: none !important; }
+  #nav {
+    position: static !important;
+    box-shadow: none !important;
+    background: var(--color-paper) !important;
+  }
+  #menu-btn,
+  #mobile-menu,
+  .sr-only {
+    display: none !important;
+  }
 
-  a { text-decoration: none !important; }
-  .pathway:hover { transform: none !important; }
+  a {
+    text-decoration: none !important;
+  }
+  .pathway:hover {
+    transform: none !important;
+  }
 }
