@@ -1,17 +1,17 @@
-# AI Hub, Ghana — website
+# AI Hub, Ghana — Website
 
-A two-page static site built with **Astro 7** and **Tailwind CSS v4**.
-No server, no backend — the output in `dist/` is a folder of plain HTML,
-CSS, and images that can be dropped on any static host.
+A two-page event and registration website for the **AI Hub, Ghana Launch & Live AI Showcase at GABS 2026** in Accra.
 
-| Route           | Source page                    |
-| --------------- | ------------------------------ |
-| `/`             | `src/pages/index.astro`        |
-| `/get-involved` | `src/pages/get-involved.astro` |
+Built with **Astro 5** and **Tailwind CSS v4**, featuring an event-first UI and a serverless Google Sheets registration backend.
+
+| Route | Source page | Purpose |
+|---|---|---|
+| `/` | `src/pages/index.astro` | Launch event overview, GABS 2026 programme, bilateral benefits, services, and AI ecosystem showcase |
+| `/get-involved` | `src/pages/get-involved.astro` | Registration form with interest selection and event participation details |
 
 ---
 
-## Quick start
+## Quick Start
 
 ```bash
 npm install
@@ -19,196 +19,122 @@ npm run dev        # dev server with HMR at http://localhost:4321
 ```
 
 ```bash
+npm test           # run registration service & API test suite
 npm run build      # production build → dist/
 npm run preview    # serve the dist/ build locally
 ```
 
 ---
 
-## Design workflow
-
-If you want a visual, content, or interaction change, you can describe it in plain language without needing to know Git, branches, or pull requests. The workflow is simple:
-
-1. Open the project in Claude Code.
-2. Describe the change in everyday terms, such as: "Change the hero background to a warm orange and make the CTA button bigger."
-3. Claude Code updates the site, validates that it still builds, and opens a pull request for review.
-4. The engineering team may refine the implementation before launch, which is normal and not a sign anything was done wrong.
-
-The goal is to keep design iteration fast while leaving code quality, structure, and review to the engineering team. If a change touches configuration, backend logic, or secrets, Claude Code will flag that constraint and the team can decide the safest route.
-
----
-
-## Project structure
+## Project Structure
 
 ```
 src/
 ├── layouts/
 │   └── BaseLayout.astro          # Shared shell: <head>, nav, footer, global scripts
 ├── pages/
-│   ├── index.astro               # Landing page (/)
-│   └── get-involved.astro        # Interest page (/get-involved)
+│   ├── index.astro               # Launch & Showcase landing page (/)
+│   └── get-involved.astro        # Registration & participation page (/get-involved)
 ├── components/
 │   ├── common/
-│   │   ├── Footer.astro
-│   │   └── IconSprite.astro      # Inline SVG symbol defs — no icon HTTP requests
+│   │   ├── Footer.astro          # Dual-variant footer (home vs participation)
+│   │   ├── Icon.astro
+│   │   └── IconSprite.astro      # Inline SVG symbol definitions
 │   ├── navigation/
-│   │   └── Navbar.astro
-│   ├── landing/                  # One component per section of the landing page
-│   │   ├── Hero.astro
-│   │   ├── GabsLaunch.astro
-│   │   ├── WhyGhana.astro
-│   │   ├── WorkAreas.astro
-│   │   ├── Corridor.astro
-│   │   ├── Membership.astro
-│   │   ├── StatBand.astro
-│   │   ├── Partners.astro
-│   │   └── JoinCTA.astro
-│   └── get-involved/
-│       ├── PageHeader.astro
-│       ├── WaysToJoin.astro
-│       ├── InterestForm.astro    # Accepts selectedInterest prop from URL param
-│       ├── Timeline.astro
-│       └── Reasons.astro
+│   │   └── Navbar.astro          # V2 header with mobile menu drawer & quick register CTA
+│   └── landing/                  # Homepage modular components
+│       ├── Hero.astro            # Event hero with Kempinski venue details & drift
+│       ├── GabsLaunch.astro      # GABS 2026 summit & dual session programme
+│       ├── WhyGhana.astro        # Bilateral benefit cards & restored corridor
+│       ├── WorkAreas.astro       # 5 numbered service pillars
+│       ├── Partners.astro        # Ecosystem showcase (minoHealth AI Labs & KNUST RAIL)
+│       └── JoinCTA.astro         # Closing call-to-action & corridor ribbon
 ├── scripts/
-│   ├── navigation.ts             # Sticky nav + mobile menu toggle
-│   ├── animations.ts             # Scroll-reveal (IntersectionObserver) + count-up
-│   ├── scroll-scrub.ts           # Parallax / slab scrubbing via --p CSS var
-│   ├── form.ts                   # Form submit → mailto + ?interest= pre-selection
+│   ├── navigation.ts             # Sticky nav + mobile drawer toggle + section scroll-spy
+│   ├── scroll-scrub.ts           # Parallax / scroll-scrubbing + research-visual triggers
+│   ├── participation.ts          # Registration form client logic (idempotency, chips, UX)
+│   ├── animations.ts             # IntersectionObserver reveal hooks
 │   └── utils/
-│       └── motion.ts             # Shared isStatic / shouldReduceMotion helpers
+│       └── motion.ts             # isStatic / shouldReduceMotion helpers
+├── services/
+│   ├── registration-service.cjs  # Payload validation, formula escaping, 10-column row builder
+│   └── registration-api.cjs      # Google Sheets auth, idempotency check, append handler
 └── styles/
-    ├── global.css                # @import "tailwindcss" + @theme tokens + all styles
-    └── print.css                 # Full print stylesheet (served as media="print")
+    ├── global.css                # Tailwind CSS v4 entrypoint + theme tokens
+    ├── launch.css                # Event design system, layout, typography, animations
+    ├── participation.css         # Form panel, chip inputs, opportunity cards
+    └── print.css                 # Print media stylesheet
+
+api/
+├── registrations.js              # Serverless endpoint for POST /api/registrations
+└── register.js                   # Alias endpoint for POST /api/register
+
+tests/
+└── registration.test.cjs         # Contract test suite for validation, escaping & API responses
 
 public/
 ├── images/
-│   ├── photos/                   # WebP + original fallback for each photograph
-│   ├── partners/                 # GABS 2026 logo
-│   ├── favicon/                  # Favicons + web manifest
-│   └── visuals/                  # og-share.png (1200×630)
+│   ├── photos/                   # High-res photos (team-wide-02, photo-three-bright, photo-pair-close)
+│   ├── partners/                 # GABS 2026 logos
+│   └── favicon/                  # Favicons & site manifest
 └── robots.txt
 ```
 
 ---
 
-## Styling
+## Registration Integration (Google Sheets API)
 
-**`src/styles/global.css` is the single source of truth for all screen styles.**
-`src/styles/print.css` is the print-only counterpart.
+Form submissions on `/get-involved` post to `POST /api/registrations`. On Vercel, requests are handled by the serverless function in `api/registrations.js`.
 
-Both use **Tailwind CSS v4** configured in CSS, not in a JS/TS config file.
-The design tokens — colours, typography, motion easings — live in the
-`@theme { }` block at the top of `global.css`. Edit tokens there, not inline.
+### 10-Column Schema
 
-Tailwind v4 is wired into the Vite pipeline via `@tailwindcss/vite` in
-`astro.config.mjs`. There is no `tailwind.config.*` file. The `@source`
-directive in `global.css` tells Tailwind which files to scan for class names:
+Each submission is appended as a row to the configured Google Sheet:
+1. `Registration ID` (UUID v4)
+2. `Event ID` (`ai-hub-ghana-showcase-2026-11-25`)
+3. `Timestamp` (ISO 8601 UTC)
+4. `Idempotency Key` (UUID generated on client form load)
+5. `Full Name`
+6. `Work Email`
+7. `Organisation`
+8. `Country`
+9. `Interest Areas` (Semicolon-separated tags)
+10. `Context / Notes`
 
-```css
-/* src/styles/global.css */
-@import "tailwindcss";
-@source "../**/*.{astro,html,js,jsx,ts,tsx}";
+### Security & Integrity
 
-@theme {
-  --color-teal: #2a7a5e;
-  /* … all other tokens … */
-}
-```
+- **Formula Injection Defense**: Any user input beginning with `=`, `+`, `-`, or `@` is automatically prefixed with `'` (`sheetText`) to prevent formula execution in spreadsheet software.
+- **Idempotency**: Submissions check column D for an existing idempotency key before inserting, returning `200 OK` with `{ duplicate: true }` on duplicate network requests.
+- **Input Validation**: Strict limits on field lengths and regex email validation; invalid submissions return `422 Unprocessable Entity` with field-specific errors.
 
-If you add a new file type or directory, update `@source` accordingly.
+### Environment Variables
 
----
+Configure the following environment variables in your Vercel Project Settings:
 
-## Two behaviours that must not break
-
-- **`?static=1`** appended to any URL disables scroll reveals and the
-  scroll-driven decoration, leaving the page in its settled state. This is used
-  for screenshots and PDF exports so the capture does not show a half-revealed
-  page. Keep it working.
-
-- **Motion is gated on the `js` class**, injected by an inline script in
-  `BaseLayout.astro`'s `<head>`. Every animation and hidden state is scoped to
-  `.js` in the CSS. If the script fails, content is still fully visible.
-  Follow the same pattern for any new animations. All motion is also disabled
-  under `prefers-reduced-motion: reduce`.
+| Variable | Description |
+|---|---|
+| `GOOGLE_SERVICE_ACCOUNT_EMAIL` | Service Account email with Editor permissions to the Sheet |
+| `GOOGLE_PRIVATE_KEY` | Private key for the Service Account (PEM format with newlines) |
+| `GOOGLE_SHEET_ID` | The ID from your Google Sheet URL (`/spreadsheets/d/<ID>/edit`) |
+| `GOOGLE_SHEET_RANGE` | *(Optional)* Sheet range/tab, e.g. `Registrations!A:J` (defaults to `A:J`) |
+| `GOOGLE_SHEET_NAME` | *(Optional)* Tab name if `GOOGLE_SHEET_RANGE` is not explicitly set |
 
 ---
 
-## Images
+## Styling & Design System
 
-Photos are served as `<picture>` elements with **WebP sources** and original
-fallbacks. The WebP files were converted offline at quality 82; originals are
-kept alongside them as fallbacks for older browsers.
-
-| File               | Original       | WebP  |
-| ------------------ | -------------- | ----- |
-| `team-portrait-02` | 322 KB (JPEG)  | 81 KB |
-| `photo-table-four` | 1,782 KB (PNG) | 74 KB |
-| `photo-standing`   | 1,766 KB (PNG) | 77 KB |
-| `team-wide-01`     | 1,808 KB (PNG) | 82 KB |
+- **Tailwind CSS v4**: Embedded via `@tailwindcss/vite` without legacy config files.
+- **Event-First Design**: Custom component classes in `launch.css` and `participation.css` provide polished typography, glassmorphism, responsive navigation drawer, and animated SVGs.
+- **`?static=1` Support**: Appending `?static=1` disables scroll animations and reveals, ideal for screenshot capture and automated testing.
+- **Accessibility**: Motion respect for `prefers-reduced-motion: reduce`, ARIA state attributes on mobile menu and collapsible disclosures.
 
 ---
 
-## Deployment
+## Verification & Deployment
 
-`npm run build` produces a self-contained `dist/` folder. Deploy that folder
-to any static host — GitHub Pages, Netlify, Cloudflare Pages, S3, plain nginx.
-
-**No server-side runtime is required.** Astro's `output: 'static'` mode
-pre-renders every page to HTML at build time.
-
-For CI, the only command needed is:
-
+Run verification tests locally:
 ```bash
-npm ci && npm run build
+npm test
+npm run build
 ```
 
-The build output is deterministic — no environment variables are required for
-the current feature set.
-
-### Setting the production domain
-
-Add a `site` option to `astro.config.mjs` once the production URL is known.
-This enables absolute canonical URLs and correct Open Graph `og:url` values:
-
-```js
-// astro.config.mjs
-export default defineConfig({
-  site: "https://aihub.ghana.example.com",
-  // …
-});
-```
-
----
-
-## Known gaps — please read before going live
-
-These are deliberate omissions. They require a client decision, not a
-developer fix.
-
-1. **The register form has no backend.** Submitting it builds a plain-text
-   summary and opens the visitor's mail client via `mailto:`. If a visitor has
-   no mail client configured, nothing is recorded. Moving this to a form
-   endpoint (Resend, Formspree, Netlify Forms, a small serverless function) is
-   the highest-value single change to make before launch.
-
-2. **`#privacy` and `#imprint` in both footers go nowhere.** They need real
-   pages. Legal text must come from the client — it was deliberately not
-   invented.
-
-3. **The production domain is not set in `astro.config.mjs`.** Without it,
-   `<link rel="canonical">` and `og:url` are omitted from the built HTML.
-   Add `site: 'https://…'` once the domain is confirmed.
-
-4. **Two dates on the register page are unverified** — "2026 — Operations
-   begin" and "From 2027 — Corridor at scale". Confirm with the client before
-   going live.
-
----
-
-## Fonts
-
-Mona Sans is loaded from Google Fonts as a variable font (width + weight axes).
-The `<link>` tags live in `src/layouts/BaseLayout.astro`. If the site must work
-offline or without third-party requests, self-host the font files and update
-those tags.
+Deploying to Vercel automatically deploys the static frontend to the global Edge network and wires `api/registrations.js` as a serverless endpoint.

@@ -3,19 +3,21 @@
   "version": "1.0.0",
   "private": true,
   "description": "AI Hub, Ghana — static two-page site (landing + register interest)",
-  "engines": {
-    "node": ">=22.12.0"
-  },
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "check": "astro check",
+    "test": "node tests/registration.test.cjs"
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4.3.3",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.3.1",
     "tailwindcss": "^4.3.3"
+  },
+  "dependencies": {
+    "googleapis": "^178.1.1"
   }
 }

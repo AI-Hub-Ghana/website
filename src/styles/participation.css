@@ -1,0 +1,786 @@
+body.participation-page {
+        margin: 0;
+        color: #0b2926;
+        background: #f2f2ef;
+        font-family: "Mona Sans", "Helvetica Neue", sans-serif;
+      }
+      .participation-page .skip-link {
+        position: fixed;
+        top: 12px;
+        left: 16px;
+        z-index: 100;
+        padding: 12px 20px;
+        color: #f2f2ef;
+        background: #0b2926;
+        transform: translateY(-180%);
+      }
+      .participation-page .skip-link:focus {
+        transform: translateY(0);
+      }
+      .participation-main {
+        padding-block: 64px 92px;
+      }
+      .participation-back {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 48px;
+        font-size: 12px;
+        font-weight: 650;
+        text-decoration: none;
+      }
+      .participation-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+        column-gap: clamp(38px, 7vw, 112px);
+        row-gap: 26px;
+        align-items: start;
+      }
+      .participation-intro h1 {
+        margin: 20px 0 24px;
+        max-width: 13ch;
+        font-size: clamp(42px, 4.2vw, 60px);
+        font-weight: 550;
+        line-height: 1.08;
+        letter-spacing: -0.045em;
+      }
+      .participation-intro > p:not(.eyebrow) {
+        margin: 0;
+        max-width: 35ch;
+        font-size: 16px;
+        line-height: 1.7;
+        color: #4b625b;
+      }
+      .participation-next {
+        margin-top: 52px;
+        border-top: 1px solid #cbd3cd;
+        padding-top: 24px;
+      }
+      .participation-next h2 {
+        margin: 0 0 22px;
+        font-size: 13px;
+        font-weight: 700;
+      }
+      .participation-next ol {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        display: grid;
+        gap: 20px;
+      }
+      .participation-next li {
+        display: grid;
+        grid-template-columns: 25px 1fr;
+        gap: 12px;
+        font-size: 13px;
+        line-height: 1.6;
+        color: #4b625b;
+      }
+      .participation-next li > span:first-child {
+        font-size: 11px;
+        font-variant-numeric: tabular-nums;
+        color: #327563;
+      }
+      .participation-next strong {
+        display: block;
+        color: #0b2926;
+        font-weight: 650;
+      }
+      .participation-contact {
+        margin-top: 32px;
+        font-size: 12px;
+        line-height: 1.8;
+        color: #4b625b;
+      }
+      .participation-contact a {
+        display: block;
+        width: fit-content;
+        color: #0b2926;
+        font-weight: 600;
+        text-underline-offset: 4px;
+        overflow-wrap: anywhere;
+      }
+      .participation-form-panel {
+        padding: 36px;
+        background: #fff;
+        border: 1px solid #dce2dc;
+        border-radius: 6px;
+        scroll-margin-top: 112px;
+      }
+      .participation-route-label {
+        margin: 0 0 14px;
+        font-size: 12px;
+        font-weight: 650;
+      }
+      .participation-routes {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .participation-route {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        min-height: 44px;
+        padding: 9px 14px;
+        border: 1px solid #d4ddd5;
+        border-radius: 999px;
+        color: #355149;
+        font-size: 12px;
+        font-weight: 600;
+        text-decoration: none;
+        transition:
+          background 0.18s,
+          border-color 0.18s,
+          color 0.18s;
+      }
+      .participation-route:hover {
+        border-color: #367661;
+        background: #f3f7f1;
+      }
+      .participation-route[aria-current="true"] {
+        background: #0b2926;
+        border-color: #0b2926;
+        color: #fff;
+      }
+      .participation-route[aria-current="true"]:before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #b8f269;
+      }
+      .participation-event-note {
+        margin: 18px 0 0;
+        padding: 13px 15px;
+        border-left: 2px solid #669b46;
+        background: #f0f5e9;
+        color: #3f5946;
+        font-size: 12px;
+        line-height: 1.65;
+      }
+      .participation-event-note a {
+        color: #0b2926;
+        text-underline-offset: 3px;
+        font-weight: 650;
+      }
+      .participation-form {
+        margin-top: 28px;
+      }
+      .participation-fields {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 22px 18px;
+      }
+      .participation-field {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        min-width: 0;
+      }
+      .participation-field label,
+      .participation-interests legend {
+        color: #163b30;
+        font-size: 12px;
+        font-weight: 650;
+      }
+      .participation-field input,
+      .participation-field textarea,
+      .participation-draft textarea {
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+        padding: 12px 13px;
+        border: 1px solid #7b8c80;
+        border-radius: 3px;
+        color: #0b2926;
+        background: #fbfcf9;
+        font: inherit;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+      .participation-field input {
+        min-height: 46px;
+      }
+      .participation-field textarea {
+        min-height: 112px;
+        resize: vertical;
+      }
+      .participation-field textarea::placeholder {
+        color: #5c7063;
+      }
+      .participation-page
+        :is(input, textarea, button, a, summary):focus-visible {
+        outline: 2px solid #2a7a5e;
+        outline-offset: 4px;
+      }
+      .participation-interests {
+        border: 0;
+        padding: 0;
+        margin: 25px 0;
+        min-width: 0;
+      }
+      .participation-interests legend {
+        margin-bottom: 12px;
+        padding: 0;
+      }
+      .participation-optional {
+        color: #5c7063;
+        font-weight: 400;
+      }
+      .participation-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .participation-chip {
+        position: relative;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+        padding: 8px 12px;
+        border: 1px solid #d5ded5;
+        border-radius: 4px;
+        color: #466055;
+        background: #fff;
+        font-size: 11px;
+        font-weight: 550;
+        line-height: 1.5;
+        transition:
+          background 0.18s,
+          border-color 0.18s;
+      }
+      .participation-chip input {
+        appearance: none;
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        opacity: 0;
+        margin: 0;
+      }
+      .participation-chip:has(input:checked) {
+        background: #edf6e6;
+        border-color: #88a977;
+        color: #153b2b;
+      }
+      .participation-chip span:before {
+        content: "+";
+        display: inline-block;
+        width: 16px;
+        font-size: 14px;
+        font-weight: 450;
+      }
+      .participation-chip:has(input:checked) span:before {
+        content: "✓";
+      }
+      .participation-chip:has(input:focus-visible) {
+        outline: 2px solid #2a7a5e;
+        outline-offset: 3px;
+      }
+      .participation-submit {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 17px;
+        align-items: center;
+        margin-top: 24px;
+      }
+      .participation-submit .button {
+        border: 0;
+        cursor: pointer;
+      }
+      .participation-submit p {
+        flex: 1 1 160px;
+        margin: 0;
+        font-size: 11px;
+        line-height: 1.6;
+        color: #5d7164;
+      }
+      .participation-privacy-link {
+        margin: 18px 0 0;
+        font-size: 10px;
+        line-height: 1.6;
+        color: #6a7b70;
+      }
+      .participation-privacy-link a {
+        text-underline-offset: 3px;
+      }
+      #registration-status:empty {
+        margin: 0;
+      }
+      .participation-draft {
+        padding: 24px 0 0;
+        margin-top: 26px;
+        border-top: 1px solid #ccd7cc;
+      }
+      .participation-draft h2 {
+        margin: 0 0 10px;
+        font-size: 19px;
+        letter-spacing: -0.025em;
+      }
+      .participation-draft p {
+        margin: 0 0 14px;
+        font-size: 12px;
+        line-height: 1.65;
+        color: #496152;
+      }
+      .participation-draft textarea {
+        display: block;
+        min-height: 210px;
+        resize: vertical;
+        margin: 10px 0 14px;
+        font-size: 12px;
+      }
+      .participation-draft label {
+        font-size: 11px;
+        font-weight: 650;
+      }
+      .participation-draft-controls {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+      .participation-copy {
+        padding: 10px 15px;
+        min-height: 44px;
+        border: 1px solid #a3b6a5;
+        border-radius: 3px;
+        background: #fff;
+        font: inherit;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .participation-draft-controls a {
+        font-size: 12px;
+        font-weight: 650;
+        text-underline-offset: 4px;
+      }
+      .participation-draft .participation-copy-status {
+        margin: 12px 0 0;
+      }
+      .participation-privacy {
+        grid-column: 2;
+        margin-top: -10px;
+        max-width: 65ch;
+        color: #5c7063;
+        font-size: 11px;
+        line-height: 1.7;
+        scroll-margin-top: 110px;
+      }
+      .participation-privacy summary {
+        width: fit-content;
+        cursor: pointer;
+        font-weight: 600;
+        min-height: 30px;
+      }
+      .participation-privacy p {
+        margin: 12px 0 0;
+      }
+      .participation-footer-inner {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 22px;
+        padding-block: 27px;
+        border-top: 1px solid #ccd5cb;
+      }
+      .participation-footer-inner p {
+        margin: 0;
+        font-size: 11px;
+      }
+      .participation-footer-inner nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px;
+      }
+      .participation-footer-inner a {
+        font-size: 11px;
+        text-decoration: none;
+      }
+      .participation-footer-inner a:hover {
+        text-decoration: underline;
+        text-underline-offset: 4px;
+      }
+      .participation-page [hidden] {
+        display: none !important;
+      }
+      @media (max-width: 950px) {
+        .participation-grid {
+          gap: 36px;
+          grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+        }
+        .participation-form-panel {
+          padding: 24px;
+        }
+        .participation-route {
+          font-size: 11px;
+          padding: 8px 11px;
+        }
+      }
+      @media (max-width: 760px) {
+        .participation-main {
+          padding-block: 30px 58px;
+        }
+        .participation-back {
+          margin-bottom: 32px;
+        }
+        .participation-grid {
+          grid-template-columns: 1fr;
+          gap: 32px;
+        }
+        .participation-intro h1 {
+          max-width: 12ch;
+          font-size: clamp(44px, 8vw, 58px);
+        }
+        .participation-intro > p:not(.eyebrow) {
+          max-width: 48ch;
+          font-size: 15px;
+        }
+        .participation-next {
+          display: none;
+        }
+        .participation-next ol {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 20px;
+        }
+        .participation-contact {
+          margin-top: 20px;
+        }
+        .participation-privacy {
+          grid-column: 1;
+          margin-top: -12px;
+        }
+        .participation-form-panel {
+          padding: 24px 20px;
+        }
+      }
+      @media (max-width: 420px) {
+        .participation-fields {
+          grid-template-columns: 1fr;
+          gap: 18px;
+        }
+        .participation-form-panel {
+          padding: 22px 16px;
+        }
+        .participation-next ol {
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+      }
+      @media print {
+        .participation-main {
+          padding: 24px 0;
+        }
+        .participation-intro {
+          position: static;
+        }
+        .participation-routes,
+        .participation-back,
+        .menu-button {
+          display: none;
+        }
+        .participation-grid {
+          grid-template-columns: 1fr 1.3fr;
+          gap: 30px;
+        }
+      }
+      /* Clear, warm and readable for the Hub's business audience. */
+      .participation-main {
+        padding-block: 44px 76px;
+      }
+      .participation-back {
+        margin-bottom: 36px;
+        font-size: 14px;
+      }
+      .participation-grid {
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+        column-gap: clamp(32px, 5vw, 76px);
+      }
+      .participation-intro > p:not(.eyebrow) {
+        font-size: 17px;
+        max-width: 39ch;
+      }
+      .participation-photo {
+        margin: 32px 0 0;
+      }
+      .participation-photo img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 1.65;
+        object-fit: cover;
+        border-radius: 4px;
+      }
+      .participation-photo figcaption {
+        margin-top: 9px;
+        font-size: 12px;
+        color: #566c61;
+      }
+      .participation-next {
+        margin-top: 30px;
+        padding-top: 22px;
+        border-color: #ccd8cf;
+      }
+      .participation-next h2 {
+        font-size: 17px;
+        line-height: 1.4;
+        font-weight: 600;
+        margin-bottom: 16px;
+      }
+      .participation-next > p {
+        margin: 0;
+        max-width: 42ch;
+        color: #4b625b;
+        font-size: 15px;
+        line-height: 1.65;
+      }
+      .participation-next li {
+        font-size: 15px;
+        line-height: 1.6;
+      }
+      .participation-next li > span:first-child {
+        font-size: 12px;
+        color: #2a7a5e;
+      }
+      .participation-contact {
+        font-size: 14px;
+        margin-top: 24px;
+      }
+      .participation-form-panel {
+        padding: 32px;
+        border-radius: 5px;
+        border-color: #ccd8cf;
+        background: #fff;
+      }
+      .participation-form-heading {
+        margin: 0 0 10px;
+        font-size: 27px;
+        font-weight: 550;
+        letter-spacing: -0.03em;
+      }
+      .participation-form-intro {
+        margin: 0 0 26px;
+        font-size: 15px;
+        line-height: 1.6;
+        color: #4b625b;
+        max-width: 48ch;
+      }
+      .participation-route-label {
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .participation-route {
+        font-size: 14px;
+        padding: 9px 13px;
+      }
+      .participation-route:hover {
+        border-color: #2a7a5e;
+        background: #f0f8f4;
+      }
+      .participation-route[aria-current="true"] {
+        background: #2a7a5e;
+        border-color: #2a7a5e;
+      }
+      .participation-route[aria-current="true"]:before {
+        background: #eac15d;
+      }
+      .participation-event-note {
+        border-left: 3px solid #eac15d;
+        background: #faf5e4;
+        font-size: 14px;
+      }
+      .participation-field label,
+      .participation-interests legend {
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .participation-field input,
+      .participation-field textarea {
+        font-size: 16px;
+        min-height: 48px;
+        background: #f9faf7;
+      }
+      .participation-chip {
+        font-size: 13px;
+        min-height: 44px;
+        font-weight: 500;
+      }
+      .participation-chip:has(input:checked) {
+        background: #e9f5ef;
+        border-color: #2a7a5e;
+        color: #205d49;
+      }
+      .participation-submit p,
+      .participation-privacy-link {
+        font-size: 13px;
+      }
+      .participation-submit p {
+        flex-basis: 190px;
+      }
+      .participation-draft p {
+        font-size: 15px;
+      }
+      .participation-draft textarea {
+        font-size: 16px;
+      }
+      .participation-draft label,
+      .participation-copy,
+      .participation-draft-controls a {
+        font-size: 14px;
+      }
+      .participation-privacy {
+        font-size: 13px;
+        margin-top: 24px;
+        padding-top: 18px;
+        border-top: 1px solid #dce2dc;
+      }
+      .participation-reasons {
+        margin-top: 72px;
+        padding-top: 40px;
+        border-top: 1px solid #ccd8cf;
+      }
+      .participation-reasons h2 {
+        margin: 14px 0 30px;
+        font-size: clamp(30px, 3.2vw, 44px);
+        font-weight: 550;
+        line-height: 1.15;
+        letter-spacing: -0.035em;
+      }
+      .participation-reason-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 28px;
+      }
+      .participation-reason {
+        padding-top: 20px;
+        border-top: 3px solid #2a7a5e;
+      }
+      .participation-reason:nth-child(2) {
+        border-color: #bf4639;
+      }
+      .participation-reason:nth-child(3) {
+        border-color: #eac15d;
+      }
+      .participation-reason:nth-child(4) {
+        border-color: #74c2ac;
+      }
+      .participation-reason h3 {
+        font-size: 20px;
+        line-height: 1.25;
+        font-weight: 550;
+        letter-spacing: -0.02em;
+        margin: 0 0 14px;
+      }
+      .participation-reason p {
+        font-size: 15px;
+        line-height: 1.7;
+        color: #4b625b;
+        margin: 0 0 14px;
+      }
+      .participation-reason a {
+        display: inline-block;
+        font-size: 13px;
+        font-weight: 550;
+        line-height: 1.6;
+        text-underline-offset: 4px;
+        color: #205d49;
+      }
+      .participation-image-note {
+        margin-top: 30px;
+        color: #566c61;
+        font-size: 12px;
+        line-height: 1.7;
+        max-width: 82ch;
+      }
+      .participation-image-note summary {
+        cursor: pointer;
+        width: fit-content;
+        min-height: 28px;
+      }
+      .participation-image-note p {
+        margin: 8px 0 0;
+      }
+      .participation-footer-inner p,
+      .participation-footer-inner a {
+        font-size: 12px;
+      }
+      @media (max-width: 1100px) {
+        .participation-reason-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 30px;
+        }
+      }
+      @media (max-width: 950px) {
+        .participation-form-panel {
+          padding: 26px;
+        }
+        .participation-route {
+          font-size: 13px;
+          padding: 9px 12px;
+        }
+      }
+      @media (max-width: 760px) {
+        .participation-grid {
+          grid-template-columns: 1fr;
+          gap: 30px;
+        }
+        .participation-intro h1 {
+          max-width: 15ch;
+          font-size: clamp(40px, 8vw, 54px);
+        }
+        .participation-intro > p:not(.eyebrow) {
+          font-size: 16px;
+          max-width: 50ch;
+        }
+        .participation-photo {
+          margin-top: 24px;
+        }
+        .participation-photo img {
+          max-height: 260px;
+          aspect-ratio: 1.8;
+        }
+        .participation-next {
+          display: block;
+        }
+        .participation-next ol {
+          grid-template-columns: 1fr;
+        }
+        .participation-next li {
+          font-size: 14px;
+        }
+        .participation-main {
+          padding-block: 28px 52px;
+        }
+        .participation-back {
+          margin-bottom: 24px;
+        }
+        .participation-form-panel {
+          padding: 24px 20px;
+        }
+        .participation-reasons {
+          margin-top: 48px;
+          padding-top: 30px;
+        }
+        .participation-reason-grid {
+          gap: 24px;
+        }
+        .participation-reason h3 {
+          font-size: 19px;
+        }
+      }
+      @media (max-width: 480px) {
+        .participation-reason-grid {
+          grid-template-columns: 1fr;
+        }
+        .participation-form-panel {
+          padding: 24px 16px;
+        }
+        .participation-form-heading {
+          font-size: 26px;
+        }
+        .participation-photo img {
+          aspect-ratio: 1.65;
+        }
+      }

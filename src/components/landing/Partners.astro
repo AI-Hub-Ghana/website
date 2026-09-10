@@ -1,57 +1,78 @@
 ---
-// Partners section
+// Ecosystem section — V2: Ghana's AI ecosystem showcase with animated SVG
 ---
 <!-- =====================================================================
-     PARTNERS
+     ECOSYSTEM — Ghana's AI ecosystem with minoHealth and KNUST RAIL
      ===================================================================== -->
-<section id="partners" class="scroll-mt-20">
-  <div class="shell band-sm">
-    <div class="flex flex-col gap-5 max-w-[54ch]">
-      <p class="kicker reveal">For partners</p>
-      <h2 class="display d-md reveal" style="--d:80ms">
-        Anchored in a bilateral network.
-      </h2>
-      <p class="copy reveal max-w-none" style="--d:140ms">
-        Government institutions, universities, chambers of commerce, development
-        organisations and companies on both sides, each with a defined role in
-        keeping quality and trust in the corridor.
-      </p>
-      <a href="/get-involved#register" class="btn btn-ink self-start reveal mt-1" style="--d:200ms">
-        Start a conversation <svg class="w-[15px] h-[15px]" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-arrow-up-right"/></svg>
-      </a>
+<section class="ecosystem-section section-space" id="ecosystem" aria-labelledby="ecosystem-title">
+  <div class="page-shell">
+    <div class="section-intro">
+      <div>
+        <p class="eyebrow">A glimpse of Ghana's AI ecosystem</p>
+        <h2 id="ecosystem-title">Built here.<br>Relevant everywhere.</h2>
+      </div>
+      <p>Meet the companies and researchers applying AI to health, energy and agriculture. A starting point for European teams exploring Ghana's capabilities.</p>
     </div>
-  </div>
 
-  <!-- The five roles were a plain white list inside one solid coral panel:
-       five near-identical rows, nothing to look at, nothing to enter by. This
-       is the colour column set from BRAND-GUIDELINES §9 — one full-bleed
-       column per item, no gaps and no radius, the colour change doing the
-       dividing, with the icon each role is already assigned in §7. -->
-  <div class="grid sm:grid-cols-2 lg:grid-cols-5 mt-[clamp(26px,3vw,44px)]">
-    <div class="bg-paper-alt flex flex-col gap-3 p-[clamp(20px,2vw,28px)] reveal" style="--d:0ms">
-      <svg class="w-[26px] h-[26px] text-ink" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-landmark"/></svg>
-      <h3 class="heading text-[clamp(17px,1.5vw,21px)] text-ink mt-1">Government</h3>
-      <p class="text-[13px] leading-[1.55] text-body">Policy alignment with the National AI Strategy.</p>
+    <div class="ecosystem-grid">
+      <!-- minoHealth AI Labs — computer vision / health -->
+      <article class="ecosystem-feature">
+        <div class="research-visual" aria-hidden="true">
+          <span class="visual-label">COMPUTER VISION / HEALTH</span>
+          <svg viewBox="0 0 600 230" fill="none">
+            <path class="research-scan" d="M80 35V200" stroke="#EAC15D" stroke-width="1.5" opacity="0"/>
+            <defs>
+              <pattern id="pixel-field" width="15" height="15" patternUnits="userSpaceOnUse">
+                <circle cx="1" cy="1" r="1" fill="#74C2AC" opacity=".3"/>
+              </pattern>
+            </defs>
+            <rect width="600" height="230" fill="url(#pixel-field)"/>
+            <g transform="translate(225 40) rotate(-12 80 80)">
+              <rect x="-64" y="-2" width="158" height="158" rx="13" stroke="#74C2AC" opacity=".3"/>
+              <rect x="-33" y="-2" width="158" height="158" rx="13" stroke="#74C2AC" opacity=".6"/>
+              <rect x="0" y="-2" width="158" height="158" rx="13" fill="#17443C" stroke="#A3D0BB"/>
+              <path d="M26 103V62L52 36H104L131 62V103L105 126H52Z" stroke="#74C2AC"/>
+              <circle cx="78" cy="79" r="28" stroke="#EAC15D"/>
+              <path d="M37 80H119M79 37V121" stroke="#EAC15D"/>
+              <path d="M14 14H34M14 14V34M143 14H123M143 14V34M14 141H34M14 141V121M143 141H123M143 141V121" stroke="#A3D0BB"/>
+            </g>
+            <path d="M77 125H148M453 125H522" stroke="#74C2AC"/>
+            <circle cx="72" cy="125" r="5" fill="#EAC15D"/>
+            <circle cx="527" cy="125" r="5" fill="#74C2AC"/>
+          </svg>
+        </div>
+
+        <div class="ecosystem-feature-copy">
+          <p class="eyebrow">Company / Accra</p>
+          <h3>AI for medical images.<br>Built in Accra.</h3>
+          <p>minoHealth AI Labs develops AI for medical imaging and biomedical research, including systems for analysing chest X-rays.</p>
+          <a class="text-link" href="https://www.minohealth.ai/" target="_blank" rel="noopener noreferrer">Explore minoHealth AI Labs</a>
+        </div>
+      </article>
+
+      <!-- KNUST Responsible AI Lab -->
+      <article class="ecosystem-research">
+        <div class="research-top">
+          <span class="eyebrow">KNUST / Kumasi</span>
+          <span class="research-mark" aria-hidden="true">AI</span>
+        </div>
+        <div>
+          <h3>Research with<br>real-world questions.</h3>
+          <p>KNUST's Responsible AI Lab develops talent in data science and machine learning, with research spanning health, energy and agriculture.</p>
+        </div>
+        <div class="research-person">
+          <span class="person-initials" aria-hidden="true">JK</span>
+          <div>
+            <strong>Prof. Jerry John Kponyo</strong>
+            <span>Scientific Director, Responsible AI Lab</span>
+          </div>
+        </div>
+        <div class="research-links">
+          <a class="text-link" href="https://www.knust.edu.gh/news/news-items/ai4sd-initiative-takes-inception-workshop" target="_blank" rel="noopener noreferrer">Explore RAIL's research</a>
+        </div>
+      </article>
     </div>
-    <div class="bg-mint-tint flex flex-col gap-3 p-[clamp(20px,2vw,28px)] reveal" style="--d:70ms">
-      <svg class="w-[26px] h-[26px] text-[#26654D]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-book-open"/></svg>
-      <h3 class="heading text-[clamp(17px,1.5vw,21px)] text-ink mt-1">Universities</h3>
-      <p class="text-[13px] leading-[1.55] text-body">Research, talent development and responsible AI.</p>
-    </div>
-    <div class="bg-gold-tint flex flex-col gap-3 p-[clamp(20px,2vw,28px)] reveal" style="--d:140ms">
-      <svg class="w-[26px] h-[26px] text-[#7A5C10]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-building-2"/></svg>
-      <h3 class="heading text-[clamp(17px,1.5vw,21px)] text-ink mt-1">Business chambers</h3>
-      <p class="text-[13px] leading-[1.55] text-body">Market access and member introductions.</p>
-    </div>
-    <div class="bg-coral-tint flex flex-col gap-3 p-[clamp(20px,2vw,28px)] reveal" style="--d:210ms">
-      <svg class="w-[26px] h-[26px] text-[#A83E32]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-handshake"/></svg>
-      <h3 class="heading text-[clamp(17px,1.5vw,21px)] text-ink mt-1">Development partners</h3>
-      <p class="text-[13px] leading-[1.55] text-body">Co-funded programmes and inclusive growth.</p>
-    </div>
-    <div class="bg-white flex flex-col gap-3 p-[clamp(20px,2vw,28px)] reveal" style="--d:280ms">
-      <svg class="w-[26px] h-[26px] text-teal" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-rocket"/></svg>
-      <h3 class="heading text-[clamp(17px,1.5vw,21px)] text-ink mt-1">Companies &amp; start-ups</h3>
-      <p class="text-[13px] leading-[1.55] text-body">Clients, sponsors, members and pilot partners.</p>
-    </div>
+
+    <p class="source-note">Independent ecosystem examples; these links do not indicate Hub membership or confirmed showcase participation.</p>
   </div>
 </section>

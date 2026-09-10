@@ -1,49 +1,43 @@
 ---
-// Hero section
+// Hero section — V2: Event-led Launch Hero
 ---
 <!-- =====================================================================
-     HERO
+     LAUNCH HERO — GABS 2026 side event focus
      ===================================================================== -->
-<section class="shell pt-[clamp(28px,3.4vw,52px)] pb-[clamp(44px,5vw,80px)]">
-  <div class="grid lg:grid-cols-[minmax(0,1.08fr)_minmax(0,42%)] gap-x-[clamp(28px,4vw,72px)] gap-y-10 items-center">
-
-    <div class="flex flex-col gap-7 reveal">
-      <h1 class="display d-xl">
-        The bridge between Ghana and Europe.
-      </h1>
-
-      <p class="lead">
-        A not-for-profit AI innovation centre in Accra. European organisations gain
-        trusted access to Ghanaian AI talent and solutions; Ghanaian companies,
-        entrepreneurs and AI professionals gain access to European clients,
-        projects and partnerships.
-      </p>
-
-      <div class="flex flex-wrap items-center gap-x-7 gap-y-3">
-        <a href="#work" class="btn btn-ink btn-down">
-          What the Hub does <svg class="w-[15px] h-[15px]" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-arrow-down"/></svg>
-        </a>
-        <a href="#partners" class="link">
-          Partner with the Hub <svg class="w-[15px] h-[15px]" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-arrow-up-right"/></svg>
-        </a>
-      </div>
-    </div>
-
-    <!-- Photo, held by two hooks -->
-    <div class="relative">
-      <div class="absolute accent-tr w-[36%] h-[30%] bg-gold hook-tr hook-s-bl pointer-events-none reveal" style="--d:220ms" aria-hidden="true"></div>
-      <div class="absolute accent-br w-[28%] h-[24%] bg-coral hook-br hook-s-tl pointer-events-none reveal" style="--d:320ms" aria-hidden="true"></div>
-
-      <div class="relative aspect-[5/4] sm:aspect-[4/3] lg:aspect-[10/11] overflow-hidden hook-tl-br">
-        <div class="absolute inset-0 overflow-hidden">
-          <picture class="w-full h-full block">
-            <source srcset="/images/photos/team-portrait-02.webp" type="image/webp">
-            <img src="/images/photos/team-portrait-02.jpg" width="1122" height="1402" fetchpriority="high" decoding="async"
-                 alt="Colleagues around a table in Accra working on laptops, a wall screen behind them"
-                 class="w-full h-full object-cover crop-hero drift" data-scrub="through">
-          </picture>
+<section class="launch-hero" id="launch" aria-labelledby="hero-title">
+  <div class="page-shell">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="event-eyebrow"><span aria-hidden="true"></span> AI Hub, Ghana · GABS 2026 side event</p>
+        <h1 id="hero-title">Meet Ghana's AI.<br><span>Live in Accra.</span></h1>
+        <p class="event-full-name">Live AI showcase &amp; panel discussion</p>
+        <p class="event-date">
+          <time datetime="2026-11-25">25 November 2026</time>
+          <span aria-hidden="true">·</span>
+          <time datetime="2026-11-25T10:00:00Z">10:00–12:00 GMT</time>
+        </p>
+        <p class="event-venue">Kempinski Hotel Gold Coast City, Accra</p>
+        <p class="hero-description">Meet Ghanaian AI talent, see practical demonstrations and explore new partnerships between Ghana and Europe.</p>
+        <div class="hero-actions">
+          <a class="button button-teal" href="/get-involved#register">Register for free</a>
         </div>
-        <span class="tag tag-teal absolute left-4 bottom-4 sm:left-6 sm:bottom-6 z-10">Launching Nov 2026</span>
+      </div>
+
+      <div class="hero-photo-wrap">
+        <span class="photo-accent photo-accent-gold" aria-hidden="true"></span>
+        <figure class="hero-photo">
+          <img
+            class="drift"
+            data-scrub="through"
+            src="/img/photos/team-wide-02.png"
+            width="1672"
+            height="941"
+            fetchpriority="high"
+            decoding="async"
+            alt="Illustrative scene of five colleagues discussing a project around laptops in a bright workspace"
+          >
+        </figure>
+        <span class="photo-accent photo-accent-brick" aria-hidden="true"></span>
       </div>
     </div>
   </div>
