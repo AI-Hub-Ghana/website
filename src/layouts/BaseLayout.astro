@@ -1,7 +1,9 @@
 ---
 import '../styles/global.css';
+import launchCssUrl from '../styles/launch.css?url';
+import participationCssUrl from '../styles/participation.css?url';
+import toastCssUrl from '../styles/toast.css?url';
 import printUrl from '../styles/print.css?url';
-import IconSprite from '../components/common/IconSprite.astro';
 import Navbar from '../components/navigation/Navbar.astro';
 import Footer from '../components/common/Footer.astro';
 
@@ -12,6 +14,8 @@ interface Props {
   ogImage?: string;
   printPageSize?: string;
   currentPage?: 'home' | 'get-involved';
+  mainClass?: string;
+  noindex?: boolean;
 }
 
 const {
@@ -21,7 +25,12 @@ const {
   ogImage = '/images/visuals/og-share.png',
   printPageSize = '1600px 8800px',
   currentPage = 'home',
+  mainClass = '',
+  noindex = false,
 } = Astro.props;
+
+const isHome = currentPage === 'home';
+const bodyClass = isHome ? 'launch-page light-refinement' : 'participation-page';
 
 const canonicalUrl = canonical || (Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined);
 const socialImageUrl = Astro.site && ogImage ? new URL(ogImage, Astro.site).href : ogImage;
@@ -34,6 +43,9 @@ const socialImageUrl = Astro.site && ogImage ? new URL(ogImage, Astro.site).href
   <title>{title}</title>
   <meta name="description" content={description}>
   <meta name="theme-color" content="#F2F2EF">
+  <meta property="og:site_name" content="AI Hub, Ghana">
+  <meta property="og:locale" content="en_GB">
+  {noindex && <meta name="robots" content="noindex,nofollow">}
 
   {canonicalUrl && <link rel="canonical" href={canonicalUrl}>}
 
@@ -43,38 +55,69 @@ const socialImageUrl = Astro.site && ogImage ? new URL(ogImage, Astro.site).href
   <meta property="og:type" content="website">
   {canonicalUrl && <meta property="og:url" content={canonicalUrl}>}
   {socialImageUrl && <meta property="og:image" content={socialImageUrl}>}
+  {socialImageUrl && <meta property="og:image:type" content="image/png">}
+  {socialImageUrl && <meta property="og:image:alt" content="AI Hub, Ghana">}
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content={title}>
   <meta name="twitter:description" content={description}>
   {socialImageUrl && <meta name="twitter:image" content={socialImageUrl}>}
+  {socialImageUrl && <meta name="twitter:image:alt" content="AI Hub, Ghana">}
 
   <!-- Favicons -->
+  <link rel="icon" href="/images/favicon/placeholder.svg" type="image/svg+xml">
   <link rel="icon" href="/images/favicon/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="icon" href="/images/favicon/favicon-48.png" sizes="48x48" type="image/png">
   <link rel="apple-touch-icon" href="/images/favicon/apple-touch-icon-180.png">
   <link rel="manifest" href="/images/favicon/site.webmanifest">
 
-  <!-- JS Capability Hook -->
-  <script is:inline>document.documentElement.className += " js";</script>
-
-  <!-- Google Fonts -->
+  <!-- Google Fonts — Mona Sans variable font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Mona+Sans:wdth,wght@75..125,400..800&display=swap" rel="stylesheet">
 
-  <!-- Print Stylesheet -->
+  <!-- Launch stylesheet (home page only) -->
+  {isHome && <link rel="stylesheet" href={launchCssUrl}>}
+
+  <!-- Page-specific participation styles -->
+  {!isHome && <link rel="stylesheet" href={participationCssUrl}>}
+
+  <!-- Toast notification styles (all pages) -->
+  <link rel="stylesheet" href={toastCssUrl}>
+
+  <!-- Print stylesheet -->
   <link rel="stylesheet" href={printUrl} media="print">
   <!-- Page-specific continuous print height -->
   <style media="print" is:inline set:html={`@page { size: ${printPageSize}; margin: 0; }`}></style>
-</head>
-<body>
-  <a href="#main" class="btn btn-ink sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100]">Skip to content</a>
 
-  <IconSprite />
+  <!-- Structured data -->
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'Event',
+    name: 'AI Hub, Ghana — Live AI showcase & panel discussion',
+    description,
+    startDate: '2026-11-25T10:00:00Z',
+    endDate: '2026-11-25T12:00:00Z',
+    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+    eventStatus: 'https://schema.org/EventScheduled',
+    location: {
+      '@type': 'Place',
+      name: 'Kempinski Hotel Gold Coast City',
+      address: { '@type': 'PostalAddress', addressLocality: 'Accra', addressCountry: 'GH' }
+    },
+    organizer: { '@type': 'Organization', name: 'AI Hub, Ghana' },
+    image: socialImageUrl ? [socialImageUrl] : undefined,
+    url: canonicalUrl
+  })}></script>
+
+  <!-- noscript: always show mobile nav when JS is disabled -->
+  <noscript><style>.menu-button { display: none !important; } @media (max-width: 820px) { #mobile-menu[hidden] { display: block !important; } }</style></noscript>
+</head>
+<body class={bodyClass}>
+  <a class="skip-link" href="#main">Skip to content</a>
 
   <Navbar currentPage={currentPage} />
 
-  <main id="main">
+  <main id="main" class={mainClass} tabindex="-1">
     <slot />
   </main>
 
@@ -82,7 +125,6 @@ const socialImageUrl = Astro.site && ogImage ? new URL(ogImage, Astro.site).href
 
   <script>
     import '../scripts/navigation';
-    import '../scripts/animations';
     import '../scripts/scroll-scrub';
   </script>
 </body>

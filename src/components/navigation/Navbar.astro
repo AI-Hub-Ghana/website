@@ -1,61 +1,56 @@
 ---
+// Navbar — V2: working-name logotype, event-focused nav links
 interface Props {
   currentPage?: 'home' | 'get-involved';
 }
 
 const { currentPage = 'home' } = Astro.props;
-
 const isHome = currentPage === 'home';
-const logoHref = isHome ? '#main' : '/';
-const whoWeAreHref = isHome ? '#why' : '/#why';
-const whatWeDoHref = isHome ? '#work' : '/#work';
-const contactHref = isHome ? '/get-involved#register' : '#register';
-const ctaHref = isHome ? '/get-involved#register' : '#register';
-const ctaIcon = isHome ? 'i-arrow-up-right' : 'i-arrow-down';
+const logoHref = '/';
+
+// On home: anchor links. On get-involved: cross-page links
+const launchHref   = isHome ? '#launch' : '/#launch';
+const whyHref      = isHome ? '#why'    : '/#why';
+const workHref     = isHome ? '#work'   : '/#work';
+const registerHref = isHome ? '/get-involved#register' : '#register';
+const contactHref = 'mailto:b.janischowsky@4th-ir.com?subject=Contact%20AI%20Hub%2C%20Ghana&body=Hello%20AI%20Hub%20team%2C%0D%0A%0D%0AI%27m%20reaching%20out%20about%20...';
 ---
 
-<!-- =====================================================================
-     NAV
-     ===================================================================== -->
-<header id="nav" class="sticky top-0 z-50 bg-paper transition-[background,box-shadow] duration-200">
-  <div class="shell flex items-center justify-between gap-6 py-[15px] transition-[padding] duration-200" data-nav-inner>
-
-    <!-- PLACEHOLDER LOGOTYPE — swap for the real mark once it is signed off -->
-    <a href={logoHref} class="logotype shrink-0 [--lt:18px] md:[--lt:21px]" aria-label="AI Hub, Ghana — home">
-      <span class="lt-1">AI Hub</span>
-      <span class="lt-2">Ghana</span>
+<header class="site-header" id="nav">
+  <div class="shell header-inner">
+    <!-- Working-name placeholder only. No final logo or brand name has been approved. -->
+    <a class="brand" href={logoHref} aria-label="AI Hub, Ghana — home">
+      <span class="brand-placeholder">
+        <span>AI HUB</span>
+        <span>GHANA</span>
+      </span>
     </a>
 
-    <!-- The write-up's four nav items are: Who we are · What we do ·
-         Register interest · Contact us. "Register interest" is the button to
-         the right, so listing it here as well would print it twice. -->
-    <nav class="hidden lg:flex items-center gap-9" aria-label="Primary">
-      <a href={whoWeAreHref}  class="text-[13px] font-bold hover:text-teal transition-colors">Who we are</a>
-      <a href={whatWeDoHref} class="text-[13px] font-bold hover:text-teal transition-colors">What we do</a>
-      <a href={contactHref} class="text-[13px] font-bold hover:text-teal transition-colors">Contact us</a>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <a href={launchHref} class={isHome ? 'active' : ''}>The launch</a>
+      <a href={whyHref}>Who we are</a>
+      <a href={workHref}>What we do</a>
+      <a href={contactHref}>Contact us</a>
     </nav>
 
-    <div class="flex items-center gap-3">
-      <a href={ctaHref} class="btn btn-ink hidden sm:inline-flex !min-h-[44px] !py-[11px] !px-[22px] !text-[12.5px]">
-        Register interest <svg class="w-[14px] h-[14px]" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href={`#${ctaIcon}`}/></svg>
-      </a>
-      <button type="button" id="menu-btn"
-              class="lg:hidden grid place-items-center w-[46px] h-[46px] rounded-full border-[1.5px] border-line-strong"
-              aria-expanded="false" aria-controls="mobile-menu">
-        <span class="sr-only">Open menu</span>
-        <svg class="w-5 h-5" data-menu-icon fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-menu"/></svg>
-      </button>
-    </div>
+    <a class="nav-cta" href={registerHref}>Register for free</a>
+
+    <button
+      class="menu-button"
+      type="button"
+      id="menu-btn"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      Menu <span aria-hidden="true">+</span>
+    </button>
   </div>
 
-  <div id="mobile-menu" hidden class="lg:hidden bg-paper border-t border-hairline">
-    <nav class="shell flex flex-col py-3" aria-label="Primary, mobile">
-      <a href={ctaHref} class="btn btn-ink self-start my-3">
-        Register interest <svg class="w-[14px] h-[14px]" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href={`#${ctaIcon}`}/></svg>
-      </a>
-      <a href={whoWeAreHref}  class="py-[15px] text-[15px] font-bold border-t border-hairline">Who we are</a>
-      <a href={whatWeDoHref} class="py-[15px] text-[15px] font-bold border-t border-hairline">What we do</a>
-      <a href={contactHref} class="py-[15px] text-[15px] font-bold border-y border-hairline mb-4">Contact us</a>
-    </nav>
-  </div>
+  <nav class="mobile-nav" id="mobile-menu" hidden aria-label="Mobile navigation">
+    <a href={launchHref}>The launch</a>
+    <a href={whyHref}>Who we are</a>
+    <a href={workHref}>What we do</a>
+    <a href={registerHref}>Register for free</a>
+    <a href={contactHref}>Contact us</a>
+  </nav>
 </header>

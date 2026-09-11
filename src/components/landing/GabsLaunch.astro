@@ -1,82 +1,73 @@
 ---
-// Official launch section
+// GABS Launch section — V2: Summit Programme with two session cards
 ---
 <!-- =====================================================================
-     OFFICIAL LAUNCH — the summit strip, promoted from the foot of the page.
-     The hero still leads with the positioning; this sits directly under it
-     because the launch is the near-term news.
+     THE SUMMIT SECTION — Programme and audience
      ===================================================================== -->
-<section id="launch" class="bg-gabs-navy on-dark text-paper scroll-mt-20">
-  <div class="shell band-sm flex flex-col gap-[clamp(26px,3vw,44px)]">
-
-    <div class="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,300px)] gap-x-[clamp(28px,5vw,80px)] gap-y-6 items-end">
-      <div class="flex flex-col gap-4">
-        <p class="kicker kicker-light reveal">Official launch and side event</p>
-        <h2 class="display d-md text-paper reveal" style="--d:80ms">
-        6th German-African Business Summit (GABS)
-      </h2>
-        <p class="text-[15px] leading-[1.6] text-paper/85 max-w-[46ch] reveal" style="--d:140ms">
-          24th &ndash; 25th November, 2026, Accra
-        </p>
+<div class="summit-section">
+  <div class="page-shell">
+    <div class="programme" id="programme">
+      <div class="programme-heading">
+        <div>
+          <p class="eyebrow">24–25 November 2026</p>
+          <h2>The Hub's launch programme.</h2>
+        </div>
+        <a class="summit-mark" href="https://www.gabs2026.com/" target="_blank" rel="noopener noreferrer">
+          <img
+            src="/images/partners/GABS_2026_logo_white.webp"
+            width="1181"
+            height="406"
+            alt="6th German-African Business Summit, 23–25 November 2026"
+          >
+        </a>
       </div>
 
-      <!-- The summit's own mark, on its white cut so it sits on the dark
-           ground without a tile behind it. It carries the summit's full run of
-           dates (23-25 November); ours are the two Hub sessions inside it. -->
-      <a href="https://gabs2026.com" target="_blank" rel="noopener noreferrer"
-         class="group flex flex-col gap-3 self-start lg:self-end reveal" style="--d:200ms">
-        <img src="/images/partners/GABS_2026_logo_white.png" width="1181" height="406"
-             loading="lazy" decoding="async"
-             alt="6th German-African Business Summit (GABS), 23 to 25 November 2026 in Accra, Ghana"
-             class="w-[clamp(190px,17vw,250px)] h-auto">
-        <span class="text-[12px] font-bold text-gold inline-flex items-center gap-1.5">
-          gabs2026.com
-          <svg class="w-[13px] h-[13px] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-arrow-up-right"/></svg>
-        </span>
-      </a>
+      <div class="programme-grid">
+        <article class="session session-launch">
+          <div class="session-date">
+            <span>24</span>
+            <div>NOVEMBER<br>TUESDAY</div>
+          </div>
+          <div class="session-info">
+            <h3>Official launch</h3>
+            <p>Meet the Hub and the people shaping the Ghana–Europe AI connection.</p>
+            <div class="session-meta">
+              <time datetime="2026-11-24T15:00:00Z">15:00–17:00 GMT</time>
+              <span>Westerwelle Startup Haus, Accra</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="session session-showcase">
+          <div class="session-date">
+            <span>25</span>
+            <div>NOVEMBER<br>WEDNESDAY</div>
+          </div>
+          <div class="session-info">
+            <h3>Live AI showcase &amp; panel</h3>
+            <p>Ghanaian AI solutions in action, followed by a discussion on Ghana–Europe collaboration.</p>
+            <div class="session-meta">
+              <time datetime="2026-11-25T10:00:00Z">10:00–12:00 GMT</time>
+              <span>Kempinski Hotel Gold Coast City, Accra</span>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="programme-footer">
+        <p>Free registration is for the AI showcase and panel on 25 November.</p>
+        <a class="text-link" href="/get-involved#register">Register for free</a>
+      </div>
     </div>
 
-    <div class="grid md:grid-cols-2 gap-3">
-      <div class="bg-paper/10 hook-s-tl hook-s-bl p-[clamp(22px,2.4vw,34px)] flex flex-col gap-3 reveal" style="--d:120ms">
-        <span class="text-[10.5px] font-extrabold tracking-[0.18em] uppercase text-gold">Official Launch</span>
-        <p class="text-[14.5px] leading-[1.6] text-paper font-semibold">
-          Tuesday, 24 November 2026, 15:00 &ndash; 17:00
-        </p>
-        <p class="text-[13px] leading-[1.6] text-paper/75">Westerwelle Startup Haus, Accra</p>
-      </div>
-      <div class="bg-paper/10 hook-s-tr hook-s-bl p-[clamp(22px,2.4vw,34px)] flex flex-col gap-3 reveal" style="--d:200ms">
-        <span class="text-[10.5px] font-extrabold tracking-[0.18em] uppercase text-gold">Live AI Showcase &amp; Panel Discussion</span>
-        <p class="text-[14.5px] leading-[1.6] text-paper font-semibold">
-          Wednesday 25 November 2026, 10:00 &ndash; 12:00
-        </p>
-        <p class="text-[13px] leading-[1.6] text-paper/75">Kempinski Hotel Gold Coast City, Accra</p>
-      </div>
-    </div>
-
-    <div class="grid lg:grid-cols-[minmax(0,240px)_minmax(0,1fr)] gap-x-[clamp(28px,5vw,72px)] gap-y-5 items-start pt-[clamp(6px,1vw,14px)]">
-      <p class="kicker kicker-light reveal">Who should attend</p>
-      <ul class="grid sm:grid-cols-2 gap-x-[clamp(20px,3vw,44px)] reveal" style="--d:90ms">
-        <li class="border-t border-paper/20 py-[13px] text-[14px] leading-[1.5] text-paper">European corporates exploring Ghanaian AI delivery capacity and access to talent</li>
-        <li class="border-t border-paper/20 py-[13px] text-[14px] leading-[1.5] text-paper">Investors and development finance institutions</li>
-        <li class="border-t border-paper/20 py-[13px] text-[14px] leading-[1.5] text-paper">Ghanaian AI companies, start-ups and researchers</li>
-        <li class="border-t border-paper/20 py-[13px] text-[14px] leading-[1.5] text-paper">Government institutions, Policymakers and ecosystem partners</li>
+    <div class="event-audiences">
+      <h3>Who should attend</h3>
+      <ul>
+        <li>European corporates exploring AI delivery capacity and talent</li>
+        <li>Investors and development finance institutions</li>
+        <li>Ghanaian AI companies, start-ups and researchers</li>
+        <li>Government, policymakers and ecosystem partners</li>
       </ul>
     </div>
-
-    <!-- Two different registrations, and the page was conflating them. Coming
-         to the launch means being a GABS delegate, which is the summit's own
-         registration; telling us you are interested in the Hub is ours. The
-         attendance line is the Concept document's own sentence. -->
-    <div class="flex flex-wrap items-center gap-x-7 gap-y-4 pt-[clamp(4px,0.8vw,10px)] reveal" style="--d:260ms">
-      <a href="https://gabs2026.com" target="_blank" rel="noopener noreferrer" class="btn btn-paper">
-        Register as a GABS delegate <svg class="w-[15px] h-[15px]" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-arrow-up-right"/></svg>
-      </a>
-      <a href="/get-involved#register" class="link link-light">
-        Or tell us you are interested <svg class="w-[15px] h-[15px]" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-arrow-up-right"/></svg>
-      </a>
-    </div>
-    <p class="text-[12.5px] leading-[1.55] text-paper/70 max-w-[52ch] reveal" style="--d:300ms">
-      Attendance is open to all registered GABS 2026 delegates.
-    </p>
   </div>
-</section>
+</div>

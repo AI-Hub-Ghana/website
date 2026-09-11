@@ -1,0 +1,1114 @@
+/* ==========================================================================
+   Shared layout & navigation — required on all pages
+   These classes are also defined in launch.css for the home page.
+   They are included here because launch.css only loads on the home page.
+   ========================================================================== */
+
+/* ---- Scroll padding — keeps anchors clear of the sticky nav ----------- */
+html {
+  scroll-padding-top: 96px;
+}
+
+/* ---- Base resets (match launch.css) ------------------------------------ */
+a {
+  text-decoration: none;
+}
+button {
+  font: inherit;
+  cursor: pointer;
+}
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+[hidden] {
+  display: none !important;
+}
+
+/* Touch-action: removes 300ms tap delay on iOS for all interactive elements */
+button,
+a,
+input,
+select,
+textarea,
+summary {
+  touch-action: manipulation;
+}
+
+button:focus-visible,
+a:focus-visible,
+summary:focus-visible,
+[tabindex="0"]:focus-visible {
+  outline: 2px solid #2a7a5e;
+  outline-offset: 5px;
+}
+
+/* ---- Page shell (content width limiter) -------------------------------- */
+.page-shell {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  /* Respect device safe-area insets (notch / Dynamic Island on iOS) */
+  padding-left: max(clamp(22px, 4.45vw, 64px), env(safe-area-inset-left));
+  padding-right: max(clamp(22px, 4.45vw, 64px), env(safe-area-inset-right));
+}
+
+/* ---- Skip link ---------------------------------------------------------- */
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 12px;
+  z-index: 20;
+  padding: 10px 20px;
+  background: #eac15d;
+  color: #1d1d1b;
+  transform: translateY(-180%);
+}
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* ---- Site header / Navbar ---------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #f2f2eff5;
+  border-bottom: 1px solid #dfdfdc;
+  backdrop-filter: blur(14px);
+}
+.header-inner {
+  max-width: 1440px;
+  margin-inline: auto;
+  min-height: 86px;
+  /* Respect device safe-area insets (notch / Dynamic Island on iOS) */
+  padding-left: max(clamp(22px, 4.45vw, 64px), env(safe-area-inset-left));
+  padding-right: max(clamp(22px, 4.45vw, 64px), env(safe-area-inset-right));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.brand {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  color: #1d1d1b;
+  text-decoration: none;
+}
+.brand:hover {
+  color: #2a7a5e;
+}
+.brand-placeholder {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.16em;
+  font-size: 22px;
+  line-height: 0.86;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.brand-placeholder > span:first-child {
+  letter-spacing: 0.021em;
+  margin-right: -0.021em;
+}
+.brand-placeholder > span:last-child {
+  font-size: 0.9464em;
+  letter-spacing: -0.02em;
+  margin-right: 0.02em;
+}
+.desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: 31px;
+  margin-left: auto;
+  margin-right: 27px;
+}
+.desktop-nav a {
+  font-size: 13px;
+  font-weight: 600;
+  position: relative;
+  color: #1d1d1b;
+  display: inline-flex;
+  align-items: center;
+}
+.desktop-nav a:hover,
+.desktop-nav a.active {
+  color: #2a7a5e;
+}
+.desktop-nav a.active::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #2a7a5e;
+  border-radius: 1px;
+}
+.menu-button {
+  display: none;
+  align-items: center;
+  gap: 18px;
+  background: none;
+  border: 1px solid #c3c3c0;
+  border-radius: 100px;
+  padding: 9px 17px;
+  min-height: 44px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1d1d1b;
+  cursor: pointer;
+}
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 9px 20px;
+  border-radius: 999px;
+  background: #2a7a5e;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  white-space: nowrap;
+  flex: none;
+  transition:
+    background 0.22s,
+    transform 0.22s;
+}
+.nav-cta:hover {
+  background: #205d49;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+.nav-cta:active {
+  transform: translateY(0);
+}
+
+/* ---- Mobile nav drawer (dropdown) --------------------------------------- */
+.mobile-nav {
+  background: #f2f2ef;
+  border-top: 1px solid #dfdfdc;
+  padding: 16px clamp(22px, 4.45vw, 64px) 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.mobile-nav[hidden] {
+  display: none !important;
+}
+.mobile-nav a {
+  font-size: 16px;
+  font-weight: 600;
+  padding: 8px 0;
+  color: #1d1d1b;
+  border-bottom: 1px solid #e5e5e0;
+}
+.mobile-nav a:last-child {
+  border-bottom: none;
+}
+.mobile-nav a:hover {
+  color: #2a7a5e;
+}
+
+/* ---- Primary CTA button ------------------------------------------------ */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 11px 24px;
+  border-radius: 999px;
+  background: #2a7a5e;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  transition:
+    background 0.22s,
+    color 0.22s,
+    transform 0.22s;
+}
+.button:hover {
+  background: #225f4b;
+  transform: translateY(-2px);
+}
+.button:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* ---- Eyebrow text ------------------------------------------------------ */
+.eyebrow {
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.5;
+  margin: 0;
+  color: #2a7a5e;
+}
+
+/* ---- Mobile nav breakpoints -------------------------------------------- */
+@media (max-width: 820px) {
+  .header-inner {
+    min-height: 76px;
+  }
+  .desktop-nav {
+    display: none;
+  }
+  .nav-cta {
+    margin-left: auto;
+  }
+  .menu-button {
+    display: flex;
+  }
+}
+
+/* At very small screens the CTA pill and menu button can't coexist in the
+   header without overflowing — hide the CTA (it's also in the mobile menu). */
+@media (max-width: 520px) {
+  .nav-cta {
+    display: none;
+  }
+  .header-inner {
+    min-height: 72px;
+  }
+  .brand-placeholder {
+    font-size: 20px;
+  }
+}
+
+/* ========================================================================
+   Participation page specific styles
+   ======================================================================== */
+
+body.participation-page {
+  margin: 0;
+  color: #0b2926;
+  background: #f2f2ef;
+  font-family: "Mona Sans", "Helvetica Neue", sans-serif;
+}
+.participation-page .skip-link {
+  position: fixed;
+  top: 12px;
+  left: 16px;
+  z-index: 100;
+  padding: 12px 20px;
+  color: #f2f2ef;
+  background: #0b2926;
+  transform: translateY(-180%);
+}
+.participation-page .skip-link:focus {
+  transform: translateY(0);
+}
+
+/* ---- Main layout & grid ------------------------------------------------ */
+.participation-main {
+  padding-block: 44px 76px;
+}
+.participation-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 36px;
+  font-size: 14px;
+  font-weight: 650;
+  color: #0b2926;
+  text-decoration: none;
+  transition: color 0.18s;
+}
+.participation-back:hover {
+  color: #2a7a5e;
+}
+.participation-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  column-gap: clamp(32px, 5vw, 76px);
+  row-gap: 26px;
+  align-items: start;
+}
+
+/* ---- Intro column ------------------------------------------------------ */
+.participation-intro h1 {
+  margin: 20px 0 24px;
+  max-width: 13ch;
+  font-size: clamp(42px, 4.2vw, 60px);
+  font-weight: 550;
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+  color: #0b2926;
+}
+.participation-intro > p:not(.eyebrow) {
+  margin: 0;
+  max-width: 39ch;
+  font-size: 17px;
+  line-height: 1.7;
+  color: #4b625b;
+}
+
+.participation-photo {
+  margin: 32px 0 0;
+}
+.participation-photo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1.65;
+  object-fit: cover;
+  border-radius: 4px;
+}
+.participation-photo figcaption {
+  margin-top: 9px;
+  font-size: 12px;
+  color: #566c61;
+}
+
+.participation-next {
+  margin-top: 30px;
+  border-top: 1px solid #ccd8cf;
+  padding-top: 22px;
+}
+.participation-next h2 {
+  margin: 0 0 16px;
+  font-size: 17px;
+  line-height: 1.4;
+  font-weight: 600;
+  color: #0b2926;
+}
+.participation-next > p {
+  margin: 0;
+  max-width: 42ch;
+  color: #4b625b;
+  font-size: 15px;
+  line-height: 1.65;
+}
+.participation-next ol {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: grid;
+  gap: 20px;
+}
+.participation-next li {
+  display: grid;
+  grid-template-columns: 25px 1fr;
+  gap: 12px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #4b625b;
+}
+.participation-next li > span:first-child {
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: #2a7a5e;
+}
+.participation-next strong {
+  display: block;
+  color: #0b2926;
+  font-weight: 650;
+}
+
+.participation-contact {
+  margin-top: 24px;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #4b625b;
+}
+.participation-contact a {
+  display: block;
+  width: fit-content;
+  color: #0b2926;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  overflow-wrap: anywhere;
+  transition: color 0.18s;
+}
+.participation-contact a:hover {
+  color: #2a7a5e;
+}
+
+/* ---- Registration form panel ------------------------------------------- */
+.participation-form-panel {
+  padding: 32px;
+  background: #ffffff;
+  border: 1px solid #ccd8cf;
+  border-radius: 5px;
+  scroll-margin-top: 112px;
+}
+.participation-form-heading {
+  margin: 0 0 10px;
+  font-size: 27px;
+  font-weight: 550;
+  letter-spacing: -0.03em;
+  color: #0b2926;
+}
+.participation-form-intro {
+  margin: 0 0 26px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #4b625b;
+  max-width: 48ch;
+}
+
+.participation-route-label {
+  margin: 0 0 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #0b2926;
+}
+.participation-routes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.participation-route {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 9px 13px;
+  border: 1px solid #d4ddd5;
+  border-radius: 999px;
+  color: #355149;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background 0.18s,
+    border-color 0.18s,
+    color 0.18s;
+}
+.participation-route:hover {
+  border-color: #2a7a5e;
+  background: #f0f8f4;
+}
+.participation-route[aria-current="true"] {
+  background: #2a7a5e;
+  border-color: #2a7a5e;
+  color: #ffffff;
+}
+.participation-route[aria-current="true"]:before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #eac15d;
+}
+
+.participation-event-note {
+  margin: 18px 0 0;
+  padding: 13px 15px;
+  border-left: 3px solid #eac15d;
+  background: #faf5e4;
+  color: #3f5946;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.participation-event-note a {
+  color: #0b2926;
+  text-underline-offset: 3px;
+  font-weight: 650;
+}
+
+.participation-form {
+  margin-top: 28px;
+}
+.participation-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px 18px;
+}
+.participation-country-wrap {
+  position: relative;
+}
+.participation-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.participation-context-field {
+  margin-top: 24px;
+  margin-bottom: 16px;
+  gap: 12px;
+}
+.participation-field label,
+.participation-interests legend {
+  color: #163b30;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.participation-field input,
+.participation-field textarea,
+.participation-draft textarea {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 12px 13px;
+  border: 1px solid #7b8c80;
+  border-radius: 3px;
+  color: #0b2926;
+  background: #f9faf7;
+  font: inherit;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.participation-field input {
+  min-height: 48px;
+}
+.participation-field textarea {
+  min-height: 112px;
+  resize: vertical;
+}
+.participation-field textarea::placeholder {
+  color: #5c7063;
+}
+.participation-context-field label {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* ---- Country combobox -------------------------------------------------- */
+.country-combobox {
+  position: relative;
+  width: 100%;
+}
+.country-combobox input {
+  padding-right: 38px;
+}
+.country-combobox-toggle {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: #5c7063;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition:
+    color 0.15s,
+    background 0.15s;
+}
+.country-combobox-toggle:hover {
+  color: #0b2926;
+  background: rgba(42, 122, 94, 0.08);
+}
+.country-dropdown-list {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  max-height: 240px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 6px 0;
+  list-style: none;
+  background: #ffffff;
+  border: 1px solid #7b8c80;
+  border-radius: 4px;
+  box-shadow:
+    0 8px 24px rgba(29, 29, 27, 0.12),
+    0 2px 6px rgba(29, 29, 27, 0.06);
+  z-index: 1000;
+  scrollbar-width: thin;
+  scrollbar-color: #74c2ac #f2f2ef;
+}
+.country-option {
+  padding: 9px 14px;
+  font-size: 13.5px;
+  line-height: 1.4;
+  color: #0b2926;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition:
+    background 0.12s,
+    color 0.12s;
+}
+.country-option:hover,
+.country-option.is-focused {
+  background: #dcece4;
+  color: #0b3d33;
+}
+.country-option.is-selected {
+  background: #f0f5e9;
+  font-weight: 600;
+  color: #163b30;
+}
+.country-option.is-selected::after {
+  content: "✓";
+  font-size: 13px;
+  color: #26654d;
+  font-weight: 700;
+}
+.country-no-results {
+  padding: 12px 14px;
+  font-size: 13px;
+  color: #6e675b;
+  font-style: italic;
+}
+
+/* ---- Areas of interest chips ------------------------------------------- */
+.participation-interests {
+  border: 0;
+  padding: 0;
+  margin: 25px 0;
+  min-width: 0;
+}
+.participation-interests legend {
+  margin-bottom: 12px;
+  padding: 0;
+}
+.participation-optional {
+  color: #5c7063;
+  font-weight: 400;
+}
+.participation-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.participation-chip {
+  position: relative;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid #d5ded5;
+  border-radius: 4px;
+  color: #466055;
+  background: #ffffff;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.5;
+  transition:
+    background 0.18s,
+    border-color 0.18s;
+}
+.participation-chip input {
+  appearance: none;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  margin: 0;
+}
+.participation-chip:has(input:checked) {
+  background: #e9f5ef;
+  border-color: #2a7a5e;
+  color: #205d49;
+}
+.participation-chip span:before {
+  content: "+";
+  display: inline-block;
+  width: 16px;
+  font-size: 14px;
+  font-weight: 450;
+}
+.participation-chip:has(input:checked) span:before {
+  content: "✓";
+}
+.participation-chip:has(input:focus-visible) {
+  outline: 2px solid #2a7a5e;
+  outline-offset: 3px;
+}
+
+/* ---- Consent checkbox --------------------------------------------------- */
+.participation-consent {
+  margin: 0 0 12px;
+}
+.participation-consent-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  color: #163b30;
+  font-size: 13px;
+  line-height: 1.5;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 2px;
+}
+.participation-consent-label input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  margin: 0;
+  border: 1.5px solid #5f776a;
+  border-radius: 5px;
+  background: #ffffff;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.participation-consent-label input:checked {
+  background: #2a7a5e;
+  border-color: #2a7a5e;
+}
+.participation-consent-label input:checked::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 2px;
+  width: 5px;
+  height: 9px;
+  border: solid #ffffff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+.participation-consent-label input:focus-visible {
+  outline: 2px solid #2a7a5e;
+  outline-offset: 3px;
+}
+.participation-consent-label span {
+  display: inline-block;
+}
+
+/* ---- Form submission controls ------------------------------------------ */
+.participation-submit {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 17px;
+  align-items: center;
+  margin-top: 12px;
+}
+.participation-submit .button {
+  border: 0;
+  cursor: pointer;
+}
+.participation-submit p {
+  flex: 1 1 190px;
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #5d7164;
+}
+.participation-privacy-link {
+  margin: 18px 0 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #6a7b70;
+}
+.participation-privacy-link a {
+  text-underline-offset: 3px;
+}
+#registration-status:empty {
+  margin: 0;
+}
+
+/* ---- Email draft fallback ---------------------------------------------- */
+.participation-draft {
+  padding: 24px 0 0;
+  margin-top: 26px;
+  border-top: 1px solid #ccd7cc;
+}
+.participation-draft h2 {
+  margin: 0 0 10px;
+  font-size: 19px;
+  letter-spacing: -0.025em;
+}
+.participation-draft p {
+  margin: 0 0 14px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: #496152;
+}
+.participation-draft textarea {
+  display: block;
+  min-height: 210px;
+  resize: vertical;
+  margin: 10px 0 14px;
+  font-size: 16px;
+}
+.participation-draft label {
+  font-size: 14px;
+  font-weight: 650;
+}
+.participation-draft-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.participation-copy {
+  padding: 10px 15px;
+  min-height: 44px;
+  border: 1px solid #a3b6a5;
+  border-radius: 3px;
+  background: #ffffff;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.participation-draft-controls a {
+  font-size: 14px;
+  font-weight: 650;
+  text-underline-offset: 4px;
+}
+.participation-draft .participation-copy-status {
+  margin: 12px 0 0;
+}
+
+/* ---- Privacy disclosure ------------------------------------------------ */
+.participation-privacy {
+  font-size: 13px;
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid #dce2dc;
+  grid-column: 2;
+  max-width: 65ch;
+  color: #5c7063;
+  line-height: 1.7;
+  scroll-margin-top: 110px;
+}
+.participation-privacy summary {
+  width: fit-content;
+  cursor: pointer;
+  font-weight: 600;
+  min-height: 30px;
+}
+.participation-privacy p {
+  margin: 12px 0 0;
+}
+
+/* ---- Why Ghana / Reasons section --------------------------------------- */
+.participation-reasons {
+  margin-top: 72px;
+  padding-top: 40px;
+  border-top: 1px solid #ccd8cf;
+}
+.participation-reasons h2 {
+  margin: 14px 0 30px;
+  font-size: clamp(30px, 3.2vw, 44px);
+  font-weight: 550;
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+  color: #0b2926;
+}
+.participation-reason-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px;
+}
+.participation-reason {
+  padding-top: 20px;
+  border-top: 3px solid #2a7a5e;
+}
+.participation-reason:nth-child(2) {
+  border-color: #bf4639;
+}
+.participation-reason:nth-child(3) {
+  border-color: #eac15d;
+}
+.participation-reason:nth-child(4) {
+  border-color: #74c2ac;
+}
+.participation-reason h3 {
+  font-size: 20px;
+  line-height: 1.25;
+  font-weight: 550;
+  letter-spacing: -0.02em;
+  margin: 0 0 14px;
+  color: #0b2926;
+}
+.participation-reason p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #4b625b;
+  margin: 0 0 14px;
+}
+.participation-reason a {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 550;
+  line-height: 1.6;
+  text-underline-offset: 4px;
+  color: #205d49;
+}
+
+.participation-image-note {
+  margin-top: 30px;
+  color: #566c61;
+  font-size: 12px;
+  line-height: 1.7;
+  max-width: 82ch;
+}
+.participation-image-note summary {
+  cursor: pointer;
+  width: fit-content;
+  min-height: 28px;
+}
+.participation-image-note p {
+  margin: 8px 0 0;
+}
+
+/* ---- Footer inner ------------------------------------------------------ */
+.participation-footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  padding-block: 27px;
+  border-top: 1px solid #ccd5cb;
+}
+.participation-footer-inner p,
+.participation-footer-inner a {
+  font-size: 12px;
+}
+.participation-footer-inner a {
+  text-decoration: none;
+}
+.participation-footer-inner a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Bot honeypot: present in the DOM for spam detection but invisible and non-interactive. */
+.registration-honeypot {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* ========================================================================
+   Media queries (unified descending hierarchy)
+   ======================================================================== */
+
+@media (max-width: 1100px) {
+  .participation-reason-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 30px;
+  }
+}
+
+@media (max-width: 950px) {
+  .participation-form-panel {
+    padding: 26px;
+  }
+  .participation-route {
+    font-size: 13px;
+    padding: 9px 12px;
+  }
+}
+
+@media (max-width: 760px) {
+  .participation-main {
+    padding-block: 28px 52px;
+  }
+  .participation-back {
+    margin-bottom: 24px;
+  }
+  .participation-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .participation-intro h1 {
+    max-width: 15ch;
+    font-size: clamp(40px, 8vw, 54px);
+  }
+  .participation-intro > p:not(.eyebrow) {
+    font-size: 16px;
+    max-width: 50ch;
+  }
+  .participation-photo {
+    margin-top: 24px;
+  }
+  .participation-photo img {
+    max-height: 260px;
+    aspect-ratio: 1.8;
+  }
+  .participation-next {
+    display: block;
+    margin-top: 28px;
+  }
+  .participation-next ol {
+    grid-template-columns: 1fr;
+  }
+  .participation-next li {
+    font-size: 14px;
+  }
+  .participation-contact {
+    margin-top: 20px;
+  }
+  .participation-privacy {
+    grid-column: 1;
+    margin-top: -12px;
+  }
+  .participation-form-panel {
+    padding: 24px 20px;
+  }
+  .participation-reasons {
+    margin-top: 48px;
+    padding-top: 30px;
+  }
+  .participation-reason-grid {
+    gap: 24px;
+  }
+  .participation-reason h3 {
+    font-size: 19px;
+  }
+}
+
+@media (max-width: 480px) {
+  .participation-fields {
+    grid-template-columns: 1fr;
+  }
+  .participation-reason-grid {
+    grid-template-columns: 1fr;
+  }
+  .participation-form-panel {
+    padding: 24px 16px;
+  }
+  .participation-form-heading {
+    font-size: 26px;
+  }
+  .participation-photo img {
+    aspect-ratio: 1.65;
+  }
+}
+
+/* ---- Print styles ------------------------------------------------------ */
+@media print {
+  .participation-main {
+    padding: 24px 0;
+  }
+  .participation-intro {
+    position: static;
+  }
+  .participation-routes,
+  .participation-back,
+  .menu-button {
+    display: none;
+  }
+  .participation-grid {
+    grid-template-columns: 1fr 1.3fr;
+    gap: 30px;
+  }
+}

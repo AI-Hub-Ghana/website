@@ -1,88 +1,59 @@
 ---
-// Who we are / Why Ghana section
+// Who We Are / About section — V2: Bilateral bridge layout with corridor
 ---
 <!-- =====================================================================
-     WHO WE ARE
+     WHO WE ARE — About and bilateral benefit panels
      ===================================================================== -->
-<section id="why" class="scroll-mt-24 border-t border-hairline relative overflow-clip">
+<section class="about-section section-space" id="why" aria-labelledby="about-title">
+  <span class="slab restored-slab" data-scrub="enter" aria-hidden="true"></span>
 
-  <!-- Slides in from off the right edge, level with the heading, when the
-       section is reached. The bar sits behind the text layer so it acts as a
-       decorative accent rather than an obstructive overlay. -->
-  <span class="slab slab-head" data-scrub="enter" aria-hidden="true"></span>
-
-  <div class="shell band relative z-10 flex flex-col gap-[clamp(34px,4.4vw,68px)]">
-
-    <!-- One stack, not two columns. The half-and-half split was built to
-         counterweight a 90px heading; at the current size it left a paragraph
-         floating in the right half with nothing holding it. -->
-    <div class="flex flex-col gap-5 max-w-[52ch]">
-      <p class="kicker reveal">Who we are</p>
-      <h2 class="display d-lg reveal" style="--d:80ms">
-        The talent is here. The route was not.
-      </h2>
-      <p class="lead reveal max-w-none" style="--d:140ms">
-        The AI Hub, Ghana is a not-for-profit initiative that connects
-        Ghana&rsquo;s fast-growing artificial intelligence ecosystem with Europe.
-      </p>
+  <div class="page-shell">
+    <div class="about-grid">
+      <div>
+        <p class="eyebrow">Who we are</p>
+        <h2 id="about-title">The bridge between<br>Ghana and Europe.</h2>
+      </div>
+      <div class="about-copy">
+        <p>AI Hub, Ghana is a not-for-profit initiative connecting Ghana's growing artificial intelligence ecosystem with Europe. Ghana brings strong AI talent, entrepreneurial energy and government backing through its National AI Strategy. The Hub creates a structured route to European markets.</p>
+        <p>We help European organisations access Ghanaian talent and solutions, while connecting Ghanaian companies and professionals with European clients, projects and partnerships.</p>
+      </div>
     </div>
 
-    <!-- The detail. Two columns at a readable measure, with a photograph
-         holding the left third so the section is not a wall of text. -->
-    <!-- items-stretch, not items-start: the photograph fills the row rather
-         than sitting as a short 4:3 cell against two much taller columns of
-         text. Square, and wider — a rounded corner here read as a sticker at
-         this size, and at 0.82fr the image was the smallest thing in the row. -->
-    <div class="grid lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)_minmax(0,1fr)] gap-x-[clamp(24px,3.4vw,52px)] gap-y-10 items-stretch">
+    <div class="bilateral-grid" id="opportunity">
+      <article class="benefit-panel european-benefits" id="corridor">
+        <p class="panel-kicker">Europe – Ghana</p>
+        <h3>For European organisations</h3>
+        <ul>
+          <li>Vetted Ghanaian AI professionals and teams</li>
+          <li>Cost-effective delivery capacity for practical AI work</li>
+          <li>Transparent governance and EU AI Act readiness support</li>
+          <li>An on-the-ground presence in Accra</li>
+        </ul>
+      </article>
 
-      <div class="reveal overflow-hidden min-h-[260px] lg:min-h-0">
-        <picture class="w-full h-full block">
-          <source srcset="/images/photos/photo-table-four.webp" type="image/webp">
-          <img src="/images/photos/photo-table-four.png" width="1672" height="941" loading="lazy" decoding="async"
-               alt="Four Ghanaian AI professionals working together around a table in Accra"
-               class="w-full h-full object-cover">
-        </picture>
-      </div>
+      <article class="benefit-panel ghanaian-benefits" id="membership">
+        <p class="panel-kicker">Ghana – Europe</p>
+        <h3>For Ghanaian talent and ventures</h3>
+        <ul>
+          <li>European clients and project work</li>
+          <li>Training and certification to international standards</li>
+          <li>Incubation support for AI-enabled ventures</li>
+          <li>Placement on international assignments</li>
+        </ul>
+      </article>
+    </div>
 
-      <div class="flex flex-col gap-4 reveal" style="--d:140ms">
-        <p class="copy">
-          Ghana has strong AI talent, entrepreneurial energy, and clear government
-          backing through the National AI Strategy &mdash; what has been missing is
-          a structured access point to European markets.
-        </p>
-        <p class="copy">
-          The Hub closes this gap: it serves as a bilateral bridge between Ghana
-          and Europe, through which European organisations gain trusted access to
-          Ghanaian AI talent and solutions, and Ghanaian companies, entrepreneurs,
-          and AI professionals gain access to European clients, projects, and
-          partnerships.
-        </p>
-      </div>
-
-      <div class="flex flex-col gap-4 reveal" style="--d:220ms">
-        <p class="copy">
-          A particular focus lies on Ghana&rsquo;s growing start-up sector: the Hub
-          enables young companies to implement their business ideas faster through
-          AI tools, training, and incubation support.
-        </p>
-        <p class="copy">
-          All surpluses are reinvested in the mission &mdash; building AI skills,
-          jobs, and businesses.
-        </p>
-        <a href="#work" class="link self-start btn-down mt-1">
-          See how it works <svg class="w-[15px] h-[15px]" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-arrow-down"/></svg>
-        </a>
-      </div>
+    <div class="mission-note">
+      <span class="mission-shape" aria-hidden="true"></span>
+      <p>We support young Ghanaian companies with AI tools, training and incubation to help bring their ideas to market. All surpluses are reinvested in AI skills, jobs and businesses.</p>
     </div>
   </div>
 
-  <!-- The corridor, reading Accra to Europe. Four fields, not six, and no ink
-       among them: BRAND-GUIDELINES §5 allows two to four, and ink is not a
-       ground colour. -->
-  <div class="corridor reveal" data-scrub="enter" aria-hidden="true">
-    <i class="bg-coral" style="width:26%"></i>
-    <i class="bg-gold"  style="width:22%"></i>
-    <i class="bg-mint" style="width:24%"></i>
-    <i class="bg-teal"  style="width:28%"></i>
+  <!-- The four-colour corridor bar, reading Accra to Europe -->
+  <div class="corridor restored-corridor" data-scrub="enter" aria-hidden="true">
+    <i style="width:26%;background:#bf4639"></i>
+    <i style="width:22%;background:#eac15d"></i>
+    <i style="width:24%;background:#74c2ac"></i>
+    <i style="width:28%;background:#2a7a5e"></i>
   </div>
 </section>

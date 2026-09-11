@@ -1,92 +1,75 @@
-// Navigation: scroll glass effect and mobile menu handling
+// Navigation: mobile menu and section scroll-spy (matching launch.js behaviour)
 
 function initNavigation() {
-  const nav = document.getElementById("nav");
-  const inner = nav?.querySelector<HTMLElement>("[data-nav-inner]");
-  const reducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)",
-  ).matches;
-  let lastState: boolean | null = null;
+  const menuButton = document.getElementById('menu-btn');
+  const menu = document.getElementById('mobile-menu') as HTMLElement | null;
 
-  function onScroll() {
-    if (!nav || !inner) return;
-    const s = (window.scrollY || document.documentElement.scrollTop || 0) > 40;
-    if (s === lastState) return;
-    lastState = s;
-    nav.style.background = s ? "rgba(244,240,232,0.82)" : "";
-    nav.style.backdropFilter = s ? "saturate(1.4) blur(14px)" : "";
-    // @ts-ignore
-    nav.style.webkitBackdropFilter = s ? "saturate(1.4) blur(14px)" : "";
-    nav.style.boxShadow = s ? "0 1px 20px rgba(29,29,27,0.08)" : "none";
-    inner.style.paddingBlock = s ? "10px" : "";
-  }
+  const closeMenu = (restoreFocus = false) => {
+    if (!menu || !menuButton) return;
+    menu.hidden = true;
+    menuButton.setAttribute('aria-expanded', 'false');
+    menuButton.setAttribute('aria-label', 'Open menu');
+    if (restoreFocus) (menuButton as HTMLElement).focus();
+  };
 
-  function scrollToHash(hash: string) {
-    const target = hash ? document.querySelector(hash) : null;
-    if (!target) return;
-    const behaviour: ScrollBehavior = reducedMotion ? "auto" : "smooth";
-    target.scrollIntoView({ behavior: behaviour, block: "start" });
-  }
+  if (menu && menuButton) {
+    menuButton.setAttribute('aria-label', 'Open menu');
 
-  document
-    .querySelectorAll<HTMLAnchorElement>('a[href*="#"]')
-    .forEach((link) => {
-      link.addEventListener("click", (event) => {
-        const href = link.getAttribute("href");
-        if (!href || href.startsWith("#") === false) return;
-        const target = document.querySelector(href);
-        if (!target) return;
-        event.preventDefault();
-        scrollToHash(href);
-      });
+    menuButton.addEventListener('click', () => {
+      const open = menu.hidden;
+      menu.hidden = !open;
+      menuButton.setAttribute('aria-expanded', String(open));
+      menuButton.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      if (open) {
+        menu.querySelector<HTMLAnchorElement>('a')?.focus();
+      }
     });
 
-  if (window.location.hash) {
-    requestAnimationFrame(() => scrollToHash(window.location.hash));
+    menu.addEventListener('click', (event) => {
+      const target = event.target as HTMLElement;
+      if (target.closest('a')) closeMenu();
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !menu.hidden) closeMenu(true);
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 820) closeMenu();
+    }, { passive: true });
   }
 
-  window.addEventListener("scroll", onScroll, { passive: true });
-  onScroll();
+  // Section scroll-spy — highlights active desktop nav link while scrolling
+  if ('IntersectionObserver' in window && document.body.classList.contains('launch-page')) {
+    const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('.desktop-nav a[href^="#"]'));
+    const sections = links
+      .map(link => document.querySelector<HTMLElement>(link.getAttribute('href') as string))
+      .filter((el): el is HTMLElement => el !== null);
 
-  // Mobile menu
-  const btn = document.getElementById("menu-btn");
-  const menu = document.getElementById("mobile-menu");
-  const iconUse = btn?.querySelector("[data-menu-icon] use");
-  const srText = btn?.querySelector(".sr-only");
+    const observer = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter(entry => entry.isIntersecting)
+        .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
 
-  function setMenu(open: boolean) {
-    if (!menu || !btn) return;
-    menu.hidden = !open;
-    btn.setAttribute("aria-expanded", String(open));
-    if (srText) srText.textContent = open ? "Close menu" : "Open menu";
-    if (iconUse) iconUse.setAttribute("href", open ? "#i-x" : "#i-menu");
+      if (!visible.length) return;
+
+      links.forEach(link => {
+        const active = link.getAttribute('href') === '#' + visible[0].target.id;
+        link.classList.toggle('active', active);
+        if (active) {
+          link.setAttribute('aria-current', 'location');
+        } else {
+          link.removeAttribute('aria-current');
+        }
+      });
+    }, { rootMargin: '-90px 0px -55% 0px', threshold: 0 });
+
+    sections.forEach(section => observer.observe(section));
   }
-
-  btn?.addEventListener("click", () => {
-    if (menu) setMenu(menu.hidden);
-  });
-
-  menu?.addEventListener("click", (e) => {
-    const target = e.target as HTMLElement;
-    if (target.closest("a")) setMenu(false);
-  });
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && menu && !menu.hidden) {
-      setMenu(false);
-      btn?.focus();
-    }
-  });
-
-  window.addEventListener("resize", () => {
-    if (window.innerWidth >= 1024 && menu && !menu.hidden) {
-      setMenu(false);
-    }
-  });
 }
 
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initNavigation);
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initNavigation);
 } else {
   initNavigation();
 }

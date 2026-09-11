@@ -1,0 +1,274 @@
+/* ─── Toast Notification System ─────────────────────────────────────────────
+   Brand: AI Hub Ghana Design System
+   Architecture: Ark UI pattern (CSS-custom-property driven, zero keyframe lag).
+
+   Brand Tints & Palette Hierarchy:
+     • Success:  Mint tint  (#DCECE4) with Deep Forest text (#0B3D33) and Teal accent (#26654D / #2A7A5E)
+     • Warning:  Gold tint  (#F7E7C2) with Deep Ochre text  (#433306) and Gold accent (#7A5C10 / #EAC15D)
+     • Failure:  Brick tint (#ECDCD7) with Deep Brick text  (#521913) and Brick accent (#BF4639 / #A83E32)
+     • Info:     Gold tint  (#F7E7C2) / Deep Ochre
+
+   Brand Form Language:
+     Signature oversized curved corner (asymmetric hook: 4px 18px 4px 4px)
+     Tactile physical paper elevation, clean hairline rules, no muddy glows.
+   ────────────────────────────────────────────────────────────────────────── */
+
+/* ── Container — bottom-right (Ark UI placement="bottom-end") ────────────── */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column-reverse; /* Newest toast sits at the bottom */
+  gap: 12px;
+  pointer-events: none;
+  width: min(420px, calc(100vw - 40px));
+}
+
+/* ── Toast Base Card ─────────────────────────────────────────────────────── */
+.toast {
+  pointer-events: auto;
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 15px 16px 16px 14px;
+  
+  /* Brand signature shape: oversized top-right hook, crisp pill geometry */
+  border-radius: 4px 18px 4px 4px;
+  background-color: var(--toast-bg);
+  border: 1px solid var(--toast-border);
+  border-left: 4px solid var(--toast-accent);
+
+  /* Editorial paper elevation — refined, crisp, no muddy blur */
+  box-shadow:
+    0 6px 22px rgba(29, 29, 27, 0.09),
+    0 2px 6px  rgba(29, 29, 27, 0.05);
+
+  font-family: var(--font-sans, "Mona Sans", "Helvetica Neue", -apple-system, sans-serif);
+  color: var(--toast-title);
+  overflow: hidden;
+
+  /* CSS-custom-property driven transitions — instant paint, zero startup lag */
+  will-change: transform, opacity;
+  transition:
+    opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+
+  opacity: var(--toast-opacity, 0);
+  transform:
+    translateY(var(--toast-y, 14px))
+    scale(var(--toast-scale, 0.96));
+}
+
+/* ── Brand Tint Variants ─────────────────────────────────────────────────── */
+
+/* 1. Success — Mint Tint */
+.toast-success {
+  --toast-bg: #DCECE4;
+  --toast-border: rgba(38, 101, 77, 0.22);
+  --toast-accent: #26654D;
+  --toast-title: #0B3D33;
+  --toast-message: #18483B;
+  --toast-icon: #26654D;
+  --toast-close-hover: rgba(38, 101, 77, 0.12);
+  --toast-progress: #26654D;
+}
+
+/* 2. Warning — Gold Tint */
+.toast-warning {
+  --toast-bg: #F7E7C2;
+  --toast-border: rgba(122, 92, 16, 0.22);
+  --toast-accent: #7A5C10;
+  --toast-title: #433306;
+  --toast-message: #5A440B;
+  --toast-icon: #7A5C10;
+  --toast-close-hover: rgba(122, 92, 16, 0.12);
+  --toast-progress: #7A5C10;
+}
+
+/* 3. Failure / Error — Brick Tint */
+.toast-error,
+.toast-failure {
+  --toast-bg: #ECDCD7;
+  --toast-border: rgba(191, 70, 57, 0.24);
+  --toast-accent: #BF4639;
+  --toast-title: #521913;
+  --toast-message: #6E241C;
+  --toast-icon: #BF4639;
+  --toast-close-hover: rgba(191, 70, 57, 0.12);
+  --toast-progress: #BF4639;
+}
+
+/* 4. Info — Clean Gold Tint treatment */
+.toast-info {
+  --toast-bg: #F7E7C2;
+  --toast-border: rgba(122, 92, 16, 0.22);
+  --toast-accent: #7A5C10;
+  --toast-title: #433306;
+  --toast-message: #5A440B;
+  --toast-icon: #7A5C10;
+  --toast-close-hover: rgba(122, 92, 16, 0.12);
+  --toast-progress: #7A5C10;
+}
+
+/* ── Toast Icon Wrap ─────────────────────────────────────────────────────── */
+.toast-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 1px;
+  flex-shrink: 0;
+  color: var(--toast-icon);
+}
+
+.toast-icon {
+  width: 19px;
+  height: 19px;
+  display: block;
+}
+
+/* ── Toast Body & Typography ─────────────────────────────────────────────── */
+.toast-body {
+  min-width: 0;
+  padding-right: 4px;
+}
+
+.toast-title {
+  margin: 0 0 3px 0;
+  font-size: 13.5px;
+  font-weight: 650;
+  line-height: 1.35;
+  letter-spacing: -0.012em;
+  color: var(--toast-title);
+}
+
+.toast-message {
+  margin: 0;
+  font-size: 12.5px;
+  font-weight: 450;
+  line-height: 1.45;
+  color: var(--toast-message);
+  overflow-wrap: break-word;
+}
+
+/* ── Close Button ────────────────────────────────────────────────────────── */
+.toast-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  margin-top: -1px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--toast-title);
+  opacity: 0.65;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: opacity 0.15s ease, background 0.15s ease;
+}
+
+.toast-close:hover {
+  opacity: 1;
+  background: var(--toast-close-hover);
+}
+
+.toast-close:focus-visible {
+  opacity: 1;
+  outline: 2px solid var(--toast-accent);
+  outline-offset: 1px;
+}
+
+/* ── Progress Drain Bar ──────────────────────────────────────────────────── */
+.toast-progress {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2.5px;
+  width: 100%;
+  background: var(--toast-progress);
+  opacity: 0.65;
+  transform-origin: left;
+  animation: toast-drain var(--toast-duration, 6000ms) linear forwards;
+}
+
+/* Pause dismiss progress when hovering toast */
+.toast:hover .toast-progress {
+  animation-play-state: paused;
+}
+
+@keyframes toast-drain {
+  from { transform: scaleX(1); }
+  to   { transform: scaleX(0); }
+}
+
+/* ── Mobile responsiveness ───────────────────────────────────────────────── */
+@media (max-width: 520px) {
+  .toast-container {
+    bottom: 16px;
+    right: 16px;
+    left: 16px;
+    width: auto;
+  }
+}
+
+/* ── Accessibility: Reduced motion ───────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .toast {
+    transition: opacity 0.15s ease;
+    transform: none !important;
+  }
+  .toast-progress {
+    animation: none;
+    display: none;
+  }
+}
+
+/* ─── Submit Button Feedback States ────────────────────────────────────────
+   Instant micro-interaction when clicking "Register for free":
+   - Loading: spinner with dimmed state
+   - Success: brand mint transition with checkmark
+   ─────────────────────────────────────────────────────────────────────────── */
+
+.participation-submit .button[data-loading] {
+  cursor: wait;
+  opacity: 0.85;
+  pointer-events: none;
+  gap: 10px;
+}
+
+.participation-submit .button[data-loading]::after {
+  content: "";
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #FFFFFF;
+  border-radius: 50%;
+  animation: btn-spin 0.6s linear infinite;
+  flex-shrink: 0;
+}
+
+.participation-submit .button[data-success] {
+  background: #18483B;
+  color: #DCECE4;
+  border-color: #26654D;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.participation-submit .button[data-success]::after {
+  content: "✓";
+  font-size: 14px;
+  font-weight: 700;
+  color: #74C2AC;
+  flex-shrink: 0;
+}
+
+@keyframes btn-spin {
+  to { transform: rotate(360deg); }
+}
