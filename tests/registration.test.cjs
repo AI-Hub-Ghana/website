@@ -25,6 +25,37 @@ const validated = validateRegistration(validData);
 assert.equal(validated.ok, true);
 assert.equal(validated.value.name, "Kwame Mensah");
 
+// Test corporate & personal email validation + country normalization
+const corpTest1 = validateRegistration({
+  name: "Derek Yendoh",
+  email: "dyendoh@gmail.com",
+  organisation: "Google",
+  country: "ghana", // lowercase should normalize to Ghana
+});
+assert.equal(corpTest1.ok, true);
+assert.equal(corpTest1.value.email, "dyendoh@gmail.com");
+assert.equal(corpTest1.value.country, "Ghana");
+
+const corpTest2 = validateRegistration({
+  name: "Derek Yendoh",
+  email: "d.yendoh@4th-ir.com",
+  organisation: "4th-IR",
+  country: "USA", // alias should normalize to United States
+});
+assert.equal(corpTest2.ok, true);
+assert.equal(corpTest2.value.email, "d.yendoh@4th-ir.com");
+assert.equal(corpTest2.value.country, "United States");
+
+// Invalid country rejection
+const invalidCountryTest = validateRegistration({
+  name: "Test User",
+  email: "user@example.com",
+  organisation: "Test",
+  country: "Narnia",
+});
+assert.equal(invalidCountryTest.ok, false);
+assert.ok(invalidCountryTest.errors.country);
+
 // Whitespace-only rejection
 const invalidData = {
   name: "   ",

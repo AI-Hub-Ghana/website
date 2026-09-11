@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import launchCssUrl from '../styles/launch.css?url';
 import participationCssUrl from '../styles/participation.css?url';
+import toastCssUrl from '../styles/toast.css?url';
 import printUrl from '../styles/print.css?url';
 import Navbar from '../components/navigation/Navbar.astro';
 import Footer from '../components/common/Footer.astro';
@@ -69,6 +70,9 @@ const socialImageUrl = Astro.site && ogImage ? new URL(ogImage, Astro.site).href
 
   <!-- Page-specific participation styles -->
   {!isHome && <link rel="stylesheet" href={participationCssUrl}>}
+
+  <!-- Toast notification styles (all pages) -->
+  <link rel="stylesheet" href={toastCssUrl}>
 
   <!-- Print stylesheet -->
   <link rel="stylesheet" href={printUrl} media="print">

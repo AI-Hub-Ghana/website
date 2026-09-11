@@ -29,6 +29,9 @@ function json(response, status, body) {
   response.end(JSON.stringify(body));
 }
 
+let cachedSheetsClient = null;
+let cachedClientKey = null;
+
 function createSheetsClient(env = process.env, sheetsFactory = google.sheets) {
   const auth = new google.auth.GoogleAuth({
     credentials: {
@@ -40,7 +43,35 @@ function createSheetsClient(env = process.env, sheetsFactory = google.sheets) {
   return sheetsFactory({ version: "v4", auth });
 }
 
+function getSheetsClient(env = process.env, sheetsFactory = google.sheets) {
+  if (sheetsFactory !== google.sheets) {
+    return createSheetsClient(env, sheetsFactory);
+  }
+  const clientKey = `${env.GOOGLE_SERVICE_ACCOUNT_EMAIL}:${env.GOOGLE_SHEET_ID}`;
+  if (cachedSheetsClient && cachedClientKey === clientKey) {
+    return cachedSheetsClient;
+  }
+  cachedSheetsClient = createSheetsClient(env, sheetsFactory);
+  cachedClientKey = clientKey;
+  return cachedSheetsClient;
+}
+
+// In-memory cache for recent idempotency keys (avoids expensive full-sheet downloads)
+const recentIdempotencyMap = new Map();
+const MAX_RECENT_KEYS = 1000;
+
+function rememberIdempotency(key, record) {
+  if (recentIdempotencyMap.size >= MAX_RECENT_KEYS) {
+    const oldestKey = recentIdempotencyMap.keys().next().value;
+    recentIdempotencyMap.delete(oldestKey);
+  }
+  recentIdempotencyMap.set(key, record);
+}
+
 async function existingRegistration(sheets, env, idempotencyKey) {
+  if (recentIdempotencyMap.has(idempotencyKey)) {
+    return recentIdempotencyMap.get(idempotencyKey);
+  }
   const result = await sheets.spreadsheets.values.get({
     spreadsheetId: env.GOOGLE_SHEET_ID,
     range: getSheetRange(env),
@@ -49,11 +80,13 @@ async function existingRegistration(sheets, env, idempotencyKey) {
     (values) => values[3] === idempotencyKey,
   );
   if (!row) return null;
-  return {
+  const record = {
     registrationId: row[0],
     eventId: row[1],
     receivedAt: row[2],
   };
+  rememberIdempotency(idempotencyKey, record);
+  return record;
 }
 
 async function appendRegistration(sheets, env, registration) {
@@ -63,6 +96,11 @@ async function appendRegistration(sheets, env, registration) {
     valueInputOption: "RAW",
     insertDataOption: "INSERT_ROWS",
     requestBody: { values: [toSheetRow(registration)] },
+  });
+  rememberIdempotency(registration.idempotencyKey, {
+    registrationId: registration.registrationId,
+    eventId: registration.eventId,
+    receivedAt: registration.receivedAt,
   });
 }
 
@@ -99,7 +137,7 @@ function createApiHandler({
         });
       }
 
-      const sheets = createSheetsClient(env, sheetsFactory);
+      const sheets = getSheetsClient(env, sheetsFactory);
       const existing = await existingRegistration(sheets, env, idempotencyKey);
       if (existing) {
         return json(response, 200, { ok: true, duplicate: true, ...existing });

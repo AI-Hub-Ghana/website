@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import countries from '../data/countries.json';
 
 const title = "Register for free — AI Hub, Ghana";
 const description = "Register for AI Hub, Ghana's free AI showcase and panel discussion on 25 November 2026 in Accra. No GABS delegate registration is required.";
@@ -76,9 +77,40 @@ const selectedInterests = Astro.url.searchParams.getAll('interest');
               <label for="f-org">Organisation</label>
               <input id="f-org" name="organisation" type="text" autocomplete="organization" maxlength="200" required />
             </div>
-            <div class="participation-field">
+            <div class="participation-field participation-country-wrap">
               <label for="f-country">Country</label>
-              <input id="f-country" name="country" type="text" autocomplete="country-name" maxlength="100" required />
+              <div class="country-combobox">
+                <input
+                  id="f-country"
+                  name="country"
+                  type="text"
+                  role="combobox"
+                  aria-autocomplete="list"
+                  aria-expanded="false"
+                  aria-controls="country-dropdown-list"
+                  autocomplete="off"
+                  placeholder="Select or type country…"
+                  maxlength="100"
+                  required
+                />
+                <button
+                  type="button"
+                  class="country-combobox-toggle"
+                  aria-label="Toggle country list"
+                  tabindex="-1"
+                >
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                    <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+                <ul id="country-dropdown-list" class="country-dropdown-list" role="listbox" hidden>
+                  {countries.map((c) => (
+                    <li class="country-option" role="option" data-value={c} tabindex="-1">
+                      {c}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
 
