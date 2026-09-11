@@ -185,6 +185,10 @@ function initCountryCombobox(
 ) {
   let focusedIndex = -1;
   const options = Array.from(dropdown.querySelectorAll<HTMLLIElement>('.country-option'));
+  options.forEach((opt, index) => {
+    if (!opt.id) opt.id = `country-option-${index}`;
+    opt.setAttribute('aria-selected', 'false');
+  });
 
   function openDropdown() {
     dropdown.hidden = false;
@@ -195,6 +199,7 @@ function initCountryCombobox(
     dropdown.hidden = true;
     input.setAttribute('aria-expanded', 'false');
     focusedIndex = -1;
+    input.removeAttribute('aria-activedescendant');
     options.forEach((opt) => opt.classList.remove('is-focused'));
   }
 
@@ -296,6 +301,7 @@ function initCountryCombobox(
       if (visibleOpts.length > 0) {
         focusedIndex = (focusedIndex + 1) % visibleOpts.length;
         visibleOpts.forEach((o, i) => o.classList.toggle('is-focused', i === focusedIndex));
+        input.setAttribute('aria-activedescendant', visibleOpts[focusedIndex]?.id || '');
         visibleOpts[focusedIndex]?.scrollIntoView({ block: 'nearest' });
       }
     } else if (e.key === 'ArrowUp') {
@@ -304,6 +310,7 @@ function initCountryCombobox(
       if (visibleOpts.length > 0) {
         focusedIndex = (focusedIndex - 1 + visibleOpts.length) % visibleOpts.length;
         visibleOpts.forEach((o, i) => o.classList.toggle('is-focused', i === focusedIndex));
+        input.setAttribute('aria-activedescendant', visibleOpts[focusedIndex]?.id || '');
         visibleOpts[focusedIndex]?.scrollIntoView({ block: 'nearest' });
       }
     } else if (e.key === 'Enter') {
@@ -440,6 +447,7 @@ export function initParticipation() {
       country: String(data.get('country') || '').trim(),
       interest: data.getAll('interest'),
       context: String(data.get('context') || '').trim(),
+      website: String(data.get('website') || '').trim(),
     };
 
     if (!idempotencyKey) {
@@ -457,14 +465,23 @@ export function initParticipation() {
 
     try {
       const endpoint = form.dataset.endpoint || '/api/registrations';
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Idempotency-Key': idempotencyKey,
-        },
-        body: JSON.stringify(payload),
-      });
+      const controller = new AbortController();
+      const timeoutId = window.setTimeout(() => controller.abort(), 15000);
+
+      let response: Response;
+      try {
+        response = await fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Idempotency-Key': idempotencyKey,
+          },
+          body: JSON.stringify(payload),
+          signal: controller.signal,
+        });
+      } finally {
+        window.clearTimeout(timeoutId);
+      }
 
       const result = await response.json().catch(() => ({}));
 
@@ -486,7 +503,9 @@ export function initParticipation() {
             duration: 7000,
           });
         } else {
-          const msg = 'We could not submit your registration. Your details are still here — please try again.';
+          const msg = response.status === 429
+            ? 'Too many attempts from this connection. Please wait a few minutes and try again.'
+            : 'We could not submit your registration. Your details are still here — please try again.';
           setStatus(msg);
           showToast('failure', {
             title: 'Submission failed',
@@ -520,23 +539,20 @@ export function initParticipation() {
         duration: 8000,
       });
 
-      // Reset form so the inputs are refreshed and not locked with old data
-      form.reset();
-      idempotencyKey = null;
-
-      // Temporary success state on button, then restore ready state
+      // Keep the submitted details visible after success. This prevents
+      // accidental duplicate submissions and lets the user confirm what was sent.
       if (submitButton) {
         submitButton.removeAttribute('data-loading');
         submitButton.setAttribute('data-success', '');
-        submitButton.textContent = 'Registered ✓';
-        setTimeout(() => {
-          submitButton.removeAttribute('data-success');
-          submitButton.textContent = 'Register for free';
-          submitButton.disabled = false;
-        }, 4500);
+        submitButton.textContent = isDuplicate ? 'Already registered ✓' : 'Registration received ✓';
+        submitButton.disabled = true;
       }
-    } catch (_) {
-      const msg = 'We could not reach the registration service. Your details are still here — please try again.';
+      idempotencyKey = null;
+    } catch (error) {
+      const timedOut = error instanceof DOMException && error.name === 'AbortError';
+      const msg = timedOut
+        ? 'The registration service is taking longer than expected. Your details are still here — please try again.'
+        : 'We could not reach the registration service. Your details are still here — please try again.';
       setStatus(msg);
       showToast('failure', {
         title: 'Connection problem',

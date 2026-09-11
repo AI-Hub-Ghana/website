@@ -7,6 +7,12 @@ const {
 } = require("./registration-service.cjs");
 
 const DEFAULT_SHEET_RANGE = "A:J";
+const MAX_IDEMPOTENCY_KEY_LENGTH = 100;
+const MAX_BODY_BYTES = 16 * 1024;
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
+const RATE_LIMIT_MAX_REQUESTS = 10;
+const RATE_LIMIT_MAX_ENTRIES = 5000;
+const REQUEST_TIMEOUT_MS = 10000;
 
 function getSheetRange(env) {
   if (env.GOOGLE_SHEET_RANGE) return env.GOOGLE_SHEET_RANGE;
@@ -56,52 +62,164 @@ function getSheetsClient(env = process.env, sheetsFactory = google.sheets) {
   return cachedSheetsClient;
 }
 
-// In-memory cache for recent idempotency keys (avoids expensive full-sheet downloads)
+// Recent successful idempotency keys are cached per warm function instance.
+// This is a performance optimization, not the primary source of correctness.
 const recentIdempotencyMap = new Map();
 const MAX_RECENT_KEYS = 1000;
 
 function rememberIdempotency(key, record) {
   if (recentIdempotencyMap.size >= MAX_RECENT_KEYS) {
     const oldestKey = recentIdempotencyMap.keys().next().value;
-    recentIdempotencyMap.delete(oldestKey);
+    if (oldestKey) recentIdempotencyMap.delete(oldestKey);
   }
   recentIdempotencyMap.set(key, record);
 }
 
 async function existingRegistration(sheets, env, idempotencyKey) {
-  if (recentIdempotencyMap.has(idempotencyKey)) {
-    return recentIdempotencyMap.get(idempotencyKey);
-  }
-  const result = await sheets.spreadsheets.values.get({
-    spreadsheetId: env.GOOGLE_SHEET_ID,
-    range: getSheetRange(env),
-  });
-  const row = (result.data.values || []).find(
-    (values) => values[3] === idempotencyKey,
+  const cached = recentIdempotencyMap.get(idempotencyKey);
+  if (cached) return cached;
+
+  // Only read the idempotency-key column. The old A:J read downloaded the
+  // entire registration sheet on every submission and became slower as the
+  // sheet grew.
+  const result = await withTimeout(
+    sheets.spreadsheets.values.get({
+      spreadsheetId: env.GOOGLE_SHEET_ID,
+      range: getIdempotencyRange(env),
+      majorDimension: "COLUMNS",
+    }),
+    REQUEST_TIMEOUT_MS,
+    "Google Sheets lookup timed out",
   );
-  if (!row) return null;
+
+  const values = result.data.values || [];
+  const keys = values[0] || [];
+  const index = keys.indexOf(idempotencyKey);
+  if (index === -1) return null;
+
+  // Fetch the small metadata range for the matched row only.
+  const rowNumber = index + 1;
+  const metadata = await withTimeout(
+    sheets.spreadsheets.values.get({
+      spreadsheetId: env.GOOGLE_SHEET_ID,
+      range: getMetadataRange(env, rowNumber),
+    }),
+    REQUEST_TIMEOUT_MS,
+    "Google Sheets record lookup timed out",
+  );
+  const row = (metadata.data.values || [])[0] || [];
   const record = {
-    registrationId: row[0],
-    eventId: row[1],
-    receivedAt: row[2],
+    registrationId: row[0] || null,
+    eventId: row[1] || null,
+    receivedAt: row[2] || null,
   };
   rememberIdempotency(idempotencyKey, record);
   return record;
 }
 
-async function appendRegistration(sheets, env, registration) {
-  await sheets.spreadsheets.values.append({
-    spreadsheetId: env.GOOGLE_SHEET_ID,
-    range: getSheetRange(env),
-    valueInputOption: "RAW",
-    insertDataOption: "INSERT_ROWS",
-    requestBody: { values: [toSheetRow(registration)] },
+function sheetPrefix(env) {
+  if (env.GOOGLE_SHEET_RANGE) {
+    const bang = env.GOOGLE_SHEET_RANGE.lastIndexOf("!");
+    return bang >= 0 ? `${env.GOOGLE_SHEET_RANGE.slice(0, bang)}!` : "";
+  }
+  if (env.GOOGLE_SHEET_NAME) return `${env.GOOGLE_SHEET_NAME}!`;
+  return "";
+}
+
+function columnToNumber(column) {
+  let number = 0;
+  for (const char of column.toUpperCase()) number = number * 26 + char.charCodeAt(0) - 64;
+  return number;
+}
+
+function numberToColumn(number) {
+  let column = "";
+  while (number > 0) {
+    const remainder = (number - 1) % 26;
+    column = String.fromCharCode(65 + remainder) + column;
+    number = Math.floor((number - 1) / 26);
+  }
+  return column;
+}
+
+function getStartColumn(env) {
+  const range = env.GOOGLE_SHEET_RANGE;
+  if (range) {
+    const match = range.match(/(?:^|!)([A-Z]+)\d*:/i);
+    if (match) return match[1].toUpperCase();
+  }
+  return "A";
+}
+
+function getIdempotencyRange(env) {
+  const idempotencyColumn = numberToColumn(columnToNumber(getStartColumn(env)) + 3);
+  return `${sheetPrefix(env)}${idempotencyColumn}:${idempotencyColumn}`;
+}
+
+function getMetadataRange(env, rowNumber) {
+  const start = columnToNumber(getStartColumn(env));
+  return `${sheetPrefix(env)}${numberToColumn(start)}${rowNumber}:${numberToColumn(start + 2)}${rowNumber}`;
+}
+
+function withTimeout(promise, timeoutMs, message) {
+  let timer;
+  const timeout = new Promise((_, reject) => {
+    timer = setTimeout(() => reject(new Error(message)), timeoutMs);
   });
+  return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
+}
+
+async function appendRegistration(sheets, env, registration) {
+  await withTimeout(
+    sheets.spreadsheets.values.append({
+      spreadsheetId: env.GOOGLE_SHEET_ID,
+      range: getSheetRange(env),
+      valueInputOption: "RAW",
+      insertDataOption: "INSERT_ROWS",
+      requestBody: { values: [toSheetRow(registration)] },
+    }),
+    REQUEST_TIMEOUT_MS,
+    "Google Sheets append timed out",
+  );
   rememberIdempotency(registration.idempotencyKey, {
     registrationId: registration.registrationId,
     eventId: registration.eventId,
     receivedAt: registration.receivedAt,
   });
+}
+
+const rateLimitMap = new Map();
+
+function getClientKey(request) {
+  const forwarded = request.headers["x-forwarded-for"] || request.headers["X-Forwarded-For"];
+  return String(forwarded || request.socket?.remoteAddress || "unknown")
+    .split(",")[0]
+    .trim()
+    .slice(0, 100);
+}
+
+function isRateLimited(request) {
+  const now = Date.now();
+  const key = getClientKey(request);
+  const existing = rateLimitMap.get(key);
+  if (!existing || now - existing.startedAt >= RATE_LIMIT_WINDOW_MS) {
+    if (rateLimitMap.size >= RATE_LIMIT_MAX_ENTRIES) {
+      for (const [entryKey, entry] of rateLimitMap) {
+        if (now - entry.startedAt >= RATE_LIMIT_WINDOW_MS) rateLimitMap.delete(entryKey);
+      }
+      if (rateLimitMap.size >= RATE_LIMIT_MAX_ENTRIES) return true;
+    }
+    rateLimitMap.set(key, { startedAt: now, count: 1 });
+    return false;
+  }
+  existing.count += 1;
+  return existing.count > RATE_LIMIT_MAX_REQUESTS;
+}
+
+function bodyByteLength(body) {
+  if (body == null) return 0;
+  if (typeof body === "string") return Buffer.byteLength(body, "utf8");
+  try { return Buffer.byteLength(JSON.stringify(body), "utf8"); } catch (_) { return MAX_BODY_BYTES + 1; }
 }
 
 function createApiHandler({
@@ -118,10 +236,21 @@ function createApiHandler({
       return json(response, 503, { error: "registration_unconfigured" });
     }
 
+    if (isRateLimited(request)) {
+      response.setHeader("Retry-After", "600");
+      return json(response, 429, { error: "rate_limited" });
+    }
+
     const idempotencyKey =
       request.headers["idempotency-key"] || request.headers["Idempotency-Key"];
-    if (!idempotencyKey || idempotencyKey.length > 200) {
-      return json(response, 400, { error: "missing_idempotency_key" });
+    if (!idempotencyKey || typeof idempotencyKey !== "string" ||
+        idempotencyKey.length > MAX_IDEMPOTENCY_KEY_LENGTH ||
+        !/^[A-Za-z0-9._:-]+$/.test(idempotencyKey)) {
+      return json(response, 400, { error: "invalid_idempotency_key" });
+    }
+
+    if (bodyByteLength(request.body) > MAX_BODY_BYTES) {
+      return json(response, 413, { error: "request_too_large" });
     }
 
     try {
@@ -129,6 +258,12 @@ function createApiHandler({
         typeof request.body === "object"
           ? request.body
           : JSON.parse(request.body || "{}");
+
+      // Cheap bot/spam trap. Do not persist the honeypot field.
+      if (body && typeof body === "object" && String(body.website || "").trim()) {
+        return json(response, 400, { error: "invalid_request" });
+      }
+
       const created = createRegistration(body, idempotencyKey, now());
       if (!created.ok) {
         return json(response, 422, {
