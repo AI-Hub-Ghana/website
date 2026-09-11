@@ -524,7 +524,6 @@ body.participation-page {
   gap: 22px 18px;
 }
 .participation-country-wrap {
-  grid-column: 1 / -1;
   position: relative;
 }
 .participation-field {
@@ -534,12 +533,8 @@ body.participation-page {
   min-width: 0;
 }
 .participation-context-field {
+  margin-top: 24px;
   gap: 12px;
-}
-.participation-form .participation-field + .participation-field,
-.participation-form .participation-field + .participation-consent,
-.participation-form .participation-consent + .participation-submit {
-  margin-top: 14px;
 }
 .participation-field label,
 .participation-interests legend {
