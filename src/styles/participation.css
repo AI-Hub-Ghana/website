@@ -128,45 +128,23 @@ summary:focus-visible,
   font-size: 13px;
   font-weight: 600;
   position: relative;
-  padding-block: 14px;
   color: #1d1d1b;
-  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
 }
-.desktop-nav a::after {
-  position: absolute;
+.desktop-nav a:hover,
+.desktop-nav a.active {
+  color: #2a7a5e;
+}
+.desktop-nav a.active::after {
   content: "";
-  height: 2px;
-  background: #2a7a5e;
-  bottom: 7px;
+  position: absolute;
+  bottom: -4px;
   left: 0;
   right: 0;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.25s;
-}
-.desktop-nav a:hover::after,
-.desktop-nav a.active::after {
-  transform: scaleX(1);
-}
-.nav-cta {
-  display: flex;
-  gap: 24px;
-  align-items: center;
-  font-size: 13px;
-  font-weight: 650;
-  border-radius: 100px;
-  padding: 12px 21px;
-  min-height: 47px;
+  height: 2px;
   background: #2a7a5e;
-  color: #fff;
-  text-decoration: none;
-  transition:
-    background 0.2s,
-    transform 0.2s;
-}
-.nav-cta:hover {
-  background: #225f4b;
-  transform: translateY(-1px);
+  border-radius: 1px;
 }
 .menu-button {
   display: none;
@@ -178,42 +156,78 @@ summary:focus-visible,
   padding: 9px 17px;
   min-height: 44px;
   font-size: 14px;
+  font-weight: 600;
+  color: #1d1d1b;
+  cursor: pointer;
 }
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 9px 20px;
+  border-radius: 999px;
+  background: #2a7a5e;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  white-space: nowrap;
+  flex: none;
+  transition:
+    background 0.22s,
+    transform 0.22s;
+}
+.nav-cta:hover {
+  background: #205d49;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+.nav-cta:active {
+  transform: translateY(0);
+}
+
+/* ---- Mobile nav drawer (dropdown) --------------------------------------- */
 .mobile-nav {
-  padding: 12px 24px 24px;
+  background: #f2f2ef;
   border-top: 1px solid #dfdfdc;
+  padding: 16px clamp(22px, 4.45vw, 64px) 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.mobile-nav[hidden] {
+  display: none !important;
 }
 .mobile-nav a {
-  display: block;
-  padding: 12px 0;
   font-size: 16px;
-  border-bottom: 1px solid #dfdfdc;
-  text-decoration: none;
+  font-weight: 600;
+  padding: 8px 0;
   color: #1d1d1b;
+  border-bottom: 1px solid #e5e5e0;
+}
+.mobile-nav a:last-child {
+  border-bottom: none;
+}
+.mobile-nav a:hover {
+  color: #2a7a5e;
 }
 
-/* ---- Site footer ------------------------------------------------------- */
-.site-footer {
-  background: #f2f2ef;
-  color: #1d1d1b;
-  padding: 29px 0 20px;
-}
-
-/* ---- Submit button ----------------------------------------------------- */
+/* ---- Primary CTA button ------------------------------------------------ */
 .button {
   display: inline-flex;
-  justify-content: center;
   align-items: center;
-  gap: 25px;
-  padding: 16px 25px;
-  min-height: 54px;
-  border: 1px solid transparent;
-  border-radius: 100px;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 11px 24px;
+  border-radius: 999px;
   background: #2a7a5e;
-  color: #fff;
+  color: #ffffff;
   font-size: 14px;
   font-weight: 600;
-  line-height: 1.3;
+  letter-spacing: -0.01em;
   text-decoration: none;
   transition:
     background 0.22s,
@@ -264,10 +278,13 @@ summary:focus-visible,
   .header-inner {
     min-height: 72px;
   }
+  .brand-placeholder {
+    font-size: 20px;
+  }
 }
 
 /* ========================================================================
-   End of shared styles — participation-page-specific styles follow
+   Participation page specific styles
    ======================================================================== */
 
 body.participation-page {
@@ -289,25 +306,34 @@ body.participation-page {
 .participation-page .skip-link:focus {
   transform: translateY(0);
 }
+
+/* ---- Main layout & grid ------------------------------------------------ */
 .participation-main {
-  padding-block: 64px 92px;
+  padding-block: 44px 76px;
 }
 .participation-back {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 48px;
-  font-size: 12px;
+  margin-bottom: 36px;
+  font-size: 14px;
   font-weight: 650;
+  color: #0b2926;
   text-decoration: none;
+  transition: color 0.18s;
+}
+.participation-back:hover {
+  color: #2a7a5e;
 }
 .participation-grid {
   display: grid;
-  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
-  column-gap: clamp(38px, 7vw, 112px);
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  column-gap: clamp(32px, 5vw, 76px);
   row-gap: 26px;
   align-items: start;
 }
+
+/* ---- Intro column ------------------------------------------------------ */
 .participation-intro h1 {
   margin: 20px 0 24px;
   max-width: 13ch;
@@ -315,23 +341,50 @@ body.participation-page {
   font-weight: 550;
   line-height: 1.08;
   letter-spacing: -0.045em;
+  color: #0b2926;
 }
 .participation-intro > p:not(.eyebrow) {
   margin: 0;
-  max-width: 35ch;
-  font-size: 16px;
+  max-width: 39ch;
+  font-size: 17px;
   line-height: 1.7;
   color: #4b625b;
 }
+
+.participation-photo {
+  margin: 32px 0 0;
+}
+.participation-photo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1.65;
+  object-fit: cover;
+  border-radius: 4px;
+}
+.participation-photo figcaption {
+  margin-top: 9px;
+  font-size: 12px;
+  color: #566c61;
+}
+
 .participation-next {
-  margin-top: 52px;
-  border-top: 1px solid #cbd3cd;
-  padding-top: 24px;
+  margin-top: 30px;
+  border-top: 1px solid #ccd8cf;
+  padding-top: 22px;
 }
 .participation-next h2 {
-  margin: 0 0 22px;
-  font-size: 13px;
-  font-weight: 700;
+  margin: 0 0 16px;
+  font-size: 17px;
+  line-height: 1.4;
+  font-weight: 600;
+  color: #0b2926;
+}
+.participation-next > p {
+  margin: 0;
+  max-width: 42ch;
+  color: #4b625b;
+  font-size: 15px;
+  line-height: 1.65;
 }
 .participation-next ol {
   padding: 0;
@@ -344,23 +397,24 @@ body.participation-page {
   display: grid;
   grid-template-columns: 25px 1fr;
   gap: 12px;
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.6;
   color: #4b625b;
 }
 .participation-next li > span:first-child {
-  font-size: 11px;
+  font-size: 12px;
   font-variant-numeric: tabular-nums;
-  color: #327563;
+  color: #2a7a5e;
 }
 .participation-next strong {
   display: block;
   color: #0b2926;
   font-weight: 650;
 }
+
 .participation-contact {
-  margin-top: 32px;
-  font-size: 12px;
+  margin-top: 24px;
+  font-size: 14px;
   line-height: 1.8;
   color: #4b625b;
 }
@@ -369,7 +423,6 @@ body.participation-page {
   width: fit-content;
   color: #0b2926;
   font-weight: 600;
-  /* Restore underline stripped by the global `a { text-decoration: none }` reset */
   text-decoration: underline;
   text-underline-offset: 4px;
   overflow-wrap: anywhere;
@@ -378,17 +431,35 @@ body.participation-page {
 .participation-contact a:hover {
   color: #2a7a5e;
 }
+
+/* ---- Registration form panel ------------------------------------------- */
 .participation-form-panel {
-  padding: 36px;
-  background: #fff;
-  border: 1px solid #dce2dc;
-  border-radius: 6px;
+  padding: 32px;
+  background: #ffffff;
+  border: 1px solid #ccd8cf;
+  border-radius: 5px;
   scroll-margin-top: 112px;
 }
+.participation-form-heading {
+  margin: 0 0 10px;
+  font-size: 27px;
+  font-weight: 550;
+  letter-spacing: -0.03em;
+  color: #0b2926;
+}
+.participation-form-intro {
+  margin: 0 0 26px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #4b625b;
+  max-width: 48ch;
+}
+
 .participation-route-label {
   margin: 0 0 14px;
-  font-size: 12px;
-  font-weight: 650;
+  font-size: 13px;
+  font-weight: 600;
+  color: #0b2926;
 }
 .participation-routes {
   display: flex;
@@ -400,11 +471,11 @@ body.participation-page {
   align-items: center;
   gap: 8px;
   min-height: 44px;
-  padding: 9px 14px;
+  padding: 9px 13px;
   border: 1px solid #d4ddd5;
   border-radius: 999px;
   color: #355149;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   text-decoration: none;
   transition:
@@ -413,28 +484,29 @@ body.participation-page {
     color 0.18s;
 }
 .participation-route:hover {
-  border-color: #367661;
-  background: #f3f7f1;
+  border-color: #2a7a5e;
+  background: #f0f8f4;
 }
 .participation-route[aria-current="true"] {
-  background: #0b2926;
-  border-color: #0b2926;
-  color: #fff;
+  background: #2a7a5e;
+  border-color: #2a7a5e;
+  color: #ffffff;
 }
 .participation-route[aria-current="true"]:before {
   content: "";
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #b8f269;
+  background: #eac15d;
 }
+
 .participation-event-note {
   margin: 18px 0 0;
   padding: 13px 15px;
-  border-left: 2px solid #669b46;
-  background: #f0f5e9;
+  border-left: 3px solid #eac15d;
+  background: #faf5e4;
   color: #3f5946;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.65;
 }
 .participation-event-note a {
@@ -442,6 +514,7 @@ body.participation-page {
   text-underline-offset: 3px;
   font-weight: 650;
 }
+
 .participation-form {
   margin-top: 28px;
 }
@@ -450,9 +523,9 @@ body.participation-page {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 22px 18px;
 }
-/* Country combobox spans both columns — it's a wider searchable control */
 .participation-country-wrap {
   grid-column: 1 / -1;
+  position: relative;
 }
 .participation-field {
   display: flex;
@@ -471,8 +544,8 @@ body.participation-page {
 .participation-field label,
 .participation-interests legend {
   color: #163b30;
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: 600;
   letter-spacing: -0.01em;
 }
 .participation-field input,
@@ -485,17 +558,28 @@ body.participation-page {
   border: 1px solid #7b8c80;
   border-radius: 3px;
   color: #0b2926;
-  background: #fbfcf9;
+  background: #f9faf7;
   font: inherit;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.5;
 }
 .participation-field input {
-  min-height: 46px;
+  min-height: 48px;
 }
-.participation-country-wrap {
-  position: relative;
+.participation-field textarea {
+  min-height: 112px;
+  resize: vertical;
 }
+.participation-field textarea::placeholder {
+  color: #5c7063;
+}
+.participation-context-field label {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* ---- Country combobox -------------------------------------------------- */
 .country-combobox {
   position: relative;
   width: 100%;
@@ -582,22 +666,8 @@ body.participation-page {
   color: #6e675b;
   font-style: italic;
 }
-.participation-field textarea {
-  min-height: 112px;
-  resize: vertical;
-}
-.participation-field textarea::placeholder {
-  color: #5c7063;
-}
-.participation-context-field label {
-  font-size: 13px;
-  font-weight: 700;
-  line-height: 1.4;
-}
-.participation-page :is(input, textarea, button, a, summary):focus-visible {
-  outline: 2px solid #2a7a5e;
-  outline-offset: 4px;
-}
+
+/* ---- Areas of interest chips ------------------------------------------- */
 .participation-interests {
   border: 0;
   padding: 0;
@@ -609,7 +679,7 @@ body.participation-page {
   padding: 0;
 }
 .participation-optional {
-  color: rgba(22, 59, 48, 0.6);
+  color: #5c7063;
   font-weight: 400;
 }
 .participation-chips {
@@ -627,9 +697,9 @@ body.participation-page {
   border: 1px solid #d5ded5;
   border-radius: 4px;
   color: #466055;
-  background: #fff;
-  font-size: 11px;
-  font-weight: 550;
+  background: #ffffff;
+  font-size: 13px;
+  font-weight: 500;
   line-height: 1.5;
   transition:
     background 0.18s,
@@ -644,9 +714,9 @@ body.participation-page {
   margin: 0;
 }
 .participation-chip:has(input:checked) {
-  background: #edf6e6;
-  border-color: #88a977;
-  color: #153b2b;
+  background: #e9f5ef;
+  border-color: #2a7a5e;
+  color: #205d49;
 }
 .participation-chip span:before {
   content: "+";
@@ -662,6 +732,8 @@ body.participation-page {
   outline: 2px solid #2a7a5e;
   outline-offset: 3px;
 }
+
+/* ---- Consent checkbox --------------------------------------------------- */
 .participation-consent {
   margin: 0 0 16px;
 }
@@ -714,25 +786,29 @@ body.participation-page {
 .participation-consent-label span {
   display: inline-block;
 }
+
+/* ---- Form submission controls ------------------------------------------ */
 .participation-submit {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 17px;
   align-items: center;
-  margin-top: 0;
-  justify-content: flex-start;
+  margin-top: 24px;
 }
 .participation-submit .button {
   border: 0;
   cursor: pointer;
-  margin-top: 0;
 }
 .participation-submit p {
-  display: none;
+  flex: 1 1 190px;
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #5d7164;
 }
 .participation-privacy-link {
-  margin: 16px 0 0;
-  font-size: 12px;
+  margin: 18px 0 0;
+  font-size: 13px;
   line-height: 1.6;
   color: #6a7b70;
 }
@@ -742,6 +818,8 @@ body.participation-page {
 #registration-status:empty {
   margin: 0;
 }
+
+/* ---- Email draft fallback ---------------------------------------------- */
 .participation-draft {
   padding: 24px 0 0;
   margin-top: 26px;
@@ -754,7 +832,7 @@ body.participation-page {
 }
 .participation-draft p {
   margin: 0 0 14px;
-  font-size: 12px;
+  font-size: 15px;
   line-height: 1.65;
   color: #496152;
 }
@@ -763,10 +841,10 @@ body.participation-page {
   min-height: 210px;
   resize: vertical;
   margin: 10px 0 14px;
-  font-size: 12px;
+  font-size: 16px;
 }
 .participation-draft label {
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 650;
 }
 .participation-draft-controls {
@@ -780,31 +858,32 @@ body.participation-page {
   min-height: 44px;
   border: 1px solid #a3b6a5;
   border-radius: 3px;
-  background: #fff;
+  background: #ffffff;
   font: inherit;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
 }
 .participation-draft-controls a {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 650;
   text-underline-offset: 4px;
 }
 .participation-draft .participation-copy-status {
   margin: 12px 0 0;
 }
+
+/* ---- Privacy disclosure ------------------------------------------------ */
 .participation-privacy {
+  font-size: 13px;
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid #dce2dc;
   grid-column: 2;
-  margin-top: 16px;
   max-width: 65ch;
   color: #5c7063;
-  font-size: 12px;
   line-height: 1.7;
   scroll-margin-top: 110px;
-}
-.participation-privacy[open] summary {
-  margin-bottom: 6px;
 }
 .participation-privacy summary {
   width: fit-content;
@@ -812,263 +891,11 @@ body.participation-page {
   font-weight: 600;
   min-height: 30px;
 }
-.participation-privacy summary::marker {
-  color: #163b30;
-}
 .participation-privacy p {
   margin: 12px 0 0;
 }
-.participation-privacy-inline {
-  margin-top: 16px;
-}
-.participation-footer-inner {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 22px;
-  padding-block: 27px;
-  border-top: 1px solid #ccd5cb;
-}
-.participation-footer-inner p {
-  margin: 0;
-  font-size: 11px;
-}
-.participation-footer-inner nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
-}
-.participation-footer-inner a {
-  font-size: 11px;
-  text-decoration: none;
-}
-.participation-footer-inner a:hover {
-  text-decoration: underline;
-  text-underline-offset: 4px;
-}
-.participation-page [hidden] {
-  display: none !important;
-}
-@media (max-width: 950px) {
-  .participation-grid {
-    gap: 36px;
-    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-  }
-  .participation-form-panel {
-    padding: 24px;
-  }
-  .participation-route {
-    font-size: 11px;
-    padding: 8px 11px;
-  }
-}
-@media (max-width: 760px) {
-  .participation-main {
-    padding-block: 30px 58px;
-  }
-  .participation-back {
-    margin-bottom: 32px;
-  }
-  .participation-grid {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-  .participation-intro h1 {
-    max-width: 12ch;
-    font-size: clamp(44px, 8vw, 58px);
-  }
-  .participation-intro > p:not(.eyebrow) {
-    max-width: 48ch;
-    font-size: 15px;
-  }
-  .participation-next {
-    display: none;
-  }
-  .participation-next ol {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
-  }
-  .participation-contact {
-    margin-top: 20px;
-  }
-  .participation-privacy {
-    grid-column: 1;
-    margin-top: -12px;
-  }
-  .participation-form-panel {
-    padding: 24px 20px;
-  }
-}
-/* NOTE: The 420px field-collapse breakpoint from the earlier block is removed.
-   The 480px breakpoint in the consolidated block below handles this correctly
-   for all modern mobile viewports (390px iPhone 14, 414px older iPhones, etc.) */
-@media print {
-  .participation-main {
-    padding: 24px 0;
-  }
-  .participation-intro {
-    position: static;
-  }
-  .participation-routes,
-  .participation-back,
-  .menu-button {
-    display: none;
-  }
-  .participation-grid {
-    grid-template-columns: 1fr 1.3fr;
-    gap: 30px;
-  }
-}
-/* Clear, warm and readable for the Hub's business audience. */
-.participation-main {
-  padding-block: 44px 76px;
-}
-.participation-back {
-  margin-bottom: 36px;
-  font-size: 14px;
-}
-.participation-grid {
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  column-gap: clamp(32px, 5vw, 76px);
-}
-.participation-intro > p:not(.eyebrow) {
-  font-size: 17px;
-  max-width: 39ch;
-}
-.participation-photo {
-  margin: 32px 0 0;
-}
-.participation-photo img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 1.65;
-  object-fit: cover;
-  border-radius: 4px;
-}
-.participation-photo figcaption {
-  margin-top: 9px;
-  font-size: 12px;
-  color: #566c61;
-}
-.participation-next {
-  margin-top: 30px;
-  padding-top: 22px;
-  border-color: #ccd8cf;
-}
-.participation-next h2 {
-  font-size: 17px;
-  line-height: 1.4;
-  font-weight: 600;
-  margin-bottom: 16px;
-}
-.participation-next > p {
-  margin: 0;
-  max-width: 42ch;
-  color: #4b625b;
-  font-size: 15px;
-  line-height: 1.65;
-}
-.participation-next li {
-  font-size: 15px;
-  line-height: 1.6;
-}
-.participation-next li > span:first-child {
-  font-size: 12px;
-  color: #2a7a5e;
-}
-.participation-contact {
-  font-size: 14px;
-  margin-top: 24px;
-}
-.participation-form-panel {
-  padding: 32px;
-  border-radius: 5px;
-  border-color: #ccd8cf;
-  background: #fff;
-}
-.participation-form-heading {
-  margin: 0 0 10px;
-  font-size: 27px;
-  font-weight: 550;
-  letter-spacing: -0.03em;
-}
-.participation-form-intro {
-  margin: 0 0 26px;
-  font-size: 15px;
-  line-height: 1.6;
-  color: #4b625b;
-  max-width: 48ch;
-}
-.participation-route-label {
-  font-size: 13px;
-  font-weight: 600;
-}
-.participation-route {
-  font-size: 14px;
-  padding: 9px 13px;
-}
-.participation-route:hover {
-  border-color: #2a7a5e;
-  background: #f0f8f4;
-}
-.participation-route[aria-current="true"] {
-  background: #2a7a5e;
-  border-color: #2a7a5e;
-}
-.participation-route[aria-current="true"]:before {
-  background: #eac15d;
-}
-.participation-event-note {
-  border-left: 3px solid #eac15d;
-  background: #faf5e4;
-  font-size: 14px;
-}
-.participation-field label,
-.participation-interests legend {
-  font-size: 14px;
-  font-weight: 600;
-}
-.participation-field input,
-.participation-field textarea {
-  font-size: 16px;
-  min-height: 48px;
-  background: #f9faf7;
-}
-.participation-chip {
-  font-size: 13px;
-  min-height: 44px;
-  font-weight: 500;
-}
-.participation-chip:has(input:checked) {
-  background: #e9f5ef;
-  border-color: #2a7a5e;
-  color: #205d49;
-}
-.participation-submit p,
-.participation-privacy-link {
-  font-size: 13px;
-}
-.participation-submit p {
-  flex-basis: 190px;
-}
-.participation-draft p {
-  font-size: 15px;
-}
-.participation-draft textarea {
-  font-size: 16px;
-}
-.participation-draft label,
-.participation-copy,
-.participation-draft-controls a {
-  font-size: 14px;
-}
-.participation-privacy {
-  font-size: 13px;
-  margin-top: 24px;
-  padding-top: 18px;
-  border-top: 1px solid #dce2dc;
-}
+
+/* ---- Why Ghana / Reasons section --------------------------------------- */
 .participation-reasons {
   margin-top: 72px;
   padding-top: 40px;
@@ -1080,6 +907,7 @@ body.participation-page {
   font-weight: 550;
   line-height: 1.15;
   letter-spacing: -0.035em;
+  color: #0b2926;
 }
 .participation-reason-grid {
   display: grid;
@@ -1105,6 +933,7 @@ body.participation-page {
   font-weight: 550;
   letter-spacing: -0.02em;
   margin: 0 0 14px;
+  color: #0b2926;
 }
 .participation-reason p {
   font-size: 15px;
@@ -1120,6 +949,7 @@ body.participation-page {
   text-underline-offset: 4px;
   color: #205d49;
 }
+
 .participation-image-note {
   margin-top: 30px;
   color: #566c61;
@@ -1135,16 +965,53 @@ body.participation-page {
 .participation-image-note p {
   margin: 8px 0 0;
 }
+
+/* ---- Footer inner ------------------------------------------------------ */
+.participation-footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  padding-block: 27px;
+  border-top: 1px solid #ccd5cb;
+}
 .participation-footer-inner p,
 .participation-footer-inner a {
   font-size: 12px;
 }
+.participation-footer-inner a {
+  text-decoration: none;
+}
+.participation-footer-inner a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Bot honeypot: present in the DOM for spam detection but invisible and non-interactive. */
+.registration-honeypot {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* ========================================================================
+   Media queries (unified descending hierarchy)
+   ======================================================================== */
+
 @media (max-width: 1100px) {
   .participation-reason-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 30px;
   }
 }
+
 @media (max-width: 950px) {
   .participation-form-panel {
     padding: 26px;
@@ -1154,7 +1021,14 @@ body.participation-page {
     padding: 9px 12px;
   }
 }
+
 @media (max-width: 760px) {
+  .participation-main {
+    padding-block: 28px 52px;
+  }
+  .participation-back {
+    margin-bottom: 24px;
+  }
   .participation-grid {
     grid-template-columns: 1fr;
     gap: 30px;
@@ -1176,6 +1050,7 @@ body.participation-page {
   }
   .participation-next {
     display: block;
+    margin-top: 28px;
   }
   .participation-next ol {
     grid-template-columns: 1fr;
@@ -1183,11 +1058,12 @@ body.participation-page {
   .participation-next li {
     font-size: 14px;
   }
-  .participation-main {
-    padding-block: 28px 52px;
+  .participation-contact {
+    margin-top: 20px;
   }
-  .participation-back {
-    margin-bottom: 24px;
+  .participation-privacy {
+    grid-column: 1;
+    margin-top: -12px;
   }
   .participation-form-panel {
     padding: 24px 20px;
@@ -1203,6 +1079,7 @@ body.participation-page {
     font-size: 19px;
   }
 }
+
 @media (max-width: 480px) {
   .participation-fields {
     grid-template-columns: 1fr;
@@ -1221,15 +1098,21 @@ body.participation-page {
   }
 }
 
-/* Bot honeypot: present in the DOM for spam detection but invisible and non-interactive. */
-.registration-honeypot {
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  padding: 0 !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  clip: rect(0, 0, 0, 0) !important;
-  white-space: nowrap !important;
-  border: 0 !important;
+/* ---- Print styles ------------------------------------------------------ */
+@media print {
+  .participation-main {
+    padding: 24px 0;
+  }
+  .participation-intro {
+    position: static;
+  }
+  .participation-routes,
+  .participation-back,
+  .menu-button {
+    display: none;
+  }
+  .participation-grid {
+    grid-template-columns: 1fr 1.3fr;
+    gap: 30px;
+  }
 }

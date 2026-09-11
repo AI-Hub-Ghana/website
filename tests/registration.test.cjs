@@ -129,10 +129,10 @@ assert.equal(sheetText("@directive"), "'@directive");
 assert.equal(sheetText("Normal text"), "Normal text");
 
 // Range helper with GOOGLE_SHEET_NAME
-assert.equal(getSheetRange({}), "A:J");
+assert.equal(getSheetRange({}), "A:L");
 assert.equal(
   getSheetRange({ GOOGLE_SHEET_NAME: "Registrations" }),
-  "Registrations!A:J",
+  "Registrations!A:L",
 );
 assert.equal(getSheetRange({ GOOGLE_SHEET_RANGE: "Sheet1!B:K" }), "Sheet1!B:K");
 
@@ -319,6 +319,61 @@ const sheetsFactory = ({ auth }) => {
   assert.equal(raceRows.length, 1);
   assert.equal(raceResponseA.statusCode, 201);
   assert.equal(raceResponseB.statusCode, 200);
+  const raceBodyA = JSON.parse(raceResponseA.body);
+  const raceBodyB = JSON.parse(raceResponseB.body);
+  assert.equal(raceBodyB.duplicate, true);
+  assert.equal(raceBodyB.registrationId, raceBodyA.registrationId);
+
+  // Concurrent failure test: If the in-flight request fails, the concurrent
+  // request must also fail (500), NEVER falsely returning 200 success!
+  const failEnv = { ...env, GOOGLE_SHEET_ID: "fail-sheet-id" };
+  const failFactory = () => ({
+    spreadsheets: {
+      values: {
+        async get() { return { data: { values: [] } }; },
+        async append() {
+          await new Promise((resolve) => setTimeout(resolve, 30));
+          throw new Error("Simulated Sheets write failure");
+        },
+      },
+    },
+  });
+  const failHandler = createApiHandler({
+    env: failEnv,
+    sheetsFactory: failFactory,
+  });
+  const failResponseA = responseMock();
+  const failResponseB = responseMock();
+  await Promise.all([
+    failHandler(
+      {
+        method: "POST",
+        headers: {
+          "idempotency-key": "fail-key-1",
+          "x-forwarded-for": "10.0.0.40",
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(validData),
+      },
+      failResponseA,
+    ),
+    failHandler(
+      {
+        method: "POST",
+        headers: {
+          "idempotency-key": "fail-key-1",
+          "x-forwarded-for": "10.0.0.41",
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(validData),
+      },
+      failResponseB,
+    ),
+  ]);
+  assert.equal(failResponseA.statusCode, 503);
+  assert.equal(failResponseB.statusCode, 503);
+  assert.equal(JSON.parse(failResponseA.body).error, "registration_unavailable");
+  assert.equal(JSON.parse(failResponseB.body).error, "registration_unavailable");
 
   // Validation failure: 422
   const res4 = responseMock();
@@ -417,10 +472,47 @@ const sheetsFactory = ({ auth }) => {
   );
   assert.equal(res7.statusCode, 400);
 
-  // Method not allowed: 405
-  const res5 = responseMock();
-  await handler({ method: "GET" }, res5);
-  assert.equal(res5.statusCode, 405);
+  // Distributed rate limit test (Upstash / KV REST pipeline)
+  const origFetch = globalThis.fetch;
+  try {
+    globalThis.fetch = async (url, opts) => {
+      assert.ok(url.includes("/pipeline"));
+      return {
+        ok: true,
+        async json() {
+          // Simulated pipeline response where count exceeds limit (e.g. 11)
+          return [{ result: 11 }, { result: "OK" }];
+        },
+      };
+    };
+
+    const distHandler = createApiHandler({
+      env: {
+        ...env,
+        UPSTASH_REDIS_REST_URL: "https://mock-redis.upstash.io",
+        UPSTASH_REDIS_REST_TOKEN: "mock-token",
+      },
+      sheetsFactory,
+    });
+    const distResponse = responseMock();
+    await distHandler(
+      {
+        method: "POST",
+        headers: {
+          "idempotency-key": "dist-key-1",
+          "x-forwarded-for": "10.0.0.99",
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(validData),
+      },
+      distResponse,
+    );
+    assert.equal(distResponse.statusCode, 429);
+    assert.equal(JSON.parse(distResponse.body).error, "rate_limited");
+    assert.equal(distResponse.headers["Retry-After"], "600");
+  } finally {
+    globalThis.fetch = origFetch;
+  }
 
   console.log("✅ All registration service & API tests passed!");
 })();

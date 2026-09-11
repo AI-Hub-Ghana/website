@@ -6,7 +6,7 @@ const {
   toSheetRow,
 } = require("./registration-service.cjs");
 
-const DEFAULT_SHEET_RANGE = "A:J";
+const DEFAULT_SHEET_RANGE = "A:L";
 const MAX_IDEMPOTENCY_KEY_LENGTH = 100;
 const MAX_BODY_BYTES = 16 * 1024;
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
@@ -16,7 +16,7 @@ const REQUEST_TIMEOUT_MS = 10000;
 
 function getSheetRange(env) {
   if (env.GOOGLE_SHEET_RANGE) return env.GOOGLE_SHEET_RANGE;
-  if (env.GOOGLE_SHEET_NAME) return `${env.GOOGLE_SHEET_NAME}!A:J`;
+  if (env.GOOGLE_SHEET_NAME) return `${env.GOOGLE_SHEET_NAME}!A:L`;
   return DEFAULT_SHEET_RANGE;
 }
 
@@ -83,11 +83,15 @@ async function existingRegistration(sheets, env, idempotencyKey) {
   // entire registration sheet on every submission and became slower as the
   // sheet grew.
   const result = await withTimeout(
-    sheets.spreadsheets.values.get({
-      spreadsheetId: env.GOOGLE_SHEET_ID,
-      range: getIdempotencyRange(env),
-      majorDimension: "COLUMNS",
-    }),
+    (signal) =>
+      sheets.spreadsheets.values.get(
+        {
+          spreadsheetId: env.GOOGLE_SHEET_ID,
+          range: getIdempotencyRange(env),
+          majorDimension: "COLUMNS",
+        },
+        signal ? { signal } : undefined,
+      ),
     REQUEST_TIMEOUT_MS,
     "Google Sheets lookup timed out",
   );
@@ -100,10 +104,14 @@ async function existingRegistration(sheets, env, idempotencyKey) {
   // Fetch the small metadata range for the matched row only.
   const rowNumber = index + 1;
   const metadata = await withTimeout(
-    sheets.spreadsheets.values.get({
-      spreadsheetId: env.GOOGLE_SHEET_ID,
-      range: getMetadataRange(env, rowNumber),
-    }),
+    (signal) =>
+      sheets.spreadsheets.values.get(
+        {
+          spreadsheetId: env.GOOGLE_SHEET_ID,
+          range: getMetadataRange(env, rowNumber),
+        },
+        signal ? { signal } : undefined,
+      ),
     REQUEST_TIMEOUT_MS,
     "Google Sheets record lookup timed out",
   );
@@ -164,23 +172,40 @@ function getMetadataRange(env, rowNumber) {
   return `${sheetPrefix(env)}${numberToColumn(start)}${rowNumber}:${numberToColumn(start + 2)}${rowNumber}`;
 }
 
-function withTimeout(promise, timeoutMs, message) {
+function withTimeout(operation, timeoutMs, message) {
+  const controller =
+    typeof AbortController !== "undefined" ? new AbortController() : null;
   let timer;
   const timeout = new Promise((_, reject) => {
-    timer = setTimeout(() => reject(new Error(message)), timeoutMs);
+    timer = setTimeout(() => {
+      if (controller) controller.abort();
+      reject(new Error(message));
+    }, timeoutMs);
   });
-  return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
+
+  const promise =
+    typeof operation === "function"
+      ? operation(controller ? controller.signal : undefined)
+      : operation;
+
+  return Promise.race([promise, timeout]).finally(() => {
+    clearTimeout(timer);
+  });
 }
 
 async function appendRegistration(sheets, env, registration) {
   await withTimeout(
-    sheets.spreadsheets.values.append({
-      spreadsheetId: env.GOOGLE_SHEET_ID,
-      range: getSheetRange(env),
-      valueInputOption: "RAW",
-      insertDataOption: "INSERT_ROWS",
-      requestBody: { values: [toSheetRow(registration)] },
-    }),
+    (signal) =>
+      sheets.spreadsheets.values.append(
+        {
+          spreadsheetId: env.GOOGLE_SHEET_ID,
+          range: getSheetRange(env),
+          valueInputOption: "RAW",
+          insertDataOption: "INSERT_ROWS",
+          requestBody: { values: [toSheetRow(registration)] },
+        },
+        signal ? { signal } : undefined,
+      ),
     REQUEST_TIMEOUT_MS,
     "Google Sheets append timed out",
   );
@@ -241,9 +266,50 @@ function getClientKey(request) {
     .slice(0, 100);
 }
 
-function isRateLimited(request) {
-  const now = Date.now();
+async function checkDistributedRateLimit(clientKey, env) {
+  const url = env.UPSTASH_REDIS_REST_URL || env.KV_REST_API_URL;
+  const token = env.UPSTASH_REDIS_REST_TOKEN || env.KV_REST_API_TOKEN;
+  if (!url || !token || typeof globalThis.fetch !== "function") {
+    return null;
+  }
+  try {
+    const key = `rate_limit:registration:${clientKey}`;
+    const windowSec = Math.ceil(RATE_LIMIT_WINDOW_MS / 1000);
+    const pipelineUrl = `${url.replace(/\/$/, "")}/pipeline`;
+    const response = await fetch(pipelineUrl, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify([
+        ["INCR", key],
+        ["EXPIRE", key, windowSec],
+      ]),
+    });
+    if (!response.ok) return null;
+    const data = await response.json();
+    const count = data?.[0]?.result;
+    if (typeof count === "number") {
+      return count > RATE_LIMIT_MAX_REQUESTS;
+    }
+  } catch (err) {
+    console.warn(
+      "Distributed rate limit check failed, falling back to in-memory limiter:",
+      err.message,
+    );
+  }
+  return null;
+}
+
+async function isRateLimited(request, env = process.env) {
   const key = getClientKey(request);
+  const distributedLimited = await checkDistributedRateLimit(key, env);
+  if (distributedLimited !== null) {
+    return distributedLimited;
+  }
+
+  const now = Date.now();
   const existing = rateLimitMap.get(key);
   if (!existing || now - existing.startedAt >= RATE_LIMIT_WINDOW_MS) {
     if (rateLimitMap.size >= RATE_LIMIT_MAX_ENTRIES) {
@@ -270,14 +336,27 @@ function bodyByteLength(body) {
   }
 }
 
-function withIdempotencyGuard(idempotencyKey, run) {
+async function withIdempotencyGuard(idempotencyKey, run) {
   if (!idempotencyKey) return run();
   const existing = inFlightIdempotencyMap.get(idempotencyKey);
   if (existing) {
-    return Promise.resolve({
-      status: 200,
-      body: { ok: true, duplicate: true, inFlight: true },
-    });
+    // Await original in-flight request rather than immediately returning a fake success.
+    // If the original request fails, this will throw/reject and be caught appropriately.
+    const originalResult = await existing;
+    if (
+      originalResult &&
+      (originalResult.status === 201 || originalResult.status === 200)
+    ) {
+      return {
+        status: 200,
+        body: {
+          ...originalResult.body,
+          duplicate: true,
+          inFlight: false,
+        },
+      };
+    }
+    return originalResult;
   }
   const pending = run().finally(() => {
     inFlightIdempotencyMap.delete(idempotencyKey);
@@ -300,7 +379,7 @@ function createApiHandler({
       return json(response, 503, { error: "registration_unconfigured" });
     }
 
-    if (isRateLimited(request)) {
+    if (await isRateLimited(request, env)) {
       response.setHeader("Retry-After", "600");
       return json(response, 429, { error: "rate_limited" });
     }
