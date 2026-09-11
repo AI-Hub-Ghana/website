@@ -534,6 +534,7 @@ body.participation-page {
 }
 .participation-context-field {
   margin-top: 24px;
+  margin-bottom: 16px;
   gap: 12px;
 }
 .participation-field label,
@@ -730,7 +731,7 @@ body.participation-page {
 
 /* ---- Consent checkbox --------------------------------------------------- */
 .participation-consent {
-  margin: 0 0 16px;
+  margin: 0 0 12px;
 }
 .participation-consent-label {
   display: inline-flex;
@@ -788,7 +789,7 @@ body.participation-page {
   flex-wrap: wrap;
   gap: 17px;
   align-items: center;
-  margin-top: 24px;
+  margin-top: 12px;
 }
 .participation-submit .button {
   border: 0;
