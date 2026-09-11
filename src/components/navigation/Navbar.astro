@@ -13,6 +13,7 @@ const launchHref   = isHome ? '#launch' : '/#launch';
 const whyHref      = isHome ? '#why'    : '/#why';
 const workHref     = isHome ? '#work'   : '/#work';
 const registerHref = isHome ? '/get-involved#register' : '#register';
+const contactHref = 'mailto:b.janischowsky@4th-ir.com?subject=Contact%20AI%20Hub%2C%20Ghana&body=Hello%20AI%20Hub%20team%2C%0D%0A%0D%0AI%27m%20reaching%20out%20about%20...';
 ---
 
 <header class="site-header" id="nav">
@@ -29,7 +30,7 @@ const registerHref = isHome ? '/get-involved#register' : '#register';
       <a href={launchHref} class={isHome ? 'active' : ''}>The launch</a>
       <a href={whyHref}>Who we are</a>
       <a href={workHref}>What we do</a>
-      <a href="mailto:b.janischowsky@4th-ir.com">Contact us</a>
+      <a href={contactHref}>Contact us</a>
     </nav>
 
     <a class="nav-cta" href={registerHref}>Register for free</a>
@@ -50,6 +51,6 @@ const registerHref = isHome ? '/get-involved#register' : '#register';
     <a href={whyHref}>Who we are</a>
     <a href={workHref}>What we do</a>
     <a href={registerHref}>Register for free</a>
-    <a href="mailto:b.janischowsky@4th-ir.com">Contact us</a>
+    <a href={contactHref}>Contact us</a>
   </nav>
 </header>

@@ -61,9 +61,9 @@ const selectedInterests = Astro.url.searchParams.getAll('interest');
         <form
           class="participation-form"
           id="register-form"
-          action="/api/registrations"
+          action="/api/register"
           method="post"
-          data-endpoint="/api/registrations"
+          data-endpoint="/api/register"
         >
           <!-- Honeypot: real users never see or fill this field. -->
           <div class="registration-honeypot" aria-hidden="true">
@@ -149,7 +149,7 @@ const selectedInterests = Astro.url.searchParams.getAll('interest');
             </div>
           </fieldset>
 
-          <div class="participation-field">
+          <div class="participation-field participation-context-field">
             <label for="f-context">
               A little context
               <span class="participation-optional">(optional)</span>
@@ -157,9 +157,15 @@ const selectedInterests = Astro.url.searchParams.getAll('interest');
             <textarea id="f-context" name="context" rows="4" maxlength="5000" placeholder="What would you like to explore with the Hub?"></textarea>
           </div>
 
+          <div class="participation-consent">
+            <label class="participation-consent-label" for="f-consent">
+              <input id="f-consent" name="consent" type="checkbox" required />
+              <span>I agree to the privacy notice and consent.</span>
+            </label>
+          </div>
+
           <div class="participation-submit">
             <button class="button" type="submit" aria-describedby="registration-status">Register for free</button>
-            <p>Your details are sent securely to the registration service.</p>
           </div>
 
           <p
@@ -179,9 +185,15 @@ const selectedInterests = Astro.url.searchParams.getAll('interest');
             hidden
           ></p>
 
-          <p class="participation-privacy-link">
-            <a href="#privacy">How your details are handled</a>
-          </p>
+          <details class="participation-privacy participation-privacy-inline" id="privacy">
+            <summary>How this page handles your details</summary>
+            <p>
+              When you submit this form, the registration service validates your details and stores them in the event registration Google Sheet.
+              The service records a registration reference, event identifier and receipt time with your contact details and selected interests.
+              Access and retention follow the event team's receiving-service policy. The team will reply within five working days; this form
+              does not send an automatic confirmation email. This page requests its typeface from Google Fonts.
+            </p>
+          </details>
         </form>
 
         <noscript>
@@ -192,15 +204,6 @@ const selectedInterests = Astro.url.searchParams.getAll('interest');
           </p>
         </noscript>
 
-        <details class="participation-privacy" id="privacy">
-          <summary>How this page handles your details</summary>
-          <p>
-            When you submit this form, the registration service validates your details and stores them in the event registration Google Sheet.
-            The service records a registration reference, event identifier and receipt time with your contact details and selected interests.
-            Access and retention follow the event team's receiving-service policy. The team will reply within five working days; this form
-            does not send an automatic confirmation email. This page requests its typeface from Google Fonts.
-          </p>
-        </details>
       </section>
     </div>
 

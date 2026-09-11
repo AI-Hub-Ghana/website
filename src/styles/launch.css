@@ -48,7 +48,9 @@ summary:focus-visible,
   width: 100%;
   max-width: 1440px;
   margin-inline: auto;
-  padding-inline: clamp(22px, 4.45vw, 64px);
+  /* Safe-area insets for notched iOS devices */
+  padding-left: max(clamp(22px, 4.45vw, 64px), env(safe-area-inset-left));
+  padding-right: max(clamp(22px, 4.45vw, 64px), env(safe-area-inset-right));
 }
 .skip-link {
   position: fixed;
@@ -73,8 +75,11 @@ summary:focus-visible,
 }
 .header-inner {
   max-width: 1440px;
+  margin-inline: auto;
   min-height: 86px;
-  padding-inline: clamp(22px, 4.45vw, 64px);
+  /* Safe-area insets for notched iOS devices */
+  padding-left: max(clamp(22px, 4.45vw, 64px), env(safe-area-inset-left));
+  padding-right: max(clamp(22px, 4.45vw, 64px), env(safe-area-inset-right));
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -2008,11 +2013,8 @@ textarea,
 summary {
   touch-action: manipulation;
 }
-.page-shell,
-.header-inner {
-  padding-left: max(clamp(22px, 4.45vw, 64px), env(safe-area-inset-left));
-  padding-right: max(clamp(22px, 4.45vw, 64px), env(safe-area-inset-right));
-}
+/* Safe-area inset padding is applied directly in the .page-shell and
+   .header-inner primary declarations above. */
 :where(main [id], input, select, textarea, button, a, summary) {
   scroll-margin-block: 8px;
 }

@@ -14,6 +14,7 @@ dist/
 
 # Temporary files
 implementation plan.md
+website version02/
 
 .vercel
 .env*

@@ -64,6 +64,7 @@ const socialImageUrl = Astro.site && ogImage ? new URL(ogImage, Astro.site).href
   {socialImageUrl && <meta name="twitter:image:alt" content="AI Hub, Ghana">}
 
   <!-- Favicons -->
+  <link rel="icon" href="/images/favicon/placeholder.svg" type="image/svg+xml">
   <link rel="icon" href="/images/favicon/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="icon" href="/images/favicon/favicon-48.png" sizes="48x48" type="image/png">
   <link rel="apple-touch-icon" href="/images/favicon/apple-touch-icon-180.png">
@@ -89,7 +90,7 @@ const socialImageUrl = Astro.site && ogImage ? new URL(ogImage, Astro.site).href
   <style media="print" is:inline set:html={`@page { size: ${printPageSize}; margin: 0; }`}></style>
 
   <!-- Structured data -->
-  <script type="application/ld+json" set:html={JSON.stringify({
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Event',
     name: 'AI Hub, Ghana — Live AI showcase & panel discussion',
@@ -109,7 +110,7 @@ const socialImageUrl = Astro.site && ogImage ? new URL(ogImage, Astro.site).href
   })}></script>
 
   <!-- noscript: always show mobile nav when JS is disabled -->
-  <noscript><style>.menu-button{'{'}display:none!important{'}'}{' '}@layer base{'{'}{' '}@media(max-width:820px){'{'}#mobile-menu[hidden]{'{'}display:block!important{'}'}{'}'} {'}'}</style></noscript>
+  <noscript><style>.menu-button { display: none !important; } @media (max-width: 820px) { #mobile-menu[hidden] { display: block !important; } }</style></noscript>
 </head>
 <body class={bodyClass}>
   <a class="skip-link" href="#main">Skip to content</a>

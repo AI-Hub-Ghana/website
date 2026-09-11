@@ -1,7 +1,11 @@
 "use strict";
 
 const assert = require("node:assert/strict");
-const { createApiHandler, getSheetRange } = require("../src/services/registration-api.cjs");
+const fs = require("node:fs");
+const {
+  createApiHandler,
+  getSheetRange,
+} = require("../src/services/registration-api.cjs");
 const {
   validateRegistration,
   sheetText,
@@ -19,11 +23,16 @@ const validData = {
   country: "Ghana",
   interest: ["Research & development", "Innovation & AI use cases"],
   context: "Looking forward to collaborating on medical AI applications.",
+  consent: true,
 };
 
 const validated = validateRegistration(validData);
 assert.equal(validated.ok, true);
 assert.equal(validated.value.name, "Kwame Mensah");
+
+const consentMissing = validateRegistration({ ...validData, consent: false });
+assert.equal(consentMissing.ok, false);
+assert.ok(consentMissing.errors.consent);
 
 // Test corporate & personal email validation + country normalization
 const corpTest1 = validateRegistration({
@@ -31,6 +40,8 @@ const corpTest1 = validateRegistration({
   email: "dyendoh@gmail.com",
   organisation: "Google",
   country: "ghana", // lowercase should normalize to Ghana
+  interest: ["Research & development"],
+  consent: true,
 });
 assert.equal(corpTest1.ok, true);
 assert.equal(corpTest1.value.email, "dyendoh@gmail.com");
@@ -41,6 +52,8 @@ const corpTest2 = validateRegistration({
   email: "d.yendoh@4th-ir.com",
   organisation: "4th-IR",
   country: "USA", // alias should normalize to United States
+  interest: ["Access to AI professionals"],
+  consent: true,
 });
 assert.equal(corpTest2.ok, true);
 assert.equal(corpTest2.value.email, "d.yendoh@4th-ir.com");
@@ -52,6 +65,8 @@ const invalidCountryTest = validateRegistration({
   email: "user@example.com",
   organisation: "Test",
   country: "Narnia",
+  interest: ["Research & development"],
+  consent: true,
 });
 assert.equal(invalidCountryTest.ok, false);
 assert.ok(invalidCountryTest.errors.country);
@@ -62,12 +77,49 @@ const invalidData = {
   email: "invalid-email",
   organisation: "",
   country: "Ghana",
+  consent: true,
 };
 const failedValidation = validateRegistration(invalidData);
 assert.equal(failedValidation.ok, false);
 assert.ok(failedValidation.errors.name);
 assert.ok(failedValidation.errors.email);
 assert.ok(failedValidation.errors.organisation);
+
+const noInterest = validateRegistration({ ...validData, interest: [] });
+assert.equal(noInterest.ok, true);
+assert.equal(noInterest.value.interest.length, 0);
+
+const withSourceTracking = createRegistration(
+  {
+    ...validData,
+    interest: ["Research & development"],
+    source: "newsletter",
+    utm: {
+      source: "newsletter",
+      medium: "email",
+      campaign: "spring-hub",
+    },
+  },
+  "utm-key",
+);
+assert.equal(withSourceTracking.ok, true);
+assert.equal(withSourceTracking.registration.status, "received");
+assert.equal(withSourceTracking.registration.confirmationEmailSent, false);
+assert.equal(withSourceTracking.registration.source, "newsletter");
+assert.equal(withSourceTracking.registration.utm.source, "newsletter");
+
+const getInvolvedAstro = fs.readFileSync(
+  "./src/pages/get-involved.astro",
+  "utf8",
+);
+assert.match(getInvolvedAstro, /aria-live="polite"/);
+assert.match(getInvolvedAstro, /aria-describedby="registration-status"/);
+assert.match(getInvolvedAstro, /for="f-name"/);
+assert.match(getInvolvedAstro, /for="f-email"/);
+assert.match(
+  getInvolvedAstro,
+  /summary>How this page handles your details<\/summary>/,
+);
 
 // Formula injection escaping
 assert.equal(sheetText("=SUM(A1:A10)"), "'=SUM(A1:A10)");
@@ -78,13 +130,18 @@ assert.equal(sheetText("Normal text"), "Normal text");
 
 // Range helper with GOOGLE_SHEET_NAME
 assert.equal(getSheetRange({}), "A:J");
-assert.equal(getSheetRange({ GOOGLE_SHEET_NAME: "Registrations" }), "Registrations!A:J");
+assert.equal(
+  getSheetRange({ GOOGLE_SHEET_NAME: "Registrations" }),
+  "Registrations!A:J",
+);
 assert.equal(getSheetRange({ GOOGLE_SHEET_RANGE: "Sheet1!B:K" }), "Sheet1!B:K");
 
 // 2. Mocked API tests
 const env = {
-  GOOGLE_SERVICE_ACCOUNT_EMAIL: "service-account@example.iam.gserviceaccount.com",
-  GOOGLE_PRIVATE_KEY: "-----BEGIN PRIVATE KEY-----\\nkey\\n-----END PRIVATE KEY-----\\n",
+  GOOGLE_SERVICE_ACCOUNT_EMAIL:
+    "service-account@example.iam.gserviceaccount.com",
+  GOOGLE_PRIVATE_KEY:
+    "-----BEGIN PRIVATE KEY-----\\nkey\\n-----END PRIVATE KEY-----\\n",
   GOOGLE_SHEET_ID: "test-sheet-id",
 };
 
@@ -116,7 +173,10 @@ const sheetsFactory = ({ auth }) => {
             return { data: { values: [rows.map((row) => row[3])] } };
           }
           const match = options.range.match(/^A(\d+):C\1$/);
-          if (match) return { data: { values: [rows[Number(match[1]) - 1].slice(0, 3)] } };
+          if (match)
+            return {
+              data: { values: [rows[Number(match[1]) - 1].slice(0, 3)] },
+            };
           throw new Error(`Unexpected lookup range: ${options.range}`);
         },
         async append(options) {
@@ -142,18 +202,29 @@ const sheetsFactory = ({ auth }) => {
   await handler(
     {
       method: "POST",
-      headers: { "idempotency-key": "idemp-key-1" },
+      headers: {
+        "idempotency-key": "idemp-key-1",
+        "x-forwarded-for": "10.0.0.1",
+        "content-type": "application/json",
+      },
       body: JSON.stringify({ ...validData, context: "=not-a-formula" }),
     },
-    res1
+    res1,
   );
   assert.equal(res1.statusCode, 201);
   const body1 = JSON.parse(res1.body);
   assert.equal(body1.ok, true);
   assert.equal(body1.duplicate, false);
+  assert.equal(body1.status, "received");
+  assert.ok(
+    body1.confirmationEmailSent === false ||
+      body1.confirmationEmailSent === true,
+  );
   assert.ok(body1.registrationId);
   assert.equal(rows.length, 1);
-  assert.equal(rows[0].at(-1), "'=not-a-formula"); // formula escaped
+  assert.equal(rows[0][9], "'=not-a-formula"); // formula escaped in the context field
+  assert.equal(rows[0][10], "website");
+  assert.equal(rows[0][11], "{}");
 
   // The normal lookup only reads the idempotency-key column, not A:J.
   // Second submission with same idempotency key: Duplicate detected (200)
@@ -161,10 +232,14 @@ const sheetsFactory = ({ auth }) => {
   await handler(
     {
       method: "POST",
-      headers: { "idempotency-key": "idemp-key-1" },
+      headers: {
+        "idempotency-key": "idemp-key-1",
+        "x-forwarded-for": "10.0.0.2",
+        "content-type": "application/json",
+      },
       body: JSON.stringify(validData),
     },
-    res2
+    res2,
   );
   assert.equal(res2.statusCode, 200);
   const body2 = JSON.parse(res2.body);
@@ -178,34 +253,134 @@ const sheetsFactory = ({ auth }) => {
   await handler(
     {
       method: "POST",
-      headers: {},
+      headers: {
+        "x-forwarded-for": "10.0.0.3",
+        "content-type": "application/json",
+      },
       body: JSON.stringify(validData),
     },
-    res3
+    res3,
   );
   assert.equal(res3.statusCode, 400);
+
+  // Concurrent submissions with the same idempotency key should only write once.
+  const raceRows = [];
+  const raceEnv = {
+    ...env,
+    GOOGLE_SHEET_ID: "race-sheet-id",
+  };
+  const raceFactory = () => ({
+    spreadsheets: {
+      values: {
+        async get() {
+          return { data: { values: [] } };
+        },
+        async append(options) {
+          raceRows.push(options.requestBody.values[0]);
+          await new Promise((resolve) => setTimeout(resolve, 40));
+          return { data: {} };
+        },
+      },
+    },
+  });
+  const raceHandler = createApiHandler({
+    env: raceEnv,
+    sheetsFactory: raceFactory,
+    now: () => new Date("2026-11-25T10:00:00.000Z"),
+  });
+  const raceResponseA = responseMock();
+  const raceResponseB = responseMock();
+  await Promise.all([
+    raceHandler(
+      {
+        method: "POST",
+        headers: {
+          "idempotency-key": "race-key-1",
+          "x-forwarded-for": "10.0.0.4",
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(validData),
+      },
+      raceResponseA,
+    ),
+    raceHandler(
+      {
+        method: "POST",
+        headers: {
+          "idempotency-key": "race-key-1",
+          "x-forwarded-for": "10.0.0.5",
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(validData),
+      },
+      raceResponseB,
+    ),
+  ]);
+  assert.equal(raceRows.length, 1);
+  assert.equal(raceResponseA.statusCode, 201);
+  assert.equal(raceResponseB.statusCode, 200);
 
   // Validation failure: 422
   const res4 = responseMock();
   await handler(
     {
       method: "POST",
-      headers: { "idempotency-key": "idemp-key-2" },
+      headers: {
+        "idempotency-key": "idemp-key-2",
+        "x-forwarded-for": "10.0.0.6",
+        "content-type": "application/json",
+      },
       body: JSON.stringify({ name: "" }),
     },
-    res4
+    res4,
   );
   assert.equal(res4.statusCode, 422);
+
+  // Invalid content type: 415
+  const resContentType = responseMock();
+  await handler(
+    {
+      method: "POST",
+      headers: {
+        "idempotency-key": "idemp-key-content",
+        "x-forwarded-for": "10.0.0.7",
+        "content-type": "text/plain",
+      },
+      body: JSON.stringify(validData),
+    },
+    resContentType,
+  );
+  assert.equal(resContentType.statusCode, 415);
+
+  // Disallowed origin: 403
+  const resOrigin = responseMock();
+  await handler(
+    {
+      method: "POST",
+      headers: {
+        "idempotency-key": "idemp-key-origin",
+        origin: "https://evil.example",
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(validData),
+    },
+    resOrigin,
+  );
+  assert.equal(resOrigin.statusCode, 403);
 
   // Honeypot: bot-filled field is rejected before any sheet write.
   const resBot = responseMock();
   await handler(
     {
       method: "POST",
-      headers: { "idempotency-key": "idemp-key-bot" },
+      headers: {
+        "idempotency-key": "idemp-key-bot",
+        "x-forwarded-for": "10.0.0.8",
+        "content-type": "application/json",
+      },
       body: JSON.stringify({ ...validData, website: "https://spam.example" }),
     },
-    resBot
+    resBot,
   );
   assert.equal(resBot.statusCode, 400);
   assert.equal(rows.length, 1);
@@ -215,10 +390,14 @@ const sheetsFactory = ({ auth }) => {
   await handler(
     {
       method: "POST",
-      headers: { "idempotency-key": "x".repeat(101) },
+      headers: {
+        "idempotency-key": "x".repeat(101),
+        "x-forwarded-for": "10.0.0.9",
+        "content-type": "application/json",
+      },
       body: JSON.stringify(validData),
     },
-    res6
+    res6,
   );
   assert.equal(res6.statusCode, 400);
 
@@ -227,10 +406,14 @@ const sheetsFactory = ({ auth }) => {
   await handler(
     {
       method: "POST",
-      headers: { "idempotency-key": "bad key" },
+      headers: {
+        "idempotency-key": "bad key",
+        "x-forwarded-for": "10.0.0.10",
+        "content-type": "application/json",
+      },
       body: JSON.stringify(validData),
     },
-    res7
+    res7,
   );
   assert.equal(res7.statusCode, 400);
 

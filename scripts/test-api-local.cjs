@@ -10,7 +10,7 @@
 "use strict";
 
 const BASE_URL = process.env.BASE_URL || "http://localhost:3000";
-const ENDPOINT = `${BASE_URL}/api/registrations`;
+const ENDPOINT = `${BASE_URL}/api/register`;
 
 const key = `test-${Date.now()}-${Math.random().toString(36).slice(2)}`;
 
@@ -21,6 +21,7 @@ const payload = {
   country: "Ghana",
   interest: ["Access to AI professionals", "Research & development"],
   context: "Automated smoke-test from test-api-local.cjs",
+  consent: true,
 };
 
 async function run() {
@@ -60,10 +61,14 @@ async function run() {
     console.log(`    Event ID     : ${json.eventId}`);
     console.log(`    Received at  : ${json.receivedAt}`);
   } else if (res.status === 200 && json.duplicate) {
-    console.log("\n⚠️   Duplicate — row already exists for this idempotency key.");
+    console.log(
+      "\n⚠️   Duplicate — row already exists for this idempotency key.",
+    );
   } else if (res.status === 503 && json.error === "registration_unconfigured") {
     console.error("\n❌  API is missing environment variables.");
-    console.error("    Make sure .env.local exists and vercel dev is loading it.");
+    console.error(
+      "    Make sure .env.local exists and vercel dev is loading it.",
+    );
     process.exit(1);
   } else if (res.status === 422) {
     console.error("\n❌  Validation failed:", json.fields);

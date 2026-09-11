@@ -128,7 +128,8 @@ function sheetPrefix(env) {
 
 function columnToNumber(column) {
   let number = 0;
-  for (const char of column.toUpperCase()) number = number * 26 + char.charCodeAt(0) - 64;
+  for (const char of column.toUpperCase())
+    number = number * 26 + char.charCodeAt(0) - 64;
   return number;
 }
 
@@ -152,7 +153,9 @@ function getStartColumn(env) {
 }
 
 function getIdempotencyRange(env) {
-  const idempotencyColumn = numberToColumn(columnToNumber(getStartColumn(env)) + 3);
+  const idempotencyColumn = numberToColumn(
+    columnToNumber(getStartColumn(env)) + 3,
+  );
   return `${sheetPrefix(env)}${idempotencyColumn}:${idempotencyColumn}`;
 }
 
@@ -189,9 +192,49 @@ async function appendRegistration(sheets, env, registration) {
 }
 
 const rateLimitMap = new Map();
+const inFlightIdempotencyMap = new Map();
+
+function getAllowedOrigins(env = process.env) {
+  const raw = env.ALLOWED_ORIGINS || "";
+  const base = raw
+    .split(",")
+    .map((value) => value.trim())
+    .filter(Boolean);
+
+  const derived = [];
+  if (env.VERCEL_URL) derived.push(`https://${env.VERCEL_URL}`);
+  if (env.VERCEL_PROJECT_PRODUCTION_URL)
+    derived.push(`https://${env.VERCEL_PROJECT_PRODUCTION_URL}`);
+  if (env.VERCEL_BRANCH_URL) derived.push(`https://${env.VERCEL_BRANCH_URL}`);
+  if (env.URL) derived.push(env.URL);
+
+  return [
+    ...new Set([
+      ...base,
+      ...derived,
+      "http://localhost:3000",
+      "http://localhost:4321",
+      "http://127.0.0.1:3000",
+      "https://localhost:3000",
+      "https://127.0.0.1:3000",
+    ]),
+  ];
+}
+
+function isAllowedOrigin(request, env = process.env) {
+  const origin = request.headers["origin"] || request.headers["Origin"] || null;
+  if (!origin) return true;
+  const allowed = getAllowedOrigins(env);
+  return allowed.some(
+    (candidate) =>
+      candidate === origin ||
+      candidate.replace(/\/$/, "") === origin.replace(/\/$/, ""),
+  );
+}
 
 function getClientKey(request) {
-  const forwarded = request.headers["x-forwarded-for"] || request.headers["X-Forwarded-For"];
+  const forwarded =
+    request.headers["x-forwarded-for"] || request.headers["X-Forwarded-For"];
   return String(forwarded || request.socket?.remoteAddress || "unknown")
     .split(",")[0]
     .trim()
@@ -205,7 +248,8 @@ function isRateLimited(request) {
   if (!existing || now - existing.startedAt >= RATE_LIMIT_WINDOW_MS) {
     if (rateLimitMap.size >= RATE_LIMIT_MAX_ENTRIES) {
       for (const [entryKey, entry] of rateLimitMap) {
-        if (now - entry.startedAt >= RATE_LIMIT_WINDOW_MS) rateLimitMap.delete(entryKey);
+        if (now - entry.startedAt >= RATE_LIMIT_WINDOW_MS)
+          rateLimitMap.delete(entryKey);
       }
       if (rateLimitMap.size >= RATE_LIMIT_MAX_ENTRIES) return true;
     }
@@ -219,7 +263,27 @@ function isRateLimited(request) {
 function bodyByteLength(body) {
   if (body == null) return 0;
   if (typeof body === "string") return Buffer.byteLength(body, "utf8");
-  try { return Buffer.byteLength(JSON.stringify(body), "utf8"); } catch (_) { return MAX_BODY_BYTES + 1; }
+  try {
+    return Buffer.byteLength(JSON.stringify(body), "utf8");
+  } catch (_) {
+    return MAX_BODY_BYTES + 1;
+  }
+}
+
+function withIdempotencyGuard(idempotencyKey, run) {
+  if (!idempotencyKey) return run();
+  const existing = inFlightIdempotencyMap.get(idempotencyKey);
+  if (existing) {
+    return Promise.resolve({
+      status: 200,
+      body: { ok: true, duplicate: true, inFlight: true },
+    });
+  }
+  const pending = run().finally(() => {
+    inFlightIdempotencyMap.delete(idempotencyKey);
+  });
+  inFlightIdempotencyMap.set(idempotencyKey, pending);
+  return pending;
 }
 
 function createApiHandler({
@@ -243,10 +307,23 @@ function createApiHandler({
 
     const idempotencyKey =
       request.headers["idempotency-key"] || request.headers["Idempotency-Key"];
-    if (!idempotencyKey || typeof idempotencyKey !== "string" ||
-        idempotencyKey.length > MAX_IDEMPOTENCY_KEY_LENGTH ||
-        !/^[A-Za-z0-9._:-]+$/.test(idempotencyKey)) {
+    if (
+      !idempotencyKey ||
+      typeof idempotencyKey !== "string" ||
+      idempotencyKey.length > MAX_IDEMPOTENCY_KEY_LENGTH ||
+      !/^[A-Za-z0-9._:-]+$/.test(idempotencyKey)
+    ) {
       return json(response, 400, { error: "invalid_idempotency_key" });
+    }
+
+    const contentType =
+      request.headers["content-type"] || request.headers["Content-Type"] || "";
+    if (contentType && !contentType.includes("application/json")) {
+      return json(response, 415, { error: "unsupported_media_type" });
+    }
+
+    if (!isAllowedOrigin(request, env)) {
+      return json(response, 403, { error: "origin_not_allowed" });
     }
 
     if (bodyByteLength(request.body) > MAX_BODY_BYTES) {
@@ -254,38 +331,64 @@ function createApiHandler({
     }
 
     try {
-      const body =
-        typeof request.body === "object"
-          ? request.body
-          : JSON.parse(request.body || "{}");
+      const result = await withIdempotencyGuard(idempotencyKey, async () => {
+        const body =
+          typeof request.body === "object"
+            ? request.body
+            : JSON.parse(request.body || "{}");
 
-      // Cheap bot/spam trap. Do not persist the honeypot field.
-      if (body && typeof body === "object" && String(body.website || "").trim()) {
-        return json(response, 400, { error: "invalid_request" });
-      }
+        // Cheap bot/spam trap. Do not persist the honeypot field.
+        if (
+          body &&
+          typeof body === "object" &&
+          String(body.website || "").trim()
+        ) {
+          return { status: 400, body: { error: "invalid_request" } };
+        }
 
-      const created = createRegistration(body, idempotencyKey, now());
-      if (!created.ok) {
-        return json(response, 422, {
-          error: "validation_failed",
-          fields: created.errors,
-        });
-      }
+        const created = createRegistration(body, idempotencyKey, now());
+        if (!created.ok) {
+          return {
+            status: 422,
+            body: { error: "validation_failed", fields: created.errors },
+          };
+        }
 
-      const sheets = getSheetsClient(env, sheetsFactory);
-      const existing = await existingRegistration(sheets, env, idempotencyKey);
-      if (existing) {
-        return json(response, 200, { ok: true, duplicate: true, ...existing });
-      }
+        const sheets = getSheetsClient(env, sheetsFactory);
+        const existing = await existingRegistration(
+          sheets,
+          env,
+          idempotencyKey,
+        );
+        if (existing) {
+          return {
+            status: 200,
+            body: {
+              ok: true,
+              duplicate: true,
+              status: "received",
+              confirmationEmailSent: false,
+              ...existing,
+            },
+          };
+        }
 
-      await appendRegistration(sheets, env, created.registration);
-      return json(response, 201, {
-        ok: true,
-        duplicate: false,
-        registrationId: created.registration.registrationId,
-        eventId: created.registration.eventId,
-        receivedAt: created.registration.receivedAt,
+        await appendRegistration(sheets, env, created.registration);
+        return {
+          status: 201,
+          body: {
+            ok: true,
+            duplicate: false,
+            status: "received",
+            confirmationEmailSent: false,
+            registrationId: created.registration.registrationId,
+            eventId: created.registration.eventId,
+            receivedAt: created.registration.receivedAt,
+          },
+        };
       });
+
+      return json(response, result.status, result.body);
     } catch (error) {
       console.error("Registration error:", error);
       return json(response, 503, { error: "registration_unavailable" });

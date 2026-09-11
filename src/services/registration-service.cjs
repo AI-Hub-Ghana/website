@@ -26,26 +26,26 @@ COUNTRIES.forEach((c) => {
 
 // Common synonyms / abbreviations
 const COUNTRY_ALIASES = {
-  "usa": "United States",
-  "us": "United States",
+  usa: "United States",
+  us: "United States",
   "united states of america": "United States",
-  "uk": "United Kingdom",
+  uk: "United Kingdom",
   "u.k.": "United Kingdom",
   "great britain": "United Kingdom",
-  "uae": "United Arab Emirates",
+  uae: "United Arab Emirates",
   "u.a.e.": "United Arab Emirates",
   "cote d'ivoire": "Ivory Coast (Côte d'Ivoire)",
   "cote divoire": "Ivory Coast (Côte d'Ivoire)",
   "côte d'ivoire": "Ivory Coast (Côte d'Ivoire)",
-  "drc": "Democratic Republic of the Congo",
+  drc: "Democratic Republic of the Congo",
   "dr congo": "Democratic Republic of the Congo",
   "congo drc": "Democratic Republic of the Congo",
-  "korea": "South Korea",
+  korea: "South Korea",
   "south korea": "South Korea",
-  "russia": "Russia",
+  russia: "Russia",
   "russian federation": "Russia",
   "czech republic": "Czech Republic (Czechia)",
-  "czechia": "Czech Republic (Czechia)",
+  czechia: "Czech Republic (Czechia)",
 };
 
 Object.entries(COUNTRY_ALIASES).forEach(([alias, canonical]) => {
@@ -62,6 +62,16 @@ function normalizeCountry(raw) {
 const EMAIL_REGEX =
   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
 
+function normalizeUtm(raw) {
+  if (!raw || typeof raw !== "object") return {};
+  const utm = {};
+  for (const key of ["source", "medium", "campaign", "term", "content"]) {
+    const value = textValue(raw[key]);
+    if (value) utm[key] = value;
+  }
+  return utm;
+}
+
 function validateRegistration(input) {
   const source = input && typeof input === "object" ? input : {};
   const name = textValue(source.name);
@@ -69,7 +79,18 @@ function validateRegistration(input) {
   const organisation = textValue(source.organisation);
   const rawCountry = textValue(source.country);
   const context = textValue(source.context);
-  const interests = Array.isArray(source.interest) ? source.interest : [];
+  const interests = Array.isArray(source.interest)
+    ? source.interest.map(String)
+    : [];
+  const consent =
+    source.consent === true ||
+    source.consent === "true" ||
+    source.consent === "on" ||
+    source.consent === 1;
+  const sourceName = textValue(
+    source.source || source.referrer || source.src || "website",
+  );
+  const utm = normalizeUtm(source.utm);
   const errors = {};
 
   if (!name) errors.name = "Enter your name.";
@@ -102,12 +123,18 @@ function validateRegistration(input) {
     errors.context = "Your context must be 5,000 characters or fewer.";
 
   if (
+    interests.length > 0 &&
     !interests.every(
       (interest) =>
         typeof interest === "string" && ALLOWED_INTERESTS.has(interest),
     )
   ) {
     errors.interest = "Choose only the listed areas of interest.";
+  }
+
+  if (!consent) {
+    errors.consent =
+      "Please confirm that you agree to the privacy notice before submitting.";
   }
 
   if (Object.keys(errors).length) return { ok: false, errors };
@@ -120,6 +147,11 @@ function validateRegistration(input) {
       country: validCountry,
       interest: interests,
       context,
+      source: sourceName || "website",
+      utm,
+      consent: true,
+      status: "received",
+      confirmationEmailSent: false,
     },
   };
 }
@@ -141,6 +173,8 @@ function toSheetRow(registration) {
     sheetText(registration.country),
     sheetText(registration.interest.join(", ")),
     sheetText(registration.context),
+    sheetText(registration.source || "website"),
+    sheetText(JSON.stringify(registration.utm || {})),
   ];
 }
 
@@ -155,6 +189,8 @@ function createRegistration(input, idempotencyKey, now = new Date()) {
       receivedAt: now.toISOString(),
       idempotencyKey,
       ...validated.value,
+      status: "received",
+      confirmationEmailSent: false,
     },
   };
 }
