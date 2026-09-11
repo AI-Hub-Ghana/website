@@ -2,7 +2,7 @@
 
 A two-page event and registration website for the **AI Hub, Ghana Launch & Live AI Showcase at GABS 2026** in Accra.
 
-Built with **Astro 5** and **Tailwind CSS v4**, featuring an event-first UI and a serverless Google Sheets registration backend.
+Built with **Astro 7** and **Tailwind CSS v4**, featuring an event-first UI and a serverless Google Sheets registration backend.
 
 | Route | Source page | Purpose |
 |---|---|---|
@@ -53,7 +53,6 @@ src/
 │   ├── navigation.ts             # Sticky nav + mobile drawer toggle + section scroll-spy
 │   ├── scroll-scrub.ts           # Parallax / scroll-scrubbing + research-visual triggers
 │   ├── participation.ts          # Registration form client logic (idempotency, chips, UX)
-│   ├── animations.ts             # IntersectionObserver reveal hooks
 │   └── utils/
 │       └── motion.ts             # isStatic / shouldReduceMotion helpers
 ├── services/
@@ -117,6 +116,7 @@ Configure the following environment variables in your Vercel Project Settings:
 | `GOOGLE_SHEET_ID` | The ID from your Google Sheet URL (`/spreadsheets/d/<ID>/edit`) |
 | `GOOGLE_SHEET_RANGE` | *(Optional)* Sheet range/tab, e.g. `Registrations!A:J` (defaults to `A:J`) |
 | `GOOGLE_SHEET_NAME` | *(Optional)* Tab name if `GOOGLE_SHEET_RANGE` is not explicitly set |
+| `PUBLIC_SITE_URL` | *(Optional but recommended)* Production origin for absolute canonical, Open Graph and structured-data URLs |
 
 ---
 
@@ -124,7 +124,7 @@ Configure the following environment variables in your Vercel Project Settings:
 
 - **Tailwind CSS v4**: Embedded via `@tailwindcss/vite` without legacy config files.
 - **Event-First Design**: Custom component classes in `launch.css` and `participation.css` provide polished typography, glassmorphism, responsive navigation drawer, and animated SVGs.
-- **`?static=1` Support**: Appending `?static=1` disables scroll animations and reveals, ideal for screenshot capture and automated testing.
+- **Motion & accessibility**: Scroll effects respect reduced-motion preferences and can be disabled with `?static=1` for screenshot capture and automated testing.
 - **Accessibility**: Motion respect for `prefers-reduced-motion: reduce`, ARIA state attributes on mobile menu and collapsible disclosures.
 
 ---
@@ -133,8 +133,14 @@ Configure the following environment variables in your Vercel Project Settings:
 
 Run verification tests locally:
 ```bash
+npm ci
 npm test
+npm run check
 npm run build
 ```
 
 Deploying to Vercel automatically deploys the static frontend to the global Edge network and wires `api/registrations.js` as a serverless endpoint.
+
+
+### SEO configuration
+Set `PUBLIC_SITE_URL` to the production site origin if you want Astro to emit absolute canonical and structured-data URLs.

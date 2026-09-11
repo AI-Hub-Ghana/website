@@ -6,7 +6,7 @@ interface Props {
 
 const { currentPage = 'home' } = Astro.props;
 const isHome = currentPage === 'home';
-const logoHref = isHome ? 'index.html' : '/';
+const logoHref = '/';
 
 // On home: anchor links. On get-involved: cross-page links
 const launchHref   = isHome ? '#launch' : '/#launch';

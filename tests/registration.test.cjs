@@ -25,6 +25,37 @@ const validated = validateRegistration(validData);
 assert.equal(validated.ok, true);
 assert.equal(validated.value.name, "Kwame Mensah");
 
+// Test corporate & personal email validation + country normalization
+const corpTest1 = validateRegistration({
+  name: "Derek Yendoh",
+  email: "dyendoh@gmail.com",
+  organisation: "Google",
+  country: "ghana", // lowercase should normalize to Ghana
+});
+assert.equal(corpTest1.ok, true);
+assert.equal(corpTest1.value.email, "dyendoh@gmail.com");
+assert.equal(corpTest1.value.country, "Ghana");
+
+const corpTest2 = validateRegistration({
+  name: "Derek Yendoh",
+  email: "d.yendoh@4th-ir.com",
+  organisation: "4th-IR",
+  country: "USA", // alias should normalize to United States
+});
+assert.equal(corpTest2.ok, true);
+assert.equal(corpTest2.value.email, "d.yendoh@4th-ir.com");
+assert.equal(corpTest2.value.country, "United States");
+
+// Invalid country rejection
+const invalidCountryTest = validateRegistration({
+  name: "Test User",
+  email: "user@example.com",
+  organisation: "Test",
+  country: "Narnia",
+});
+assert.equal(invalidCountryTest.ok, false);
+assert.ok(invalidCountryTest.errors.country);
+
 // Whitespace-only rejection
 const invalidData = {
   name: "   ",
@@ -72,6 +103,7 @@ function responseMock() {
 }
 
 const rows = [];
+const lookupCalls = [];
 const sheetsFactory = ({ auth }) => {
   assert.ok(auth);
   return {
@@ -79,8 +111,13 @@ const sheetsFactory = ({ auth }) => {
       values: {
         async get(options) {
           assert.equal(options.spreadsheetId, "test-sheet-id");
-          assert.equal(options.range, "A:J");
-          return { data: { values: rows } };
+          lookupCalls.push(options.range);
+          if (options.range === "D:D") {
+            return { data: { values: [rows.map((row) => row[3])] } };
+          }
+          const match = options.range.match(/^A(\d+):C\1$/);
+          if (match) return { data: { values: [rows[Number(match[1]) - 1].slice(0, 3)] } };
+          throw new Error(`Unexpected lookup range: ${options.range}`);
         },
         async append(options) {
           assert.equal(options.valueInputOption, "RAW");
@@ -118,6 +155,7 @@ const sheetsFactory = ({ auth }) => {
   assert.equal(rows.length, 1);
   assert.equal(rows[0].at(-1), "'=not-a-formula"); // formula escaped
 
+  // The normal lookup only reads the idempotency-key column, not A:J.
   // Second submission with same idempotency key: Duplicate detected (200)
   const res2 = responseMock();
   await handler(
@@ -133,6 +171,7 @@ const sheetsFactory = ({ auth }) => {
   assert.equal(body2.ok, true);
   assert.equal(body2.duplicate, true);
   assert.equal(rows.length, 1); // No new row appended!
+  assert.deepEqual(lookupCalls, ["D:D"]);
 
   // Missing idempotency key: 400
   const res3 = responseMock();
@@ -157,6 +196,43 @@ const sheetsFactory = ({ auth }) => {
     res4
   );
   assert.equal(res4.statusCode, 422);
+
+  // Honeypot: bot-filled field is rejected before any sheet write.
+  const resBot = responseMock();
+  await handler(
+    {
+      method: "POST",
+      headers: { "idempotency-key": "idemp-key-bot" },
+      body: JSON.stringify({ ...validData, website: "https://spam.example" }),
+    },
+    resBot
+  );
+  assert.equal(resBot.statusCode, 400);
+  assert.equal(rows.length, 1);
+
+  // Oversized idempotency key: 400
+  const res6 = responseMock();
+  await handler(
+    {
+      method: "POST",
+      headers: { "idempotency-key": "x".repeat(101) },
+      body: JSON.stringify(validData),
+    },
+    res6
+  );
+  assert.equal(res6.statusCode, 400);
+
+  // Invalid idempotency key characters: 400
+  const res7 = responseMock();
+  await handler(
+    {
+      method: "POST",
+      headers: { "idempotency-key": "bad key" },
+      body: JSON.stringify(validData),
+    },
+    res7
+  );
+  assert.equal(res7.statusCode, 400);
 
   // Method not allowed: 405
   const res5 = responseMock();

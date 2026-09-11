@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import launchCssUrl from '../styles/launch.css?url';
 import participationCssUrl from '../styles/participation.css?url';
+import toastCssUrl from '../styles/toast.css?url';
 import printUrl from '../styles/print.css?url';
 import Navbar from '../components/navigation/Navbar.astro';
 import Footer from '../components/common/Footer.astro';
@@ -13,6 +14,8 @@ interface Props {
   ogImage?: string;
   printPageSize?: string;
   currentPage?: 'home' | 'get-involved';
+  mainClass?: string;
+  noindex?: boolean;
 }
 
 const {
@@ -22,6 +25,8 @@ const {
   ogImage = '/images/visuals/og-share.png',
   printPageSize = '1600px 8800px',
   currentPage = 'home',
+  mainClass = '',
+  noindex = false,
 } = Astro.props;
 
 const isHome = currentPage === 'home';
@@ -38,6 +43,9 @@ const socialImageUrl = Astro.site && ogImage ? new URL(ogImage, Astro.site).href
   <title>{title}</title>
   <meta name="description" content={description}>
   <meta name="theme-color" content="#F2F2EF">
+  <meta property="og:site_name" content="AI Hub, Ghana">
+  <meta property="og:locale" content="en_GB">
+  {noindex && <meta name="robots" content="noindex,nofollow">}
 
   {canonicalUrl && <link rel="canonical" href={canonicalUrl}>}
 
@@ -47,13 +55,15 @@ const socialImageUrl = Astro.site && ogImage ? new URL(ogImage, Astro.site).href
   <meta property="og:type" content="website">
   {canonicalUrl && <meta property="og:url" content={canonicalUrl}>}
   {socialImageUrl && <meta property="og:image" content={socialImageUrl}>}
+  {socialImageUrl && <meta property="og:image:type" content="image/png">}
+  {socialImageUrl && <meta property="og:image:alt" content="AI Hub, Ghana">}
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content={title}>
   <meta name="twitter:description" content={description}>
   {socialImageUrl && <meta name="twitter:image" content={socialImageUrl}>}
+  {socialImageUrl && <meta name="twitter:image:alt" content="AI Hub, Ghana">}
 
   <!-- Favicons -->
-  <link rel="icon" type="image/svg+xml" href="/img/favicon/placeholder.svg">
   <link rel="icon" href="/images/favicon/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="icon" href="/images/favicon/favicon-48.png" sizes="48x48" type="image/png">
   <link rel="apple-touch-icon" href="/images/favicon/apple-touch-icon-180.png">
@@ -64,16 +74,39 @@ const socialImageUrl = Astro.site && ogImage ? new URL(ogImage, Astro.site).href
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Mona+Sans:wdth,wght@75..125,400..800&display=swap" rel="stylesheet">
 
-  <!-- Launch stylesheet (event site design layer) -->
-  <link rel="stylesheet" href={launchCssUrl}>
+  <!-- Launch stylesheet (home page only) -->
+  {isHome && <link rel="stylesheet" href={launchCssUrl}>}
 
   <!-- Page-specific participation styles -->
   {!isHome && <link rel="stylesheet" href={participationCssUrl}>}
+
+  <!-- Toast notification styles (all pages) -->
+  <link rel="stylesheet" href={toastCssUrl}>
 
   <!-- Print stylesheet -->
   <link rel="stylesheet" href={printUrl} media="print">
   <!-- Page-specific continuous print height -->
   <style media="print" is:inline set:html={`@page { size: ${printPageSize}; margin: 0; }`}></style>
+
+  <!-- Structured data -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'Event',
+    name: 'AI Hub, Ghana — Live AI showcase & panel discussion',
+    description,
+    startDate: '2026-11-25T10:00:00Z',
+    endDate: '2026-11-25T12:00:00Z',
+    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+    eventStatus: 'https://schema.org/EventScheduled',
+    location: {
+      '@type': 'Place',
+      name: 'Kempinski Hotel Gold Coast City',
+      address: { '@type': 'PostalAddress', addressLocality: 'Accra', addressCountry: 'GH' }
+    },
+    organizer: { '@type': 'Organization', name: 'AI Hub, Ghana' },
+    image: socialImageUrl ? [socialImageUrl] : undefined,
+    url: canonicalUrl
+  })}></script>
 
   <!-- noscript: always show mobile nav when JS is disabled -->
   <noscript><style>.menu-button{'{'}display:none!important{'}'}{' '}@layer base{'{'}{' '}@media(max-width:820px){'{'}#mobile-menu[hidden]{'{'}display:block!important{'}'}{'}'} {'}'}</style></noscript>
@@ -83,7 +116,7 @@ const socialImageUrl = Astro.site && ogImage ? new URL(ogImage, Astro.site).href
 
   <Navbar currentPage={currentPage} />
 
-  <main id="main" tabindex="-1">
+  <main id="main" class={mainClass} tabindex="-1">
     <slot />
   </main>
 
