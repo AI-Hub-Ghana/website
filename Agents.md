@@ -12,8 +12,6 @@ Use the nested **website version02** as the visual and interaction reference.
 
 Use the existing **Astro project** as the architectural/codebase source of truth.
 
-Do NOT simply copy the raw HTML project wholesale.
-
 Do NOT redesign anything.
 
 Do NOT revert the designer's 2nd-draft UI changes.

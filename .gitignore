@@ -9,7 +9,12 @@ dist/
 .env
 .env.*
 !.env.example
+.vercel
+.env.local
 
 # Temporary files
 implementation plan.md
+website version02/
 
+.vercel
+.env*

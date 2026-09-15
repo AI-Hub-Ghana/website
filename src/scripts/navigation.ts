@@ -20,6 +20,9 @@ function initNavigation() {
       menu.hidden = !open;
       menuButton.setAttribute('aria-expanded', String(open));
       menuButton.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      if (open) {
+        menu.querySelector<HTMLAnchorElement>('a')?.focus();
+      }
     });
 
     menu.addEventListener('click', (event) => {
