@@ -1,15 +1,12 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHeader from '../components/get-involved/PageHeader.astro';
-import WaysToJoin from '../components/get-involved/WaysToJoin.astro';
-import InterestForm from '../components/get-involved/InterestForm.astro';
-import Timeline from '../components/get-involved/Timeline.astro';
-import Reasons from '../components/get-involved/Reasons.astro';
+import countries from '../data/countries.json';
 
-const title = "Get involved — AI Hub, Ghana";
-const description = "Three ways to join the AI Hub, Ghana before the launch: as a member, a project partner or a supporter. Register your interest and name the service areas you care about — non-binding, and we reply within five working days.";
+const title = "Register for free — AI Hub, Ghana";
+const description = "Register for AI Hub, Ghana's free AI showcase and panel discussion on 25 November 2026 in Accra. No GABS delegate registration is required.";
 
-const selectedInterest = Astro.url.searchParams.get('interest') || '';
+// Pre-select interests from URL query param
+const selectedInterests = Astro.url.searchParams.getAll('interest');
 ---
 
 <BaseLayout
@@ -17,14 +14,236 @@ const selectedInterest = Astro.url.searchParams.get('interest') || '';
   description={description}
   printPageSize="1600px 4200px"
   currentPage="get-involved"
+  mainClass="page-shell participation-main"
 >
-  <PageHeader />
-  <WaysToJoin />
-  <InterestForm selectedInterest={selectedInterest} />
-  <Timeline />
-  <Reasons />
+  <div>
+    <a class="participation-back" href="/">
+      <span aria-hidden="true">←</span> Back to the Hub
+    </a>
+
+    <div class="participation-grid">
+      <!-- Left column: intro, photo, timeline, contact -->
+      <div class="participation-intro">
+        <p class="eyebrow">FREE SIDE-EVENT REGISTRATION</p>
+        <h1>Join us in Accra.</h1>
+        <p>Register for our free AI showcase and panel discussion, and tell the Hub what you'd like to explore.</p>
+
+        <figure class="participation-photo">
+          <img
+            src="/images/photos/photo-pair-close.webp"
+            alt="Illustrative scene of two professionals collaborating at a laptop"
+            width="1200"
+            height="800"
+            decoding="async"
+          />
+          <figcaption>Illustrative image</figcaption>
+        </figure>
+
+        <div class="participation-next">
+          <h2>We reply within five working days.</h2>
+          <p>After your registration is received, the team will confirm your place and share the event details.</p>
+        </div>
+
+        <div class="participation-contact">
+          Discuss a project or partnership?<a href="mailto:b.janischowsky@4th-ir.com">b.janischowsky@4th-ir.com</a>
+        </div>
+      </div>
+
+      <!-- Right column: registration form panel -->
+      <section class="participation-form-panel" id="register" aria-label="Free side-event registration">
+        <h2 class="participation-form-heading">Register for free</h2>
+        <p class="participation-form-intro">Leave your details to attend the Hub's side event. No GABS delegate registration is required.</p>
+
+        <p class="participation-event-note" id="event-note">
+          <strong>25 November 2026 · 10:00–12:00 GMT</strong><br>Kempinski Hotel Gold Coast City, Accra
+        </p>
+
+        <form
+          class="participation-form"
+          id="register-form"
+          action="/api/register"
+          method="post"
+          data-endpoint="/api/register"
+        >
+          <!-- Honeypot: real users never see or fill this field. -->
+          <div class="registration-honeypot" aria-hidden="true">
+            <label for="f-website">Website</label>
+            <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+          <div class="participation-fields">
+            <div class="participation-field">
+              <label for="f-name">Your name</label>
+              <input id="f-name" name="name" type="text" autocomplete="name" maxlength="160" required />
+            </div>
+            <div class="participation-field">
+              <label for="f-email">Email address</label>
+              <input id="f-email" name="email" type="email" autocomplete="email" spellcheck="false" autocapitalize="off" maxlength="254" required />
+            </div>
+            <div class="participation-field">
+              <label for="f-org">Organisation</label>
+              <input id="f-org" name="organisation" type="text" autocomplete="organization" maxlength="200" required />
+            </div>
+            <div class="participation-field participation-country-wrap">
+              <label for="f-country">Country</label>
+              <div class="country-combobox">
+                <input
+                  id="f-country"
+                  name="country"
+                  type="text"
+                  role="combobox"
+                  aria-autocomplete="list"
+                  aria-expanded="false"
+                  aria-controls="country-dropdown-list"
+                  aria-describedby="event-note"
+                  autocomplete="off"
+                  placeholder="Select or type country…"
+                  maxlength="100"
+                  required
+                />
+                <button
+                  type="button"
+                  class="country-combobox-toggle"
+                  aria-label="Toggle country list"
+                  tabindex="-1"
+                >
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                    <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+                <ul id="country-dropdown-list" class="country-dropdown-list" role="listbox" hidden>
+                  {countries.map((c) => (
+                    <li class="country-option" role="option" data-value={c} tabindex="-1">
+                      {c}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <fieldset class="participation-interests">
+            <legend>
+              Areas of interest
+              <span class="participation-optional">(optional)</span>
+            </legend>
+            <div class="participation-chips">
+              {[
+                { value: 'Access to AI professionals', label: 'AI talent' },
+                { value: 'Training & capacity building', label: 'Training' },
+                { value: 'Research & development', label: 'Research & development' },
+                { value: 'Innovation & AI use cases', label: 'AI projects & pilots' },
+                { value: 'AI governance & compliance', label: 'AI governance' },
+                { value: 'Access to clients', label: 'Access to clients' },
+                { value: 'Something else', label: 'Something else' },
+              ].map(({ value, label }) => (
+                <label class="participation-chip">
+                  <input
+                    type="checkbox"
+                    name="interest"
+                    value={value}
+                    checked={selectedInterests.includes(value)}
+                  />
+                  <span>{label}</span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+
+          <div class="participation-field participation-context-field">
+            <label for="f-context">
+              A little context
+              <span class="participation-optional">(optional)</span>
+            </label>
+            <textarea id="f-context" name="context" rows="4" maxlength="5000" placeholder="What would you like to explore with the Hub?"></textarea>
+          </div>
+
+          <div class="participation-consent">
+            <label class="participation-consent-label" for="f-consent">
+              <input id="f-consent" name="consent" type="checkbox" required />
+              <span>I agree to the privacy notice and consent.</span>
+            </label>
+          </div>
+
+          <div class="participation-submit">
+            <button class="button" type="submit" aria-describedby="registration-status">Register for free</button>
+          </div>
+
+          <p
+            class="participation-privacy-link"
+            id="registration-status"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+          ></p>
+
+          <p
+            class="participation-privacy-link"
+            id="registration-success"
+            role="status"
+            aria-live="polite"
+            tabindex="-1"
+            hidden
+          ></p>
+
+          <details class="participation-privacy participation-privacy-inline" id="privacy">
+            <summary>How this page handles your details</summary>
+            <p>
+              When you submit this form, the registration service validates your details and stores them in the event registration Google Sheet.
+              The service records a registration reference, event identifier and receipt time with your contact details and selected interests.
+              Access and retention follow the event team's receiving-service policy. The team will reply within five working days; this form
+              does not send an automatic confirmation email. This page requests its typeface from Google Fonts.
+            </p>
+          </details>
+        </form>
+
+        <noscript>
+          <p class="participation-event-note">
+            JavaScript is required to submit this registration securely.
+            Please enable it and try again, or contact
+            <a href="mailto:b.janischowsky@4th-ir.com">the Hub team</a> for assistance.
+          </p>
+        </noscript>
+
+      </section>
+    </div>
+
+    <!-- Why Ghana, and why now? — 4 opportunity cards -->
+    <section class="participation-reasons" aria-labelledby="ghana-now-title">
+      <p class="eyebrow">THE OPPORTUNITY</p>
+      <h2 id="ghana-now-title">Why Ghana, and why now?</h2>
+      <div class="participation-reason-grid">
+        <article class="participation-reason">
+          <h3>A national commitment.</h3>
+          <p>Ghana launched its National AI Strategy in April 2026. Cabinet has approved US$250 million for national computing infrastructure and AI applications, with affordable access for innovators and researchers planned.</p>
+          <a href="https://moc.gov.gh/2026/04/24/ghana-launches-national-ai-strategy-to-drive-digital-transformation-and-economic-growth/" target="_blank" rel="noopener noreferrer">AI strategy</a>
+          ·
+          <a href="https://moc.gov.gh/2026/06/15/pwc-ghana-calls-on-minister-signals-interest-in-ai-and-digital-innovation-partnership/" target="_blank" rel="noopener noreferrer">Investment plans</a>
+        </article>
+        <article class="participation-reason">
+          <h3>Talent with ambition.</h3>
+          <p>A young, English-speaking talent base and a growing digital services sector. Skills programmes are preparing Ghanaian professionals for international work in software, cloud and AI.</p>
+          <a href="https://invest-for-jobs.com/en/projects/bpo-skills-4-jobs" target="_blank" rel="noopener noreferrer">BPO Skills 4 Jobs</a>
+        </article>
+        <article class="participation-reason">
+          <h3>A practical fit for Europe.</h3>
+          <p>European businesses need digital expertise. Ghana offers a new talent market with overlapping working hours: Accra is only one or two hours behind Frankfurt, depending on the season.</p>
+          <a href="https://www.bitkom.org/Presse/Presseinformation/IT-Fachkraeftemangel-in-den-letzten-drei-Jahren-halbiert" target="_blank" rel="noopener noreferrer">Germany's IT skills demand · Bitkom</a>
+        </article>
+        <article class="participation-reason">
+          <h3>Partnership already in place.</h3>
+          <p>German Development Cooperation is active in Ghana through FAIR Forward and Invest for Jobs, building AI skills, open data, policy foundations and employment opportunities on behalf of BMZ.</p>
+          <a href="https://www.bmz.de/en/issues/digital-transformation/digital-public-goods-and-infrastructure/fair-forward-215860" target="_blank" rel="noopener noreferrer">FAIR Forward · BMZ</a>
+        </article>
+      </div>
+    </section>
+
+    <details class="participation-image-note">
+      <summary>About the imagery</summary>
+      <p>The photographs used in this concept are AI-generated illustrations. They do not depict confirmed Hub members, event participants or partner teams.</p>
+    </details>
+  </div>
 
   <script>
-    import '../scripts/form';
+    import '../scripts/participation';
   </script>
 </BaseLayout>

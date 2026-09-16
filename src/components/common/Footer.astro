@@ -11,7 +11,6 @@ const registerHref = isHome ? '/get-involved#register' : '#register';
 const servicesHref = isHome ? '#corridor' : '/#work';
 const aboutHref = isHome ? '#why' : '/#why';
 
-const launchHref = isHome ? '#launch' : '/#launch';
 const workHref = isHome ? '#work' : '/#work';
 const corridorHref = isHome ? '#corridor' : '/#corridor';
 const membershipHref = isHome ? '#membership' : '/#membership';
@@ -44,7 +43,6 @@ const partnersHref = isHome ? '#partners' : '/#partners';
         <h2 class="text-[10px] font-extrabold tracking-[0.16em] text-paper/60 mb-1">THE HUB</h2>
         {isHome ? (
           <>
-            <a href={launchHref}     class="text-[13px] text-paper/90 hover:text-gold transition-colors">Official launch</a>
             <a href={workHref}       class="text-[13px] text-paper/90 hover:text-gold transition-colors">What we do</a>
             <a href={corridorHref}   class="text-[13px] text-paper/90 hover:text-gold transition-colors">The corridor</a>
             <a href={membershipHref} class="text-[13px] text-paper/90 hover:text-gold transition-colors">Membership</a>
@@ -53,7 +51,6 @@ const partnersHref = isHome ? '#partners' : '/#partners';
         ) : (
           <>
             <a href={workHref}       class="text-[13px] text-paper/90 hover:text-gold transition-colors">What we do</a>
-            <a href={launchHref}     class="text-[13px] text-paper/90 hover:text-gold transition-colors">Official launch</a>
             <a href={corridorHref}   class="text-[13px] text-paper/90 hover:text-gold transition-colors">The corridor</a>
             <a href={membershipHref} class="text-[13px] text-paper/90 hover:text-gold transition-colors">Membership</a>
             <a href={partnersHref}   class="text-[13px] text-paper/90 hover:text-gold transition-colors">Partners</a>

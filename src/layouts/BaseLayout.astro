@@ -1,6 +1,8 @@
 ---
 import '../styles/global.css';
 import printUrl from '../styles/print.css?url';
+import participationCssUrl from '../styles/participation.css?url';
+import toastCssUrl from '../styles/toast.css?url';
 import IconSprite from '../components/common/IconSprite.astro';
 import Navbar from '../components/navigation/Navbar.astro';
 import Footer from '../components/common/Footer.astro';
@@ -12,6 +14,9 @@ interface Props {
   ogImage?: string;
   printPageSize?: string;
   currentPage?: 'home' | 'get-involved';
+  mainClass?: string;
+  bodyClass?: string;
+  noindex?: boolean;
 }
 
 const {
@@ -21,7 +26,14 @@ const {
   ogImage = '/images/visuals/og-share.png',
   printPageSize = '1600px 8800px',
   currentPage = 'home',
+  mainClass = '',
+  bodyClass,
+  noindex = false,
 } = Astro.props;
+
+const isHome = currentPage === 'home';
+const defaultBodyClass = isHome ? '' : 'participation-page';
+const resolvedBodyClass = bodyClass ?? defaultBodyClass;
 
 const canonicalUrl = canonical || (Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined);
 const socialImageUrl = Astro.site && ogImage ? new URL(ogImage, Astro.site).href : ogImage;
@@ -34,6 +46,7 @@ const socialImageUrl = Astro.site && ogImage ? new URL(ogImage, Astro.site).href
   <title>{title}</title>
   <meta name="description" content={description}>
   <meta name="theme-color" content="#F2F2EF">
+  {noindex && <meta name="robots" content="noindex,nofollow">}
 
   {canonicalUrl && <link rel="canonical" href={canonicalUrl}>}
 
@@ -62,19 +75,25 @@ const socialImageUrl = Astro.site && ogImage ? new URL(ogImage, Astro.site).href
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Mona+Sans:wdth,wght@75..125,400..800&display=swap" rel="stylesheet">
 
+  <!-- Page-specific participation styles -->
+  {!isHome && <link rel="stylesheet" href={participationCssUrl}>}
+
+  <!-- Toast notification styles -->
+  {!isHome && <link rel="stylesheet" href={toastCssUrl}>}
+
   <!-- Print Stylesheet -->
   <link rel="stylesheet" href={printUrl} media="print">
   <!-- Page-specific continuous print height -->
   <style media="print" is:inline set:html={`@page { size: ${printPageSize}; margin: 0; }`}></style>
 </head>
-<body>
+<body class={resolvedBodyClass || undefined}>
   <a href="#main" class="btn btn-ink sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100]">Skip to content</a>
 
   <IconSprite />
 
   <Navbar currentPage={currentPage} />
 
-  <main id="main">
+  <main id="main" class={mainClass || undefined} tabindex="-1">
     <slot />
   </main>
 

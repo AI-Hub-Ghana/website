@@ -63,7 +63,7 @@ function initNavigation() {
   }
 
   btn?.addEventListener("click", () => {
-    if (menu) setMenu(menu.hidden);
+    if (menu) setMenu(Boolean(menu.hidden));
   });
 
   menu?.addEventListener("click", (e) => {
