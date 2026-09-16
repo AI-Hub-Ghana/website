@@ -1,135 +1,82 @@
 ---
-// Who We Are section — Statement hero and bilateral bridge layout
+// Who We Are section — Statement hero and focused bilateral bridge visual
 ---
 <!-- =====================================================================
      WHO WE ARE
      ===================================================================== -->
 <section id="why" class="scroll-mt-24 border-t border-hairline relative overflow-clip bg-paper">
+  <div class="shell py-[clamp(48px,6vw,88px)]">
+    <div class="grid lg:grid-cols-[minmax(0,1.08fr)_minmax(0,42%)] gap-x-[clamp(28px,4vw,72px)] gap-y-10 items-center">
+      
+      <!-- Left: Tag, Headline, Full Description & Supporting Mission Note -->
+      <div class="flex flex-col gap-6 reveal">
+        <!-- 01 / WHO WE ARE tag -->
+        <p class="kicker">
+          01 / WHO WE ARE
+        </p>
 
-  <!-- 1. CORRIDOR STATEMENT & GRAPHIC (Exact same grid width and alignment as Hero) -->
-  <div class="border-b border-hairline">
-    <div class="shell">
-      <div class="grid lg:grid-cols-[minmax(0,1.08fr)_minmax(0,42%)] gap-x-[clamp(28px,4vw,72px)] gap-y-10 items-stretch">
-        
-        <!-- Left: Tag, Headline & Full Description -->
-        <div class="flex flex-col justify-center py-[clamp(44px,5.5vw,84px)] reveal">
-          <div class="w-full flex flex-col gap-6">
-            <!-- 01 / WHO WE ARE tag -->
-            <p class="kicker reveal">
-              01 / WHO WE ARE
-            </p>
+        <!-- Aligned heading -->
+        <h2 id="about-title" class="display d-lg text-ink" style="--d:80ms">
+          The bridge between<br class="hidden sm:inline" /> <span class="text-coral">Ghana and Europe.</span>
+        </h2>
 
-            <!-- Resized, aligned heading -->
-            <h2 id="about-title" class="display d-lg text-ink reveal" style="--d:80ms">
-              The bridge between<br class="hidden sm:inline" /> <span class="text-coral">Ghana and Europe.</span>
-            </h2>
-
-            <!-- Description moved below header with width reduced by 20% -->
-            <div class="flex flex-col gap-4 text-body text-[15px] sm:text-[16px] leading-[1.7] max-w-[48ch] reveal" style="--d:140ms">
-              <p>
-                AI Hub, Ghana is a not-for-profit initiative connecting Ghana's growing artificial intelligence ecosystem with Europe. Ghana brings strong AI talent, entrepreneurial energy and government backing through its National AI Strategy. The Hub creates a structured route to European markets.
-              </p>
-              <p>
-                We help European organisations access Ghanaian talent and solutions, while connecting Ghanaian companies and professionals with European clients, projects and partnerships.
-              </p>
-            </div>
-
-            <p class="text-teal text-[11px] sm:text-[11.5px] font-extrabold tracking-[0.18em] uppercase pt-1 reveal" style="--d:180ms">
-              Operations from 2026
-            </p>
-          </div>
+        <!-- Description -->
+        <div class="flex flex-col gap-4 text-body text-[15px] sm:text-[16px] leading-[1.7] max-w-[48ch]" style="--d:140ms">
+          <p>
+            AI Hub, Ghana is a not-for-profit initiative connecting Ghana's growing artificial intelligence ecosystem with Europe. Ghana brings strong AI talent, entrepreneurial energy and government backing through its National AI Strategy. The Hub creates a structured route to European markets.
+          </p>
+          <p>
+            We help European organisations access Ghanaian talent and solutions, while connecting Ghanaian companies and professionals with European clients, projects and partnerships.
+          </p>
         </div>
+      </div>
 
-        <!-- Right: Corridor Architectural Drafting Grid & Blueprint Card (Matches exact width and edges of Hero image composition) -->
-        <div class="border-t lg:border-t-0 lg:border-x border-hairline bg-drafting-grid relative overflow-hidden flex items-center justify-center p-6 sm:p-7 md:p-8 min-h-[440px] lg:min-h-[520px] lg:w-[calc(100%+var(--accent-out))] reveal" style="--d:120ms">
-          
-          <!-- Decorative color blocks flush against section borders -->
-          <span class="absolute top-0 left-0 w-20 h-16 sm:w-24 sm:h-20 bg-gold pointer-events-none" aria-hidden="true"></span>
-          <span class="absolute top-0 right-0 w-20 h-24 sm:w-24 sm:h-28 bg-coral rounded-bl-[28px] sm:rounded-bl-[32px] pointer-events-none" aria-hidden="true"></span>
-          <span class="absolute bottom-0 left-0 w-20 h-16 sm:w-24 sm:h-20 bg-mint pointer-events-none" aria-hidden="true"></span>
-
-          <!-- Dark Corridor Blueprint Card -->
-          <div class="relative z-10 w-full max-w-[340px] sm:max-w-[370px] bg-blueprint-grid text-paper panel-hook-br border border-white/20 p-6 sm:p-7 flex flex-col gap-5 sm:gap-6">
-            <p class="text-[10.5px] sm:text-[11px] font-extrabold tracking-[0.2em] uppercase text-paper/75">
+      <!-- Right: Simplified, cohesive Corridor Blueprint Panel -->
+      <div class="relative w-full flex items-center justify-center lg:justify-end reveal" style="--d:120ms">
+        <div class="w-full max-w-[420px] bg-blueprint-grid text-paper panel-hook-br border border-hairline/30 p-7 sm:p-9 flex flex-col gap-6 shadow-md relative overflow-hidden">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-extrabold tracking-[0.2em] uppercase text-paper/75">
               The Corridor
-            </p>
+            </span>
+            <span class="tag tag-teal text-[9.5px] py-1 px-3">Bilateral bridge</span>
+          </div>
 
-            <div class="flex items-center justify-between font-extrabold text-[19px] sm:text-[21px] md:text-[23px] tracking-tight text-white uppercase">
-              <span>Accra</span>
-              <span>Europe</span>
+          <div class="flex items-center justify-between font-extrabold text-[20px] sm:text-[23px] tracking-tight text-white uppercase">
+            <span>Accra</span>
+            <span class="text-gold text-[16px]">&harr;</span>
+            <span>Europe</span>
+          </div>
+
+          <!-- Clean bidirectional corridor tracks -->
+          <div class="flex flex-col gap-4 py-1" aria-hidden="true">
+            <!-- Accra → Europe -->
+            <div class="flex items-center w-full">
+              <span class="w-[16px] h-[16px] rounded-full border-[3px] border-coral bg-white shrink-0"></span>
+              <span class="h-[4px] bg-gold flex-1 -ml-[1px]"></span>
+              <svg class="w-6 h-6 text-white shrink-0 -ml-[1px]" viewBox="0 0 28 28" fill="currentColor">
+                <polygon points="4,2 26,14 4,26" />
+              </svg>
             </div>
 
-            <!-- Bidirectional tracks with bold, substantial arrows -->
-            <div class="flex flex-col gap-4 sm:gap-5 py-1" aria-hidden="true">
-              <!-- Accra → Europe -->
-              <div class="flex items-center w-full">
-                <span class="w-[18px] h-[18px] sm:w-[20px] sm:h-[20px] rounded-full border-[3px] sm:border-[3.5px] border-coral bg-white shrink-0"></span>
-                <span class="h-[4px] sm:h-[5px] bg-gold flex-1 -ml-[1px]"></span>
-                <svg class="w-7 h-7 sm:w-8 sm:h-8 text-white shrink-0 -ml-[1px]" viewBox="0 0 28 28" fill="currentColor">
-                  <polygon points="4,2 26,14 4,26" />
-                </svg>
-              </div>
-
-              <!-- Europe → Accra -->
-              <div class="flex items-center w-full">
-                <svg class="w-7 h-7 sm:w-8 sm:h-8 text-white shrink-0 -mr-[1px]" viewBox="0 0 28 28" fill="currentColor">
-                  <polygon points="24,2 2,14 24,26" />
-                </svg>
-                <span class="h-[4px] sm:h-[5px] bg-mint flex-1 -mr-[1px]"></span>
-                <span class="w-[18px] h-[18px] sm:w-[20px] sm:h-[20px] rounded-full border-[3px] sm:border-[3.5px] border-mint bg-white shrink-0"></span>
-              </div>
+            <!-- Europe → Accra -->
+            <div class="flex items-center w-full">
+              <svg class="w-6 h-6 text-white shrink-0 -mr-[1px]" viewBox="0 0 28 28" fill="currentColor">
+                <polygon points="24,2 2,14 24,26" />
+              </svg>
+              <span class="h-[4px] bg-mint flex-1 -mr-[1px]"></span>
+              <span class="w-[16px] h-[16px] rounded-full border-[3px] border-mint bg-white shrink-0"></span>
             </div>
+          </div>
 
-            <p class="text-[10px] sm:text-[10.5px] font-extrabold tracking-[0.2em] uppercase text-paper/75 pt-1">
+          <div class="flex items-center justify-between border-t border-white/15 pt-3">
+            <p class="text-[10.5px] font-extrabold tracking-[0.2em] uppercase text-paper/70">
               One ecosystem. Two markets.
             </p>
+            <span class="w-2.5 h-2.5 rounded-full bg-mint animate-pulse" aria-hidden="true"></span>
           </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- 2. BILATERAL CORRIDOR CARDS & MISSION NOTE -->
-  <div class="shell band-sm pb-[clamp(56px,7vw,100px)] relative z-10 flex flex-col gap-[clamp(36px,4.5vw,64px)]">
-    <!-- Bilateral Corridor Cards -->
-    <div class="grid md:grid-cols-2 gap-5" id="corridor">
-      <!-- Europe – Ghana -->
-      <div class="bg-mint-tint panel-hook-tr-bl p-[clamp(26px,3vw,44px)] flex flex-col gap-6 reveal on-colour">
-        <div class="flex items-center gap-3">
-          <svg class="w-[22px] h-[22px] text-teal" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-plane-landing"/></svg>
-          <span class="text-[10.5px] font-extrabold tracking-[0.18em] uppercase text-[#26654D]">Europe &ndash; Ghana</span>
-        </div>
-        <h3 class="heading text-[clamp(20px,2vw,28px)]">For European organisations</h3>
-        <ul class="flex flex-col">
-          <li class="border-t border-[#BFD9CD] py-[15px] text-[14.5px] font-semibold">Vetted Ghanaian AI professionals and teams</li>
-          <li class="border-t border-[#BFD9CD] py-[15px] text-[14.5px] font-semibold">Cost-effective delivery capacity for practical AI work</li>
-          <li class="border-t border-[#BFD9CD] py-[15px] text-[14.5px] font-semibold">Transparent governance and EU AI Act readiness support</li>
-          <li class="border-y border-[#BFD9CD] py-[15px] text-[14.5px] font-semibold">An on-the-ground presence in Accra</li>
-        </ul>
-      </div>
-
-      <!-- Ghana – Europe -->
-      <div class="bg-coral-tint panel-hook-tl-br p-[clamp(26px,3vw,44px)] flex flex-col gap-6 reveal on-colour" style="--d:110ms">
-        <div class="flex items-center gap-3">
-          <svg class="w-[22px] h-[22px] text-[#A83E32]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-plane-takeoff"/></svg>
-          <span class="text-[10.5px] font-extrabold tracking-[0.18em] uppercase text-[#A83E32]">Ghana &ndash; Europe</span>
-        </div>
-        <h3 class="heading text-[clamp(20px,2vw,28px)]">For Ghanaian talent and ventures</h3>
-        <ul class="flex flex-col">
-          <li class="border-t border-[#E0B0A8] py-[15px] text-[14.5px] font-semibold">European clients and project work</li>
-          <li class="border-t border-[#E0B0A8] py-[15px] text-[14.5px] font-semibold">Training and certification to international standards</li>
-          <li class="border-t border-[#E0B0A8] py-[15px] text-[14.5px] font-semibold">Incubation support for AI-enabled ventures</li>
-          <li class="border-y border-[#E0B0A8] py-[15px] text-[14.5px] font-semibold">Placement on international assignments</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Mission Note -->
-    <div class="flex items-center gap-5 pt-1 reveal" style="--d:180ms">
-      <span class="w-11 h-11 bg-gold rounded-bl-[24px] shrink-0" aria-hidden="true"></span>
-      <p class="text-[13.5px] leading-[1.75] text-body max-w-[90ch] m-0">
-        We support young Ghanaian companies with AI tools, training and incubation to help bring their ideas to market. All surpluses are reinvested in AI skills, jobs and businesses.
-      </p>
     </div>
   </div>
 
