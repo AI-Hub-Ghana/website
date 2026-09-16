@@ -719,6 +719,13 @@
     top: calc(clamp(56px, 7vw, 112px) + 34px);
   }
 
+  .restored-slab {
+    top: 18px;
+    height: 18px;
+    width: min(32vw, 440px);
+    background: var(--color-gold);
+  }
+
   @media (max-width: 640px) {
     .slab {
       width: min(74vw, 420px);
@@ -728,6 +735,12 @@
 
     .slab-head {
       top: clamp(72px, 14vw, 96px);
+    }
+
+    .restored-slab {
+      top: 13px;
+      height: 12px;
+      width: 38%;
     }
   }
 
