@@ -69,12 +69,12 @@
 }
 
 :root {
-  --shell: 1440px;
-  --gutter: clamp(20px, 4vw, 64px);
+  --shell: 1360px;
+  --gutter: clamp(30px, 6vw, 90px);
   /* Accent blocks sit behind a photograph and reach past it. The reach is
      derived from the gutter and can never exceed it, so an accent is never
      clipped by the viewport edge at any width. */
-  --accent-out: min(clamp(14px, 2.4vw, 40px), calc(var(--gutter) - 6px));
+  --accent-out: min(clamp(11px, 1.9vw, 32px), calc(var(--gutter) - 6px));
 }
 
 /* --------------------------------------------------------------------------
