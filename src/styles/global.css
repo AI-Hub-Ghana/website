@@ -654,6 +654,27 @@
   .panel-hook-tr-bl {
     border-radius: 0 clamp(40px, 6vw, 104px) 0 clamp(40px, 6vw, 104px);
   }
+  .panel-hook-br {
+    border-radius: 0 0 clamp(56px, 8vw, 112px) 0;
+  }
+
+  /* Architectural drafting grid (mint/teal tint on paper) */
+  .bg-drafting-grid {
+    background-color: var(--color-mint-tint, #dcece4);
+    background-image:
+      linear-gradient(to right, rgba(42, 122, 94, 0.14) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(42, 122, 94, 0.14) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  /* Dark blueprint grid (white grid lines on ink ground) */
+  .bg-blueprint-grid {
+    background-color: var(--color-ink);
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 26px 26px;
+  }
 
   /* Accent reach — one token, so no breakpoint can push a block off-screen. */
   .accent-tr {

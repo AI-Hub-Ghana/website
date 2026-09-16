@@ -1,41 +1,103 @@
 ---
-// Who We Are section — bilateral bridge layout with corridor cards
+// Who We Are section — Statement hero and bilateral bridge layout
 ---
 <!-- =====================================================================
      WHO WE ARE
      ===================================================================== -->
-<section id="why" class="scroll-mt-24 border-t border-hairline relative overflow-clip">
+<section id="why" class="scroll-mt-24 border-t border-hairline relative overflow-clip bg-paper">
 
-  <!-- Slides in from off the right edge at the top of the section -->
-  <span class="slab restored-slab" data-scrub="enter" aria-hidden="true"></span>
+  <!-- 1. CORRIDOR STATEMENT & GRAPHIC (Exact same grid width and alignment as Hero) -->
+  <div class="border-b border-hairline">
+    <div class="shell">
+      <div class="grid lg:grid-cols-[minmax(0,1.08fr)_minmax(0,42%)] gap-x-[clamp(28px,4vw,72px)] gap-y-10 items-stretch">
+        
+        <!-- Left: Tag, Headline & Full Description -->
+        <div class="flex flex-col justify-center py-[clamp(44px,5.5vw,84px)] reveal">
+          <div class="w-full flex flex-col gap-6">
+            <!-- 01 / WHO WE ARE tag -->
+            <p class="kicker reveal">
+              01 / WHO WE ARE
+            </p>
 
-  <div class="shell band relative z-10 flex flex-col gap-[clamp(34px,4.4vw,68px)]">
+            <!-- Resized, aligned heading -->
+            <h2 id="about-title" class="display d-lg text-ink reveal" style="--d:80ms">
+              The bridge between<br class="hidden sm:inline" /> <span class="text-coral">Ghana and Europe.</span>
+            </h2>
 
-    <!-- Header: Title and copy from the nested project -->
-    <div class="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] gap-x-[clamp(28px,4vw,64px)] gap-y-6 items-start">
-      <div class="flex flex-col gap-4">
-        <p class="kicker reveal">Who we are</p>
-        <h2 id="about-title" class="display d-lg reveal" style="--d:80ms">
-          The bridge between<br>Ghana and Europe.
-        </h2>
-      </div>
-      <div class="flex flex-col gap-4 text-body text-[15.5px] leading-[1.7] reveal" style="--d:140ms">
-        <p>
-          AI Hub, Ghana is a not-for-profit initiative connecting Ghana's growing artificial intelligence ecosystem with Europe. Ghana brings strong AI talent, entrepreneurial energy and government backing through its National AI Strategy. The Hub creates a structured route to European markets.
-        </p>
-        <p>
-          We help European organisations access Ghanaian talent and solutions, while connecting Ghanaian companies and professionals with European clients, projects and partnerships.
-        </p>
+            <!-- Description moved below header with width reduced by 20% -->
+            <div class="flex flex-col gap-4 text-body text-[15px] sm:text-[16px] leading-[1.7] max-w-[48ch] reveal" style="--d:140ms">
+              <p>
+                AI Hub, Ghana is a not-for-profit initiative connecting Ghana's growing artificial intelligence ecosystem with Europe. Ghana brings strong AI talent, entrepreneurial energy and government backing through its National AI Strategy. The Hub creates a structured route to European markets.
+              </p>
+              <p>
+                We help European organisations access Ghanaian talent and solutions, while connecting Ghanaian companies and professionals with European clients, projects and partnerships.
+              </p>
+            </div>
+
+            <p class="text-teal text-[11px] sm:text-[11.5px] font-extrabold tracking-[0.18em] uppercase pt-1 reveal" style="--d:180ms">
+              Operations from 2026
+            </p>
+          </div>
+        </div>
+
+        <!-- Right: Corridor Architectural Drafting Grid & Blueprint Card (Matches exact width and edges of Hero image composition) -->
+        <div class="border-t lg:border-t-0 lg:border-x border-hairline bg-drafting-grid relative overflow-hidden flex items-center justify-center p-6 sm:p-7 md:p-8 min-h-[440px] lg:min-h-[520px] lg:w-[calc(100%+var(--accent-out))] reveal" style="--d:120ms">
+          
+          <!-- Decorative color blocks flush against section borders -->
+          <span class="absolute top-0 left-0 w-20 h-16 sm:w-24 sm:h-20 bg-gold pointer-events-none" aria-hidden="true"></span>
+          <span class="absolute top-0 right-0 w-20 h-24 sm:w-24 sm:h-28 bg-coral rounded-bl-[28px] sm:rounded-bl-[32px] pointer-events-none" aria-hidden="true"></span>
+          <span class="absolute bottom-0 left-0 w-20 h-16 sm:w-24 sm:h-20 bg-mint pointer-events-none" aria-hidden="true"></span>
+
+          <!-- Dark Corridor Blueprint Card -->
+          <div class="relative z-10 w-full max-w-[340px] sm:max-w-[370px] bg-blueprint-grid text-paper panel-hook-br border border-white/20 p-6 sm:p-7 flex flex-col gap-5 sm:gap-6">
+            <p class="text-[10.5px] sm:text-[11px] font-extrabold tracking-[0.2em] uppercase text-paper/75">
+              The Corridor
+            </p>
+
+            <div class="flex items-center justify-between font-extrabold text-[19px] sm:text-[21px] md:text-[23px] tracking-tight text-white uppercase">
+              <span>Accra</span>
+              <span>Europe</span>
+            </div>
+
+            <!-- Bidirectional tracks with bold, substantial arrows -->
+            <div class="flex flex-col gap-4 sm:gap-5 py-1" aria-hidden="true">
+              <!-- Accra → Europe -->
+              <div class="flex items-center w-full">
+                <span class="w-[18px] h-[18px] sm:w-[20px] sm:h-[20px] rounded-full border-[3px] sm:border-[3.5px] border-coral bg-white shrink-0"></span>
+                <span class="h-[4px] sm:h-[5px] bg-gold flex-1 -ml-[1px]"></span>
+                <svg class="w-7 h-7 sm:w-8 sm:h-8 text-white shrink-0 -ml-[1px]" viewBox="0 0 28 28" fill="currentColor">
+                  <polygon points="4,2 26,14 4,26" />
+                </svg>
+              </div>
+
+              <!-- Europe → Accra -->
+              <div class="flex items-center w-full">
+                <svg class="w-7 h-7 sm:w-8 sm:h-8 text-white shrink-0 -mr-[1px]" viewBox="0 0 28 28" fill="currentColor">
+                  <polygon points="24,2 2,14 24,26" />
+                </svg>
+                <span class="h-[4px] sm:h-[5px] bg-mint flex-1 -mr-[1px]"></span>
+                <span class="w-[18px] h-[18px] sm:w-[20px] sm:h-[20px] rounded-full border-[3px] sm:border-[3.5px] border-mint bg-white shrink-0"></span>
+              </div>
+            </div>
+
+            <p class="text-[10px] sm:text-[10.5px] font-extrabold tracking-[0.2em] uppercase text-paper/75 pt-1">
+              One ecosystem. Two markets.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
+  </div>
 
-    <!-- Bilateral corridor design cards -->
+  <!-- 2. BILATERAL CORRIDOR CARDS & MISSION NOTE -->
+  <div class="shell band-sm pb-[clamp(56px,7vw,100px)] relative z-10 flex flex-col gap-[clamp(36px,4.5vw,64px)]">
+    <!-- Bilateral Corridor Cards -->
     <div class="grid md:grid-cols-2 gap-5" id="corridor">
       <!-- Europe – Ghana -->
       <div class="bg-mint-tint panel-hook-tr-bl p-[clamp(26px,3vw,44px)] flex flex-col gap-6 reveal on-colour">
         <div class="flex items-center gap-3">
           <svg class="w-[22px] h-[22px] text-teal" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-plane-landing"/></svg>
-          <span class="text-[10.5px] font-extrabold tracking-[0.18em] uppercase text-[#26654D]">Europe – Ghana</span>
+          <span class="text-[10.5px] font-extrabold tracking-[0.18em] uppercase text-[#26654D]">Europe &ndash; Ghana</span>
         </div>
         <h3 class="heading text-[clamp(20px,2vw,28px)]">For European organisations</h3>
         <ul class="flex flex-col">
@@ -50,7 +112,7 @@
       <div class="bg-coral-tint panel-hook-tl-br p-[clamp(26px,3vw,44px)] flex flex-col gap-6 reveal on-colour" style="--d:110ms">
         <div class="flex items-center gap-3">
           <svg class="w-[22px] h-[22px] text-[#A83E32]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-plane-takeoff"/></svg>
-          <span class="text-[10.5px] font-extrabold tracking-[0.18em] uppercase text-[#A83E32]">Ghana – Europe</span>
+          <span class="text-[10.5px] font-extrabold tracking-[0.18em] uppercase text-[#A83E32]">Ghana &ndash; Europe</span>
         </div>
         <h3 class="heading text-[clamp(20px,2vw,28px)]">For Ghanaian talent and ventures</h3>
         <ul class="flex flex-col">
@@ -62,7 +124,7 @@
       </div>
     </div>
 
-    <!-- Mission note -->
+    <!-- Mission Note -->
     <div class="flex items-center gap-5 pt-1 reveal" style="--d:180ms">
       <span class="w-11 h-11 bg-gold rounded-bl-[24px] shrink-0" aria-hidden="true"></span>
       <p class="text-[13.5px] leading-[1.75] text-body max-w-[90ch] m-0">
