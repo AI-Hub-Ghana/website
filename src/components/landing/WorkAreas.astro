@@ -10,7 +10,7 @@ interface Pathway {
   delay: string;
   titleLines: [string, string];
   description: string;
-  maxW?: string;
+  isWide?: boolean;
 }
 
 const pathways: Pathway[] = [
@@ -53,7 +53,7 @@ const pathways: Pathway[] = [
     delay: '240ms',
     titleLines: ['Innovation &', 'AI use cases'],
     description: 'Co-developing practical AI solutions and use cases with a quality-assured pool of Ghanaian AI professionals: feasibility, solution scoping and rapid prototyping.',
-    maxW: 'max-w-[52ch]',
+    isWide: true,
   },
   {
     num: '05',
@@ -64,7 +64,7 @@ const pathways: Pathway[] = [
     delay: '320ms',
     titleLines: ['AI governance', '& compliance'],
     description: 'Advisory on responsible deployment: risk classification, regulatory alignment, ethics review and governance design, data protection, and European regulatory requirements (e.g. EU AI Act readiness).',
-    maxW: 'max-w-[52ch]',
+    isWide: true,
   },
 ];
 ---
@@ -76,7 +76,7 @@ const pathways: Pathway[] = [
 
   <div class="shell band relative">
     <div class="flex flex-col gap-5 max-w-[56ch] mb-[clamp(30px,3.6vw,56px)]">
-      <p class="kicker kicker-light reveal">What we do</p>
+      <p class="kicker kicker-light reveal">03 / WHAT WE DO</p>
       <h2 class="display d-lg text-paper reveal" style="--d:80ms">
         Five lines of work.
       </h2>
@@ -89,22 +89,38 @@ const pathways: Pathway[] = [
       </p>
     </div>
 
-    <div class="grid sm:grid-cols-2 xl:grid-cols-6 gap-3">
+    <div class="grid sm:grid-cols-2 xl:grid-cols-6 gap-4 items-stretch">
       {pathways.map((p) => (
-        <a
-          href={`/get-involved?interest=${encodeURIComponent(p.interest)}#register`}
-          class={`pathway ${p.bgClass} reveal on-colour ${p.colSpan}`}
+        <div
+          class={`pathway ${p.bgClass} reveal on-colour ${p.colSpan} flex flex-col justify-between`}
           style={`--d:${p.delay}`}
         >
-          <div class="flex items-start justify-between">
-            <span class="p-num">{p.num}</span>
-            <svg class="w-[18px] h-[18px] p-arrow" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-arrow-up-right"/></svg>
-          </div>
-          <h3 class="display p-title relative mt-auto">{p.titleLines[0]}<br />{p.titleLines[1]}</h3>
-          <p class={`text-[13px] leading-[1.55] ${p.bodyClass} relative ${p.maxW || ''}`}>
-            {p.description}
-          </p>
-        </a>
+          {p.isWide ? (
+            <div class="flex flex-col justify-between h-full gap-6">
+              <div class="flex items-start justify-between">
+                <span class="p-num">{p.num}</span>
+              </div>
+              <div class="grid md:grid-cols-[1fr_1.35fr] gap-x-6 gap-y-3 items-end mt-auto">
+                <h3 class="display p-title !m-0">{p.titleLines[0]}<br />{p.titleLines[1]}</h3>
+                <p class={`text-[13px] leading-[1.55] ${p.bodyClass} relative m-0`}>
+                  {p.description}
+                </p>
+              </div>
+            </div>
+          ) : (
+            <div class="flex flex-col justify-between h-full gap-6">
+              <div class="flex items-start justify-between">
+                <span class="p-num">{p.num}</span>
+              </div>
+              <div class="flex flex-col gap-2.5 mt-auto">
+                <h3 class="display p-title !m-0">{p.titleLines[0]}<br />{p.titleLines[1]}</h3>
+                <p class={`text-[13px] leading-[1.55] ${p.bodyClass} relative m-0`}>
+                  {p.description}
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
       ))}
     </div>
   </div>

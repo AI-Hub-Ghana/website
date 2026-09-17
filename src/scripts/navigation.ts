@@ -9,16 +9,11 @@ function initNavigation() {
   let lastState: boolean | null = null;
 
   function onScroll() {
-    if (!nav || !inner) return;
-    const s = (window.scrollY || document.documentElement.scrollTop || 0) > 40;
-    if (s === lastState) return;
-    lastState = s;
-    nav.style.background = s ? "rgba(244,240,232,0.82)" : "";
-    nav.style.backdropFilter = s ? "saturate(1.4) blur(14px)" : "";
-    // @ts-ignore
-    nav.style.webkitBackdropFilter = s ? "saturate(1.4) blur(14px)" : "";
-    nav.style.boxShadow = s ? "0 1px 20px rgba(29,29,27,0.08)" : "none";
-    inner.style.paddingBlock = s ? "10px" : "";
+    if (!nav) return;
+    const isScrolled = (window.scrollY || document.documentElement.scrollTop || 0) > 20;
+    if (isScrolled === lastState) return;
+    lastState = isScrolled;
+    nav.classList.toggle("is-scrolled", isScrolled);
   }
 
   function scrollToHash(hash: string) {
@@ -63,7 +58,7 @@ function initNavigation() {
   }
 
   btn?.addEventListener("click", () => {
-    if (menu) setMenu(menu.hidden);
+    if (menu) setMenu(Boolean(menu.hidden));
   });
 
   menu?.addEventListener("click", (e) => {

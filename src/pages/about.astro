@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AboutHero from '../components/about/AboutHero.astro';
+import WhoWeAre from '../components/about/WhoWeAre.astro';
+import WhatWeDo from '../components/about/WhatWeDo.astro';
+import Commitment from '../components/about/Commitment.astro';
+import JoinCTA from '../components/landing/JoinCTA.astro';
+import '../styles/about.css';
+
+const title = 'About AI Hub Ghana — the Ghana–Europe bridge';
+const description = 'AI Hub Ghana connects Ghanaian AI talent, entrepreneurs and businesses with European organisations, markets and opportunities through a structured two-way corridor.';
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  printPageSize="1600px 6200px"
+  currentPage="about"
+  mainClass="about-main"
+>
+  <AboutHero />
+  <WhoWeAre />
+  <WhatWeDo />
+  <Commitment />
+  <JoinCTA kicker="04 / GET INVOLVED" />
+</BaseLayout>

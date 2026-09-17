@@ -1,0 +1,284 @@
+/* ==========================================================================
+   AI Hub Ghana — Privacy
+   Documentation-inspired layout with an intentionally quiet grid.
+   ========================================================================== */
+
+.privacy-main {
+  background: var(--color-paper);
+}
+
+.ph-grid {
+  position: relative;
+  background-image:
+    linear-gradient(to right, rgba(42, 122, 94, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(42, 122, 94, 0.04) 1px, transparent 1px);
+  background-size: clamp(64px, 7vw, 100px) clamp(64px, 7vw, 100px);
+}
+
+.privacy-header {
+  border-bottom: 1px solid rgba(29, 29, 27, 0.11);
+}
+
+.privacy-header__inner {
+  min-height: clamp(390px, 48vh, 570px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(180px, 0.28fr);
+  align-items: center;
+  gap: 60px;
+  padding-block: clamp(78px, 9vw, 130px);
+}
+
+.privacy-header h1 {
+  margin-top: 17px;
+}
+
+.privacy-date {
+  align-self: end;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-bottom: 8px;
+  color: var(--color-muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.privacy-date strong {
+  color: var(--color-ink);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.privacy-document {
+  border-bottom: 1px solid rgba(29, 29, 27, 0.11);
+}
+
+.privacy-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 270px;
+  gap: clamp(50px, 7vw, 110px);
+  align-items: start;
+}
+
+.privacy-body {
+  min-width: 0;
+  max-width: 850px;
+  border-left: 1px solid rgba(29, 29, 27, 0.08);
+  border-right: 1px solid rgba(29, 29, 27, 0.08);
+}
+
+.privacy-section {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: clamp(18px, 3vw, 48px);
+  padding: clamp(55px, 6vw, 86px) clamp(26px, 4vw, 60px);
+  border-bottom: 1px solid rgba(29, 29, 27, 0.11);
+  scroll-margin-top: 96px;
+}
+
+.privacy-section:last-child {
+  border-bottom: 0;
+}
+
+.privacy-section__number {
+  padding-top: 6px;
+  color: var(--color-teal);
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+}
+
+.privacy-section__content {
+  max-width: 66ch;
+}
+
+.privacy-section h2 {
+  font-size: clamp(22px, 2vw, 29px);
+  letter-spacing: -0.025em;
+}
+
+.privacy-section p,
+.privacy-section li {
+  color: var(--color-body);
+  font-size: 14.5px;
+  line-height: 1.78;
+}
+
+.privacy-section h2 + p,
+.privacy-section h2 + ul,
+.privacy-section h2 + .privacy-contact-block {
+  margin-top: 22px;
+}
+
+.privacy-section p + p,
+.privacy-section ul + p,
+.privacy-section p + ul {
+  margin-top: 20px;
+}
+
+.privacy-section ul {
+  margin-top: 18px;
+  padding-left: 1.15em;
+}
+
+.privacy-section li {
+  padding-left: 5px;
+}
+
+.privacy-section li + li {
+  margin-top: 8px;
+}
+
+.privacy-section strong {
+  color: var(--color-ink);
+  font-weight: 700;
+}
+
+.privacy-contact-block {
+  padding: 22px 24px;
+  border-left: 3px solid var(--color-teal);
+  background: rgba(220, 236, 228, 0.45);
+}
+
+.privacy-contact-block p {
+  color: var(--color-body);
+}
+
+.privacy-contact-block p + p {
+  margin-top: 3px;
+}
+
+.privacy-aside {
+  position: sticky;
+  top: 102px;
+  padding-block: clamp(55px, 6vw, 86px);
+}
+
+.privacy-toc__title {
+  margin-bottom: 17px;
+  color: var(--color-ink);
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.privacy-toc ol {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  border-left: 1px solid rgba(29, 29, 27, 0.12);
+}
+
+.privacy-toc li a {
+  display: block;
+  margin-left: -1px;
+  padding: 5px 0 5px 17px;
+  border-left: 1px solid transparent;
+  color: var(--color-muted);
+  font-size: 12px;
+  line-height: 1.35;
+  transition: color 180ms ease, border-color 180ms ease;
+}
+
+.privacy-toc li a:hover,
+.privacy-toc li a:focus-visible {
+  color: var(--color-teal);
+  border-left-color: var(--color-teal);
+}
+
+.privacy-toc li a.is-active {
+  color: var(--color-teal);
+  font-weight: 750;
+  border-left-color: var(--color-teal);
+  background: rgba(42, 122, 94, 0.08);
+  border-radius: 0 4px 4px 0;
+}
+
+.privacy-mobile-toc {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .privacy-header__inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    min-height: auto;
+  }
+
+  .privacy-date {
+    align-self: start;
+  }
+
+  .privacy-layout {
+    display: block;
+  }
+
+  .privacy-aside {
+    display: none;
+  }
+
+  .privacy-mobile-toc {
+    display: block;
+    padding-block: 30px;
+    border-bottom: 1px solid rgba(29, 29, 27, 0.11);
+  }
+
+  .privacy-mobile-toc .privacy-toc ol {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 18px;
+  }
+
+  .privacy-body {
+    max-width: none;
+    border-left: 0;
+    border-right: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .ph-grid {
+    background-size: 72px 72px;
+    background-image:
+      linear-gradient(to right, rgba(42, 122, 94, 0.032) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(42, 122, 94, 0.032) 1px, transparent 1px);
+  }
+
+  .privacy-header__inner {
+    padding-block: 68px 74px;
+  }
+
+  .privacy-mobile-toc .privacy-toc ol {
+    grid-template-columns: 1fr;
+  }
+
+  .privacy-section {
+    grid-template-columns: 38px minmax(0, 1fr);
+    gap: 14px;
+    padding: 48px 0;
+  }
+
+  .privacy-section p,
+  .privacy-section li {
+    font-size: 14px;
+  }
+
+  .privacy-contact-block {
+    padding: 18px 19px;
+  }
+}
+
+@media print {
+  .privacy-aside,
+  .privacy-mobile-toc {
+    display: none !important;
+  }
+
+  .privacy-layout {
+    display: block;
+  }
+
+  .privacy-body {
+    max-width: none;
+    border: 0;
+  }
+}

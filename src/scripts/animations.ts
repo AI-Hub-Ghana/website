@@ -40,34 +40,42 @@ function initAnimations() {
     if (el.hasAttribute('data-count')) countUp(el);
   }
 
-  if (!('IntersectionObserver' in window)) {
+  if (reduce || !('IntersectionObserver' in window)) {
     targets.forEach(show);
-  } else {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((en) => {
-        if (!en.isIntersecting) return;
-        show(en.target as HTMLElement);
-        io.unobserve(en.target);
-      });
-    }, { rootMargin: '0px 0px -6% 0px', threshold: 0 });
-
-    targets.forEach((el) => io.observe(el));
-
-    const vh = window.innerHeight || 800;
-    let i = 0;
-    targets.forEach((el) => {
-      if (el.getBoundingClientRect().top < vh * 0.94) {
-        setTimeout(() => {
-          show(el);
-          io.unobserve(el);
-        }, i++ * 45);
-      }
-    });
-
-    setTimeout(() => {
-      targets.forEach(show);
-    }, 2500);
+    return;
   }
+
+  const vh = window.innerHeight || document.documentElement.clientHeight || 800;
+
+  // 1. Immediately reveal all elements in or near the viewport so they never blink or hide
+  const belowFoldTargets: HTMLElement[] = [];
+  targets.forEach((el) => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < vh * 0.95) {
+      show(el);
+    } else {
+      belowFoldTargets.push(el);
+    }
+  });
+
+  // 2. Set up observer only for elements entering from below the fold
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((en) => {
+      if (!en.isIntersecting) return;
+      show(en.target as HTMLElement);
+      io.unobserve(en.target);
+    });
+  }, { rootMargin: '0px 0px -6% 0px', threshold: 0 });
+
+  belowFoldTargets.forEach((el) => io.observe(el));
+
+  // 3. Mark reveal system ready now that above-the-fold elements are marked is-in
+  document.documentElement.classList.add('reveal-ready');
+
+  // 4. Safety watchdog
+  setTimeout(() => {
+    targets.forEach(show);
+  }, 3000);
 }
 
 if (document.readyState === 'loading') {

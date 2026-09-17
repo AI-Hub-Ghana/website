@@ -1,0 +1,359 @@
+/* ==========================================================================
+   AI Hub Ghana — About
+   Quiet architectural grid + editorial page rhythm.
+   ========================================================================== */
+
+.about-main {
+  position: relative;
+  background: var(--color-paper);
+}
+
+.ah-grid {
+  position: relative;
+  isolation: isolate;
+  background-image:
+    linear-gradient(to right, rgba(42, 122, 94, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(42, 122, 94, 0.045) 1px, transparent 1px);
+  background-size: clamp(56px, 6vw, 92px) clamp(56px, 6vw, 92px);
+}
+
+.about-hero {
+  min-height: min(760px, calc(100vh - 76px));
+  border-bottom: 1px solid rgba(29, 29, 27, 0.09);
+}
+
+.about-hero__inner {
+  min-height: inherit;
+  display: grid;
+  grid-template-columns: minmax(130px, 0.45fr) minmax(0, 1.75fr) minmax(320px, 400px);
+  align-items: center;
+  gap: clamp(24px, 4vw, 56px);
+  padding-block: clamp(74px, 9vw, 132px);
+}
+
+.about-hero__visual {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.about-hero__kicker {
+  align-self: start;
+  padding-top: 9px;
+}
+
+.about-hero__rule {
+  display: block;
+  width: 34px;
+  height: 2px;
+  margin-top: 18px;
+  background: var(--color-coral);
+}
+
+.about-hero__copy {
+  max-width: 760px;
+}
+
+.about-hero h1 {
+  max-width: 10.5ch;
+  margin: 0;
+}
+
+.about-accent {
+  color: var(--color-coral);
+}
+
+.about-hero .lead {
+  margin-top: clamp(30px, 4vw, 48px);
+  max-width: 47ch;
+  font-size: clamp(17px, 1.35vw, 20px);
+}
+
+.about-hero__meta {
+  align-self: end;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  max-width: 22ch;
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.about-section,
+.about-corridor,
+.about-commitment {
+  border-bottom: 1px solid rgba(29, 29, 27, 0.09);
+}
+
+.about-section {
+  padding-block: clamp(86px, 10vw, 150px);
+}
+
+.about-two-col {
+  display: grid;
+  grid-template-columns: minmax(230px, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(48px, 10vw, 150px);
+}
+
+.about-two-col h2 {
+  max-width: 13ch;
+  margin-top: 18px;
+}
+
+.about-prose {
+  max-width: 62ch;
+  padding-top: 3px;
+}
+
+.about-photo {
+  margin-bottom: clamp(34px, 4vw, 52px);
+}
+
+.about-photo img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 0 clamp(30px, 4vw, 64px) 0 0;
+}
+
+.about-photo figcaption {
+  margin-top: 9px;
+  color: var(--color-muted);
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.about-prose p,
+.commitment-copy p {
+  color: var(--color-body);
+  font-size: clamp(15px, 1.05vw, 17px);
+  line-height: 1.72;
+}
+
+.about-prose p + p,
+.commitment-copy p + p {
+  margin-top: 23px;
+}
+
+.about-corridor {
+  padding-block: clamp(82px, 9vw, 132px);
+}
+
+.about-section-intro {
+  max-width: 620px;
+}
+
+.about-section-intro h2 {
+  margin-top: 18px;
+}
+
+.about-section-intro--wide {
+  max-width: 760px;
+}
+
+.corridor-line {
+  position: relative;
+  height: 74px;
+  margin: clamp(60px, 7vw, 94px) 0 clamp(52px, 6vw, 80px);
+}
+
+.corridor-track {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  top: 50%;
+  height: 1px;
+  background: rgba(29, 29, 27, 0.25);
+}
+
+.corridor-track::after {
+  content: "";
+  position: absolute;
+  inset: -1px 0 auto;
+  height: 3px;
+  background: linear-gradient(to right, var(--color-teal) 0 50%, var(--color-coral) 50% 100%);
+  opacity: 0.85;
+}
+
+.corridor-node {
+  position: absolute;
+  z-index: 1;
+  top: calc(50% - 7px);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-paper);
+  border: 2px solid var(--color-ink);
+}
+
+.corridor-node--left { left: 0; }
+.corridor-node--right { right: 0; }
+
+.corridor-label {
+  position: absolute;
+  top: 0;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: var(--color-muted);
+}
+
+.corridor-label--left { left: 0; }
+.corridor-label--right { right: 0; }
+
+.corridor-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid rgba(29, 29, 27, 0.12);
+}
+
+.corridor-card {
+  padding: clamp(30px, 4vw, 54px) clamp(18px, 4vw, 58px) clamp(8px, 1vw, 14px) 0;
+}
+
+.corridor-card + .corridor-card {
+  border-left: 1px solid rgba(29, 29, 27, 0.12);
+  padding-left: clamp(24px, 4vw, 58px);
+}
+
+.corridor-card h3 {
+  margin-top: 17px;
+  font-size: clamp(21px, 2vw, 29px);
+  letter-spacing: -0.025em;
+}
+
+.corridor-card p:last-child {
+  max-width: 48ch;
+  margin-top: 16px;
+  color: var(--color-body);
+  line-height: 1.68;
+}
+
+.about-work {
+  padding-block: clamp(86px, 10vw, 150px);
+}
+
+.about-work-list {
+  margin-top: clamp(52px, 6vw, 84px);
+  border-top: 1px solid rgba(29, 29, 27, 0.14);
+}
+
+.about-work-list article {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: clamp(20px, 4vw, 60px);
+  padding-block: 30px;
+  border-bottom: 1px solid rgba(29, 29, 27, 0.12);
+}
+
+.about-index {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--color-teal);
+  padding-top: 4px;
+}
+
+.about-work-list h3 {
+  font-size: clamp(19px, 1.7vw, 25px);
+}
+
+.about-work-list p {
+  max-width: 61ch;
+  margin-top: 8px;
+  color: var(--color-body);
+  line-height: 1.68;
+}
+
+.about-commitment {
+  padding-block: clamp(74px, 9vw, 126px);
+}
+
+.commitment-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
+  gap: clamp(46px, 9vw, 130px);
+  padding: clamp(40px, 5vw, 70px);
+  background: var(--color-teal-deep);
+  color: var(--color-paper);
+  border-radius: clamp(34px, 5vw, 76px) 0 clamp(34px, 5vw, 76px) 0;
+}
+
+.commitment-panel .kicker {
+  color: rgba(242, 242, 239, 0.65);
+}
+
+.commitment-panel h2 {
+  max-width: 14ch;
+  margin-top: 18px;
+  color: var(--color-paper);
+}
+
+.commitment-copy {
+  align-self: end;
+  max-width: 47ch;
+}
+
+.commitment-copy p {
+  color: rgba(242, 242, 239, 0.82);
+}
+
+@media (max-width: 1024px) {
+  .about-hero__inner {
+    grid-template-columns: 1fr;
+    align-content: center;
+    min-height: auto;
+    gap: 36px;
+  }
+
+  .about-hero__copy { max-width: 720px; }
+  .about-hero__visual {
+    justify-content: flex-start;
+  }
+
+  .about-two-col,
+  .commitment-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .about-two-col { gap: 38px; }
+  .commitment-panel { gap: 38px; }
+}
+
+@media (max-width: 640px) {
+  .ah-grid {
+    background-size: 72px 72px;
+    background-image:
+      linear-gradient(to right, rgba(42, 122, 94, 0.035) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(42, 122, 94, 0.035) 1px, transparent 1px);
+  }
+
+  .about-hero { min-height: auto; }
+  .about-hero__inner { padding-block: 70px 84px; }
+  .about-hero h1 { max-width: 11ch; }
+  .about-hero .lead { max-width: 39ch; }
+
+  .about-two-col h2,
+  .commitment-panel h2 { max-width: 18ch; }
+
+  .corridor-line { margin-top: 52px; }
+  .corridor-grid { grid-template-columns: 1fr; }
+  .corridor-card { padding-right: 0; }
+  .corridor-card + .corridor-card {
+    border-left: 0;
+    border-top: 1px solid rgba(29, 29, 27, 0.12);
+    padding-left: 0;
+  }
+
+  .about-work-list article {
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .commitment-panel {
+    padding: 32px 25px;
+  }
+}
