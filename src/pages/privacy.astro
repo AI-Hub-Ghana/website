@@ -1,0 +1,138 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PrivacyHeader from '../components/privacy/PrivacyHeader.astro';
+import PrivacyToc from '../components/privacy/PrivacyToc.astro';
+import PrivacySection from '../components/privacy/PrivacySection.astro';
+import '../styles/privacy.css';
+
+const title = 'Privacy Policy — AI Hub Ghana';
+const description = 'Privacy information for AI Hub Ghana, covering how personal information may be collected, used, shared, retained and protected.';
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  printPageSize="1600px 10000px"
+  currentPage="privacy"
+  mainClass="privacy-main"
+>
+  <PrivacyHeader />
+
+  <div class="privacy-document ph-grid">
+    <div class="shell privacy-layout">
+      <div class="privacy-mobile-toc"><PrivacyToc /></div>
+      <article class="privacy-body">
+        <PrivacySection id="about" number="01" title="About this policy">
+          <p>This Privacy Policy explains how AI Hub Ghana may collect, use, store, share and protect personal information when you visit our website, contact us, register your interest, participate in Hub activities, or engage with us through a programme, partnership or opportunity.</p>
+          <p>This policy outlines our commitments to transparency, responsible data stewardship, and compliance with applicable data protection laws including the Ghana Data Protection Act 2012 (Act 843) and European GDPR standards.</p>
+        </PrivacySection>
+
+        <PrivacySection id="who-we-are" number="02" title="Who we are">
+          <p>AI Hub Ghana is a Ghana–Europe bridge connecting Ghanaian AI talent, entrepreneurs and businesses with European organisations, markets and opportunities.</p>
+          <p><strong>Legal entity:</strong> AI Hub Ghana (Not-for-profit initiative)</p>
+          <p><strong>Registered address:</strong> Accra, Ghana</p>
+          <p><strong>Country of registration:</strong> Ghana</p>
+          <p><strong>Privacy contact:</strong> privacy@aihubghana.com</p>
+        </PrivacySection>
+
+        <PrivacySection id="information" number="03" title="Information we collect">
+          <p>Depending on the forms, services and integrations that are active on the website, we may collect information such as:</p>
+          <ul>
+            <li>Name and email address.</li>
+            <li>Phone number.</li>
+            <li>Country or location.</li>
+            <li>Organisation, company name or professional role.</li>
+            <li>Areas of interest, professional skills or experience.</li>
+            <li>Business, partnership or project interests.</li>
+            <li>Messages, enquiries and registration details.</li>
+            <li>Consent preferences.</li>
+            <li>Technical information such as IP address, browser type, device information and access logs, where collected.</li>
+            <li>Cookie or analytics identifiers, where those technologies are used.</li>
+          </ul>
+          <p>We will only describe categories of information that the website or a relevant Hub activity actually collects.</p>
+        </PrivacySection>
+
+        <PrivacySection id="use" number="04" title="How we use information">
+          <p>Personal information may be used to:</p>
+          <ul>
+            <li>Respond to enquiries and requests.</li>
+            <li>Process registration-of-interest submissions.</li>
+            <li>Assess participation in Hub activities.</li>
+            <li>Connect individuals or organisations with relevant opportunities.</li>
+            <li>Communicate about programmes, events, partnerships or services.</li>
+            <li>Manage memberships or applications where applicable.</li>
+            <li>Deliver requested services.</li>
+            <li>Improve website performance and user experience.</li>
+            <li>Maintain website security.</li>
+            <li>Meet applicable legal, regulatory, accounting or compliance obligations.</li>
+            <li>Send marketing communications where the required consent or other lawful basis exists.</li>
+          </ul>
+        </PrivacySection>
+
+        <PrivacySection id="sharing" number="05" title="How we share information">
+          <p>Personal information may be shared with people or organisations where necessary to operate the Hub, provide a requested service, pursue an opportunity, or meet a legal obligation. Potential recipients include Hub personnel, service providers supporting hosting, email, forms, analytics, CRM or communications, professional advisers, relevant partners, and public authorities where required by law.</p>
+          <p>We do not treat submission of an interest form as blanket permission to disclose information to partners. Where information is to be shared for a particular opportunity or matching activity, the relevant notice, consent and legal basis should be established before the sharing takes place.</p>
+        </PrivacySection>
+
+        <PrivacySection id="matching" number="06" title="Opportunity matching">
+          <p>Some Hub activities may involve connecting professionals, founders or organisations with a prospective client, partner or project.</p>
+          <p>Before any such matching workflow is finalised, the Hub specifies what information is shared, with whom, and requests your explicit prior consent before sharing any personal or organisation details.</p>
+          <p><strong>Operational model:</strong> Matching is conducted strictly on an opt-in basis. Potential collaborations, talent profiles, or partnerships are reviewed and shared only with your explicit prior written consent.</p>
+        </PrivacySection>
+
+        <PrivacySection id="transfers" number="07" title="International transfers">
+          <p>Because AI Hub Ghana is designed around a Ghana–Europe corridor, personal information may potentially be processed in Ghana, European countries or other jurisdictions through Hub personnel and third-party service providers.</p>
+          <p>All cross-border data exchanges adhere to standard contractual clauses and robust encryption, maintaining equivalent data protection standards regardless of processing jurisdiction.</p>
+          <p><strong>Hosting and transfer arrangements:</strong> Systems are hosted within ISO 27001-certified European and global cloud environments utilizing Standard Contractual Clauses (SCCs) and robust encryption standards for all cross-border data flows.</p>
+        </PrivacySection>
+
+        <PrivacySection id="retention" number="08" title="Data retention">
+          <p>We retain personal information only for as long as it is needed for the purpose for which it was collected, to operate a relevant relationship or activity, or to meet applicable legal, accounting or compliance requirements.</p>
+          <p><strong>Retention periods:</strong> General enquiries and event registrations are retained for 24 months from the last point of engagement, or until you request deletion. Formal partner records are maintained in line with statutory accounting and reporting requirements.</p>
+        </PrivacySection>
+
+        <PrivacySection id="security" number="09" title="Data security">
+          <p>We use reasonable technical and organisational measures designed to protect personal information against unauthorised access, accidental loss, misuse, alteration, disclosure and destruction.</p>
+          <p>Safeguards implemented by the Hub and its service providers include access restrictions, encryption in transit (HTTPS/TLS), secure edge hosting, authentication, backups, monitoring and strict confidentiality obligations.</p>
+          <p>No method of transmission or storage can be guaranteed as completely impenetrable, but we maintain industry-leading security practices.</p>
+        </PrivacySection>
+
+        <PrivacySection id="rights" number="10" title="Your rights">
+          <p>Depending on applicable law and your jurisdiction, you may have rights relating to your personal information, including rights to access or correct information, request deletion, restrict or object to certain processing, withdraw consent, request portability, or complain to a relevant data protection authority.</p>
+          <p>To exercise any of these rights, including data access or deletion requests, please contact us at privacy@aihubghana.com. We respond to all verified requests within 30 days.</p>
+        </PrivacySection>
+
+        <PrivacySection id="cookies" number="11" title="Cookies and analytics">
+          <p>The website uses essential cookies needed for security and basic functionality. It does not use third-party advertising trackers or behavioral profiling pixels.</p>
+          <p><strong>Cookie configuration:</strong> We deploy strictly essential cookies for secure browsing and session state. We use privacy-preserving, cookie-less analytics that do not track users across domains or build personal behavioral profiles.</p>
+        </PrivacySection>
+
+        <PrivacySection id="third-parties" number="12" title="Third-party services">
+          <p>Website hosting, forms, email, analytics, CRM, automation and other services may be provided by third parties. Where a provider processes personal information on the Hub's behalf, we ensure appropriate data processing agreements and confidentiality safeguards are in place.</p>
+          <p><strong>Service providers:</strong> Infrastructure partners include Vercel (secure edge hosting), GitHub (version control and deployment), and encrypted enterprise mail routing.</p>
+        </PrivacySection>
+
+        <PrivacySection id="children" number="13" title="Children's privacy">
+          <p>The Hub's programmes, showcase events, and digital platforms are designed for professionals, researchers, entrepreneurs, and university students aged 18 and older. We do not knowingly collect personal data from anyone under the age of 18.</p>
+          <p>If we become aware that personal information of an individual under 18 has been submitted without appropriate verified consent, we will promptly delete it from our systems.</p>
+        </PrivacySection>
+
+        <PrivacySection id="changes" number="14" title="Changes to this policy">
+          <p>We may update this Privacy Policy when our website, services, data practices or legal obligations change. The updated version will show a revised “Last updated” date. Where required, we will provide additional notice or obtain consent for material changes.</p>
+        </PrivacySection>
+
+        <PrivacySection id="contact" number="15" title="Contact us">
+          <p>If you have a question about this Privacy Policy or how your information is handled, contact the Hub using the details below.</p>
+          <div class="privacy-contact-block">
+            <p><strong>AI Hub Ghana</strong></p>
+            <p>Accra, Ghana</p>
+            <p><strong>Privacy:</strong> privacy@aihubghana.com</p>
+            <p><strong>General:</strong> b.janischowsky@4th-ir.com</p>
+          </div>
+        </PrivacySection>
+      </article>
+
+      <aside class="privacy-aside"><PrivacyToc /></aside>
+    </div>
+  </div>
+</BaseLayout>

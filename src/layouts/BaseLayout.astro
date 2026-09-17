@@ -13,7 +13,7 @@ interface Props {
   canonical?: string;
   ogImage?: string;
   printPageSize?: string;
-  currentPage?: 'home' | 'get-involved';
+  currentPage?: 'home' | 'get-involved' | 'about' | 'privacy' | '404';
   mainClass?: string;
   bodyClass?: string;
   noindex?: boolean;
@@ -32,7 +32,8 @@ const {
 } = Astro.props;
 
 const isHome = currentPage === 'home';
-const defaultBodyClass = isHome ? '' : 'participation-page';
+const isGetInvolved = currentPage === 'get-involved';
+const defaultBodyClass = isGetInvolved ? 'participation-page' : '';
 const resolvedBodyClass = bodyClass ?? defaultBodyClass;
 
 const canonicalUrl = canonical || (Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined);
@@ -77,10 +78,10 @@ const socialImageUrl = Astro.site && ogImage ? new URL(ogImage, Astro.site).href
   <link href="https://fonts.googleapis.com/css2?family=Mona+Sans:wdth,wght@75..125,400..800&display=swap" rel="stylesheet">
 
   <!-- Page-specific participation styles -->
-  {!isHome && <link rel="stylesheet" href={participationCssUrl}>}
+  {isGetInvolved && <link rel="stylesheet" href={participationCssUrl}>}
 
   <!-- Toast notification styles -->
-  {!isHome && <link rel="stylesheet" href={toastCssUrl}>}
+  {isGetInvolved && <link rel="stylesheet" href={toastCssUrl}>}
 
   <!-- Print Stylesheet -->
   <link rel="stylesheet" href={printUrl} media="print">

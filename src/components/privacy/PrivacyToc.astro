@@ -1,0 +1,89 @@
+---
+const items = [
+  ['about', 'About this policy'],
+  ['who-we-are', 'Who we are'],
+  ['information', 'Information we collect'],
+  ['use', 'How we use information'],
+  ['sharing', 'How we share information'],
+  ['matching', 'Opportunity matching'],
+  ['transfers', 'International transfers'],
+  ['retention', 'Data retention'],
+  ['security', 'Data security'],
+  ['rights', 'Your rights'],
+  ['cookies', 'Cookies and analytics'],
+  ['third-parties', 'Third-party services'],
+  ['children', "Children's privacy"],
+  ['changes', 'Changes to this policy'],
+  ['contact', 'Contact us'],
+];
+---
+<nav class="privacy-toc" aria-label="On this page">
+  <p class="privacy-toc__title">On this page</p>
+  <ol>
+    {items.map(([id, label]) => (
+      <li><a href={`#${id}`} data-toc-target={id}>{label}</a></li>
+    ))}
+  </ol>
+</nav>
+
+<script>
+  function initPrivacyToc() {
+    const linkContainers = document.querySelectorAll<HTMLElement>('.privacy-toc');
+    if (!linkContainers.length) return;
+
+    function updateActiveToc() {
+      const scrollY = window.scrollY;
+      const offset = 140;
+      
+      const sections = items.map(([id]) => document.getElementById(id)).filter((el): el is HTMLElement => el !== null);
+      if (!sections.length) return;
+
+      let activeId = items[0][0];
+
+      for (let i = 0; i < sections.length; i++) {
+        const sec = sections[i];
+        if (scrollY >= sec.offsetTop - offset) {
+          activeId = sec.id;
+        } else {
+          break;
+        }
+      }
+
+      const allLinks = document.querySelectorAll<HTMLAnchorElement>('[data-toc-target]');
+      allLinks.forEach((link) => {
+        if (link.getAttribute('data-toc-target') === activeId) {
+          link.classList.add('is-active');
+        } else {
+          link.classList.remove('is-active');
+        }
+      });
+    }
+
+    const items = [
+      ['about'],
+      ['who-we-are'],
+      ['information'],
+      ['use'],
+      ['sharing'],
+      ['matching'],
+      ['transfers'],
+      ['retention'],
+      ['security'],
+      ['rights'],
+      ['cookies'],
+      ['third-parties'],
+      ['children'],
+      ['changes'],
+      ['contact'],
+    ];
+
+    window.addEventListener('scroll', updateActiveToc, { passive: true });
+    updateActiveToc();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPrivacyToc);
+  } else {
+    initPrivacyToc();
+  }
+</script>

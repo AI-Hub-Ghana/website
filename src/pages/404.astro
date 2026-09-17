@@ -1,0 +1,184 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = 'Page not found — AI Hub Ghana';
+const description = "The requested page could not be found. Return to AI Hub Ghana's homepage.";
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  currentPage="404"
+  mainClass="not-found-main"
+  noindex={true}
+>
+  <section class="not-found-section ah-grid" aria-labelledby="not-found-title">
+    <div class="shell not-found-container">
+      <div class="not-found-card">
+        <p class="kicker">404 · PAGE NOT FOUND</p>
+        <h1 id="not-found-title" class="display d-xl">Lost in the corridor?</h1>
+        <p class="lead">
+          The page you are looking for does not exist, has been relocated, or is temporarily unavailable.
+        </p>
+        
+        <div class="not-found-actions">
+          <a href="/" class="btn btn-ink">
+            <span>← Back to the Hub</span>
+          </a>
+          <a href="/get-involved" class="btn btn-outline">
+            <span>Register interest ↗</span>
+          </a>
+        </div>
+
+        <div class="not-found-links">
+          <span class="links-title">Quick links:</span>
+          <div class="links-group">
+            <a href="/about">About</a>
+            <span aria-hidden="true">·</span>
+            <a href="/#work">What we do</a>
+            <span aria-hidden="true">·</span>
+            <a href="/#corridor">The Corridor</a>
+            <span aria-hidden="true">·</span>
+            <a href="/get-involved#register">Contact us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found-main {
+    background: var(--color-paper);
+    min-height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .not-found-section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding-block: clamp(60px, 10vw, 120px);
+    border-bottom: 1px solid rgba(29, 29, 27, 0.09);
+  }
+
+  .not-found-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .not-found-card {
+    max-width: 640px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(16px, 2.5vw, 24px);
+  }
+
+  .not-found-card h1 {
+    margin: 0;
+    line-height: 1.1;
+  }
+
+  .not-found-card .lead {
+    margin: 0 auto;
+    text-align: center;
+    max-width: 44ch;
+  }
+
+  .not-found-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 12px;
+  }
+
+  .btn {
+    min-height: 46px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 999px;
+    padding: 0 24px;
+    font-size: 13.5px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .btn-ink {
+    background: var(--color-ink);
+    color: var(--color-paper);
+    border: 1.5px solid var(--color-ink);
+  }
+
+  .btn-ink:hover {
+    background: var(--color-teal);
+    border-color: var(--color-teal);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--color-ink);
+    border: 1.5px solid rgba(29, 29, 27, 0.25);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--color-ink);
+    background: rgba(29, 29, 27, 0.04);
+  }
+
+  .not-found-links {
+    margin-top: clamp(24px, 4vw, 40px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(29, 29, 27, 0.1);
+  }
+
+  .links-title {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  .links-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 13.5px;
+    font-weight: 600;
+  }
+
+  .links-group a {
+    color: var(--color-ink);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .links-group a:hover {
+    color: var(--color-teal);
+    text-decoration: underline;
+  }
+
+  .links-group span {
+    color: var(--color-muted);
+  }
+</style>

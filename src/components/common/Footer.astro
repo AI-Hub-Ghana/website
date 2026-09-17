@@ -1,15 +1,19 @@
 ---
 interface Props {
-  currentPage?: 'home' | 'get-involved';
+  currentPage?: 'home' | 'get-involved' | 'about' | 'privacy';
 }
 
 const { currentPage = 'home' } = Astro.props;
 const isHome = currentPage === 'home';
+const isGetInvolved = currentPage === 'get-involved';
+const isAbout = currentPage === 'about';
+const isPrivacy = currentPage === 'privacy';
 
-const logoHref = isHome ? '#main' : '/#main';
-const registerHref = isHome ? '/get-involved#register' : '#register';
+const logoHref = isHome ? '#main' : '/';
+const registerHref = isGetInvolved ? '#register' : '/get-involved#register';
 const servicesHref = isHome ? '#corridor' : '/#work';
-const aboutHref = isHome ? '#why' : '/#why';
+const aboutHref = isAbout ? '#main' : '/about';
+const privacyHref = isPrivacy ? '#main' : '/privacy';
 
 const workHref = isHome ? '#work' : '/#work';
 const corridorHref = isHome ? '#corridor' : '/#corridor';
@@ -81,7 +85,7 @@ const partnersHref = isHome ? '#partners' : '/#partners';
     <div class="flex flex-wrap justify-between items-center gap-4 border-t border-paper/15 pt-6">
       <p class="text-[10.5px] tracking-[0.16em] font-bold text-paper/60">© 2026 AI HUB, GHANA</p>
       <div class="flex gap-7">
-        <a href="#privacy" class="text-[10.5px] tracking-[0.16em] font-bold text-paper/60 hover:text-gold transition-colors">PRIVACY</a>
+        <a href={privacyHref} class="text-[10.5px] tracking-[0.16em] font-bold text-paper/60 hover:text-gold transition-colors">PRIVACY</a>
         <a href="#imprint" class="text-[10.5px] tracking-[0.16em] font-bold text-paper/60 hover:text-gold transition-colors">IMPRINT</a>
       </div>
     </div>

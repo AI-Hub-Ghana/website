@@ -16,9 +16,9 @@ const slides: Slide[] = [
     id: 'hub',
     eyebrow: 'Launching at GABS 2026',
     title: 'The bridge between <em>Ghana and Europe.</em>',
-    description: 'A new AI innovation centre connecting Ghanaian talent, companies and solutions with European organisations, clients and opportunities.',
-    image: '/hero-placeholder.svg',
-    alt: 'Placeholder for Ghanaian AI professionals collaborating',
+    description: 'A non-for-profit AI innovation centre connecting Ghanaian talent, companies, and solutions with European organisations, clients, and opportunities.',
+    image: '/images/photos/photo-standing.webp',
+    alt: 'Ghanaian AI professionals and innovators in a modern workspace',
     meta: 'GABS 2026',
     detail: 'Kempinski Hotel, Accra · November 2026',
     label: 'The Hub',
@@ -26,24 +26,24 @@ const slides: Slide[] = [
   {
     id: 'ecosystem',
     eyebrow: 'Connecting ecosystems',
-    title: "Ghana's AI ecosystem, <em>connected to the world.</em>",
-    description: 'Bringing together startups, researchers, engineers, investors and organisations to create meaningful cross-border AI partnerships.',
-    image: '/hero-placeholder.svg',
-    alt: 'Placeholder for Ghanaian technology ecosystem photography',
+    title: "Ghana's Largest AI network",
+    description: 'Bringing together startups, researchers, engineers, investors, and organisations to build meaningful cross-border AI partnerships.',
+    image: '/images/photos/photo-table-four.webp',
+    alt: 'Startups, researchers and engineers collaborating in Ghana',
     meta: 'Ghana ↔ Europe',
     detail: 'Talent · Innovation · Partnerships',
     label: 'The Ecosystem',
   },
   {
-    id: 'gabs',
+    id: 'launch',
     eyebrow: 'Launching November 2026',
-    title: 'AI from Ghana. <em>On the global stage.</em>',
-    description: 'Meet the people, companies and ideas shaping Ghana\'s AI future at the German-African Business Summit 2026.',
-    image: '/hero-placeholder.svg',
-    alt: 'Placeholder for GABS 2026 launch photography',
+    title: 'Ghanaian AI, <em>on the global stage.</em>',
+    description: 'Experience the launch of AI Hub Ghana through a live showcase of Ghanaian AI solutions and a panel on Ghana–Europe collaboration.',
+    image: '/images/photos/photo-three-bright.webp',
+    alt: 'Showcase of Ghanaian AI solutions and panel collaboration',
     meta: 'GABS 2026',
     detail: 'Accra · November 2026',
-    label: 'GABS 2026',
+    label: 'The Launch',
   },
 ];
 ---
@@ -56,22 +56,6 @@ const slides: Slide[] = [
   aria-roledescription="carousel"
   aria-label="AI Hub Ghana highlights"
 >
-  <div class="hero-top-strip">
-    <span class="announcement-text">LAUNCHING AT GABS · NOVEMBER 2026</span>
-    <a
-      href="https://www.gabs2026.com/tickets"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="ticket-button"
-      aria-label="Get a Ticket for GABS 2026"
-    >
-      <span>Get a Ticket</span>
-      <svg class="ticket-arrow" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <use href="#i-arrow-up-right"/>
-      </svg>
-    </a>
-  </div>
-
   <div class="hero-main">
     <div class="hero-copy" data-copy-container>
       <div class="hero-title-wrap">
@@ -102,7 +86,11 @@ const slides: Slide[] = [
 
     <div class="hero-visual" data-visual>
       <div class="visual-stage">
-        <!-- Photo Frame with asymmetric editorial framing (120px 0 32px 32px) -->
+        <!-- Decorative geometric border accents positioned outside the image frame -->
+        <div class="visual-accent-yellow" aria-hidden="true"></div>
+        <div class="visual-accent-red" aria-hidden="true"></div>
+
+        <!-- Asymmetric Editorial Photo Frame: 120px 0 72px 24px -->
         <div class="visual-frame">
           <div class="visual-media-wrap" data-media-wrap>
             <img
@@ -115,26 +103,6 @@ const slides: Slide[] = [
               loading="eager"
               decoding="async"
             />
-          </div>
-
-          <!-- Editorial floating meta pill (simplified & lighter) -->
-          <div class="visual-meta" data-visual-meta>
-            <div class="meta-brand-block">
-              <svg class="meta-sunburst" viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" stroke-width="2.3" stroke-linecap="round" aria-hidden="true">
-                <line x1="12" y1="2" x2="12" y2="6"></line>
-                <line x1="12" y1="18" x2="12" y2="22"></line>
-                <line x1="2" y1="12" x2="6" y2="12"></line>
-                <line x1="18" y1="12" x2="22" y2="12"></line>
-                <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line>
-                <line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line>
-                <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line>
-                <line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>
-              </svg>
-              <div class="meta-content">
-                <span class="meta-title" data-meta>{slides[0].meta}</span>
-                <span class="meta-detail" data-meta-detail set:html={slides[0].detail} />
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -190,7 +158,7 @@ const slides: Slide[] = [
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding-top: clamp(10px, 1.4vw, 20px);
+    padding-top: clamp(18px, 2.4vw, 36px);
     padding-bottom: clamp(16px, 2.5vh, 32px);
     color: var(--ink);
     background: var(--paper);
@@ -203,69 +171,17 @@ const slides: Slide[] = [
     outline: none;
   }
 
-  /* Top announcement strip right below navbar - centered with generous vertical spacing */
-  .hero-top-strip {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    gap: 12px;
-    padding-top: clamp(2px, 0.4vw, 4px);
-    margin-bottom: clamp(14px, 1.8vw, 24px);
-    margin-inline: auto;
-  }
-
-  .announcement-text {
-    font-size: clamp(10.5px, 0.88vw, 11.5px);
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--muted);
-    line-height: 1;
-    white-space: nowrap;
-  }
-
-  .ticket-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 5px 13px;
-    border-radius: 999px;
-    background: transparent;
-    border: 1.5px solid rgba(29, 29, 27, 0.28);
-    color: var(--ink);
-    font-size: 11.5px;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    text-decoration: none;
-    line-height: 1;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
-  }
-
-  .ticket-button:hover {
-    background: var(--ink);
-    border-color: var(--ink);
-    color: var(--paper);
-    transform: translateY(-1px);
-  }
-
-  .ticket-arrow {
-    width: 12px;
-    height: 12px;
-    transition: transform 0.22s var(--ease-cinema);
-  }
-
-  .ticket-button:hover .ticket-arrow {
-    transform: translate(2px, -2px);
-  }
-
   .hero-main {
     width: 100%;
     flex: 1;
+    /*
+     * This row shares the viewport-height hero with the carousel controls.
+     * Without an explicit min-height, its intrinsic photo height wins and
+     * pushes .hero-bottom outside the clipped hero on shorter desktops.
+     */
+    min-height: 0;
     display: grid;
-    grid-template-columns: minmax(0, 0.96fr) minmax(340px, 1.04fr);
+    grid-template-columns: minmax(0, 0.8fr) minmax(340px, 1.2fr);
     align-items: center;
     gap: clamp(24px, 3.6vw, 56px);
     margin-block: auto;
@@ -409,43 +325,75 @@ const slides: Slide[] = [
   .hero-visual {
     position: relative;
     min-width: 0;
+    min-height: 0;
     width: 100%;
-    max-width: 560px;
+    max-width: 816px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
     box-sizing: border-box;
   }
 
-  /* Stage wrapper for visual-frame */
+  /* Stage wrapper for visual-frame and exterior accents */
   .visual-stage {
     position: relative;
-    width: 100%;
-    max-width: 510px;
-    padding: 0;
+    /*
+     * The final term reserves the header, hero padding and carousel row.
+     * This retains the larger editorial frame on normal desktops while
+     * scaling it down before it can overlap the progress tabs and arrows.
+     */
+    /*
+     * Do not let the grid column silently shrink the visual. The stage is
+     * right-aligned, so its extra width uses the intentionally open space
+     * between the copy and photograph rather than changing the text measure.
+     */
+    width: min(762px, calc(125svh - 313px));
+    flex: 0 0 auto;
+    padding: clamp(14px, 2.2vw, 22px) clamp(14px, 2.2vw, 22px) clamp(14px, 2.2vw, 22px) 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Top-Right Thick Yellow L-bracket Accent (positioned outside frame) */
+  .visual-accent-yellow {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: clamp(110px, 16vw, 155px);
+    height: clamp(110px, 16vw, 155px);
+    border-top: clamp(20px, 2.6vw, 28px) solid var(--yellow);
+    border-right: clamp(20px, 2.6vw, 28px) solid var(--yellow);
+    pointer-events: none;
+    z-index: 0;
     box-sizing: border-box;
   }
 
-  /* Photo Frame with asymmetric editorial shape: 120px 0 32px 32px (increased vertical height by 8-10%) */
-  .visual-frame {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-    aspect-ratio: 1.15 / 1;
-    max-height: clamp(320px, 46vh, 435px);
-    border-radius: 120px 0 32px 32px;
-    background: var(--color-paper-alt, #eaeae6);
-    box-shadow: 0 16px 40px rgba(23, 23, 22, 0.08);
+  /* Bottom-Right Thick Red Curved Accent (positioned outside frame) */
+  .visual-accent-red {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: clamp(120px, 18vw, 175px);
+    height: clamp(105px, 15vw, 150px);
+    border-bottom: clamp(20px, 2.6vw, 28px) solid var(--red);
+    border-right: clamp(20px, 2.6vw, 28px) solid var(--red);
+    border-bottom-right-radius: clamp(75px, 10vw, 98px);
+    pointer-events: none;
+    z-index: 0;
+    box-sizing: border-box;
   }
 
-  .visual-frame::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(180deg, transparent 55%, rgba(0, 0, 0, 0.45) 100%);
-    pointer-events: none;
-    z-index: 3;
+  /* Asymmetric Editorial Photo Frame: 120px 0 72px 24px */
+  .visual-frame {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    width: 100%;
+    /* A wider editorial crop adds presence without consuming the controls. */
+    aspect-ratio: 1.25 / 1;
+    border-radius: 120px 0 72px 24px;
+    background: var(--color-paper-alt, #eaeae6);
   }
 
   .visual-media-wrap {
@@ -454,7 +402,12 @@ const slides: Slide[] = [
     overflow: hidden;
   }
 
-  .visual-img {
+  /*
+   * The carousel creates subsequent images in JavaScript. Astro's scoped
+   * stylesheet attribute is not added to those new nodes, so scope this rule
+   * through the static wrapper and keep the image selector global.
+   */
+  .visual-media-wrap :global(.visual-img) {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -464,66 +417,12 @@ const slides: Slide[] = [
     will-change: transform, opacity;
   }
 
-  /* Lighter, compact editorial metadata pill */
-  .visual-meta {
-    position: absolute;
-    z-index: 5;
-    left: 14px;
-    bottom: 12px;
-    display: inline-flex;
-    align-items: center;
-    max-width: calc(100% - 28px);
-    padding: 7px 13px;
-    color: #ffffff;
-    background: rgba(29, 29, 27, 0.78);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    border-radius: 12px;
-    pointer-events: none;
-  }
-
-  .meta-brand-block {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    min-width: 0;
-  }
-
-  .meta-sunburst {
-    width: 16px;
-    height: 16px;
-    flex-shrink: 0;
-  }
-
-  .meta-content {
-    min-width: 0;
-    will-change: transform, opacity;
-  }
-
-  .meta-title {
-    display: block;
-    font-size: clamp(11.5px, 1.05vw, 13px);
-    font-weight: 750;
-    letter-spacing: -0.015em;
-    color: #ffffff;
-    line-height: 1.15;
-    white-space: nowrap;
-  }
-
-  .meta-detail {
-    display: block;
-    margin-top: 1.5px;
-    color: rgba(255, 255, 255, 0.76);
-    font-size: clamp(8.5px, 0.75vw, 9.5px);
-    letter-spacing: 0;
-    line-height: 1.2;
-    white-space: nowrap;
-  }
-
-  /* Bottom row: Slide tabs and arrow controls lifted higher up */
+  /* Bottom row: Slide tabs and arrow controls */
   .hero-bottom {
     width: 100%;
+    flex: 0 0 auto;
+    position: relative;
+    z-index: 2;
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
@@ -533,11 +432,11 @@ const slides: Slide[] = [
     padding-top: 4px;
   }
 
-  /* Slide navigation progress tabs */
+  /* Slide navigation progress tabs (increased width by 15-20%) */
   .slide-navigation {
     display: grid;
-    grid-template-columns: repeat(3, minmax(110px, 180px));
-    gap: clamp(14px, 2.4vw, 38px);
+    grid-template-columns: repeat(3, minmax(130px, 220px));
+    gap: clamp(16px, 2.6vw, 42px);
   }
 
   .slide-tab {
@@ -656,7 +555,8 @@ const slides: Slide[] = [
   }
 
   /* Responsive styling */
-  @media (max-width: 1040px) {
+  /* Keep the enlarged two-column composition through standard laptop widths. */
+  @media (max-width: 960px) {
     .hub-hero {
       min-height: auto;
       max-height: none;
@@ -675,18 +575,30 @@ const slides: Slide[] = [
 
     .hero-visual {
       justify-self: start;
-      max-width: 480px;
+      max-width: 500px;
     }
 
     .visual-stage {
-      max-width: 440px;
-      padding: 0;
+      max-width: 460px;
+      padding: 16px 16px 16px 0;
     }
 
     .visual-frame {
-      max-height: 345px;
       aspect-ratio: 1.1 / 1;
-      border-radius: 100px 0 28px 28px;
+      border-radius: 96px 0 60px 20px;
+    }
+
+    .visual-accent-yellow {
+      width: 110px;
+      height: 110px;
+      border-width: 20px;
+    }
+
+    .visual-accent-red {
+      width: 120px;
+      height: 110px;
+      border-width: 20px;
+      border-bottom-right-radius: 76px;
     }
 
     .hero-bottom {
@@ -700,35 +612,6 @@ const slides: Slide[] = [
       overflow-x: clip;
       min-height: auto;
       max-height: none;
-    }
-
-    .hero-top-strip {
-      gap: 6px;
-      margin-bottom: 8px;
-      flex-wrap: nowrap;
-      white-space: nowrap;
-      width: 100%;
-      justify-content: center;
-    }
-
-    .announcement-text {
-      font-size: clamp(8px, 2.35vw, 10px);
-      letter-spacing: 0.04em;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    .ticket-button {
-      font-size: clamp(8.5px, 2.35vw, 10.5px);
-      padding: 3px 8px;
-      gap: 4px;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    .ticket-arrow {
-      width: 10px;
-      height: 10px;
     }
 
     .hero-main {
@@ -771,35 +654,31 @@ const slides: Slide[] = [
       width: 100%;
       max-width: 100%;
       justify-self: center;
+      justify-content: center;
     }
 
     .visual-stage {
-      max-width: 380px;
+      max-width: 360px;
       margin: 0 auto;
-      padding: 0;
+      padding: 12px 12px 12px 0;
     }
 
     .visual-frame {
-      aspect-ratio: 1.08 / 1;
-      max-height: 300px;
-      border-radius: 72px 0 24px 24px;
+      aspect-ratio: 1.1 / 1;
+      border-radius: 72px 0 40px 16px;
     }
 
-    .visual-meta {
-      left: 8px;
-      bottom: 8px;
-      padding: 5px 10px;
-      border-radius: 9px;
-      max-width: calc(100% - 16px);
+    .visual-accent-yellow {
+      width: 80px;
+      height: 80px;
+      border-width: 15px;
     }
 
-    .meta-title {
-      font-size: 11px;
-    }
-
-    .meta-detail {
-      font-size: 8px;
-      white-space: nowrap;
+    .visual-accent-red {
+      width: 90px;
+      height: 80px;
+      border-width: 15px;
+      border-bottom-right-radius: 52px;
     }
 
     .hero-bottom {
@@ -827,10 +706,9 @@ const slides: Slide[] = [
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .visual-img,
+    .visual-media-wrap :global(.visual-img),
     .hero-title,
     .hero-description,
-    .meta-content,
     .button,
     .control {
       transition: none !important;
@@ -856,9 +734,6 @@ const slides: Slide[] = [
     const title = hero.querySelector('[data-title]');
     const description = hero.querySelector('[data-description]');
     const mediaWrap = hero.querySelector('[data-media-wrap]');
-    const metaContent = hero.querySelector('.meta-content');
-    const metaTitle = hero.querySelector('[data-meta]');
-    const metaDetail = hero.querySelector('[data-meta-detail]');
     const tabs = [...hero.querySelectorAll('[data-slide]')];
     const prev = hero.querySelector('.control-prev');
     const next = hero.querySelector('.control-next');
@@ -898,8 +773,6 @@ const slides: Slide[] = [
       if (reduced.matches) {
         if (title) title.innerHTML = s.title;
         if (description) description.textContent = s.description;
-        if (metaTitle) metaTitle.textContent = s.meta;
-        if (metaDetail) metaDetail.textContent = s.detail;
         const currentImg = mediaWrap?.querySelector('.visual-img');
         if (currentImg) {
           currentImg.src = s.image;
@@ -955,11 +828,6 @@ const slides: Slide[] = [
         description.style.opacity = '0';
         description.style.transform = 'translate3d(0, -6px, 0)';
       }
-      if (metaContent) {
-        metaContent.style.transition = 'opacity 160ms ease, transform 160ms ease';
-        metaContent.style.opacity = '0';
-        metaContent.style.transform = 'translate3d(0, -6px, 0)';
-      }
 
       // -------------------------------------------------------------
       // 3. INCOMING STAGGERED VERTICAL REVEAL
@@ -967,8 +835,6 @@ const slides: Slide[] = [
       setTimeout(() => {
         if (title) title.innerHTML = s.title;
         if (description) description.textContent = s.description;
-        if (metaTitle) metaTitle.textContent = s.meta;
-        if (metaDetail) metaDetail.textContent = s.detail;
 
         if (title) {
           title.style.transition = 'none';
@@ -979,11 +845,6 @@ const slides: Slide[] = [
           description.style.transition = 'none';
           description.style.transform = 'translate3d(0, 14px, 0)';
           description.style.opacity = '0';
-        }
-        if (metaContent) {
-          metaContent.style.transition = 'none';
-          metaContent.style.transform = 'translate3d(0, 10px, 0)';
-          metaContent.style.opacity = '0';
         }
 
         requestAnimationFrame(() => {
@@ -997,12 +858,6 @@ const slides: Slide[] = [
             description.style.transition = `opacity 500ms ${EASE_CINEMA} 90ms, transform 500ms ${EASE_CINEMA} 90ms`;
             description.style.opacity = '1';
             description.style.transform = 'translate3d(0, 0, 0)';
-          }
-
-          if (metaContent) {
-            metaContent.style.transition = `opacity 450ms ${EASE_CINEMA} 130ms, transform 450ms ${EASE_CINEMA} 130ms`;
-            metaContent.style.opacity = '1';
-            metaContent.style.transform = 'translate3d(0, 0, 0)';
           }
         });
       }, 170);
