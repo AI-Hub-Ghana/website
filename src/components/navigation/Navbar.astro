@@ -9,25 +9,26 @@ const isHome = currentPage === 'home';
 const logoHref = '/';
 
 // On home: anchor links. On get-involved: cross-page links
-const launchHref   = isHome ? '#launch' : '/#launch';
 const whyHref      = isHome ? '#why'    : '/#why';
 const workHref     = isHome ? '#work'   : '/#work';
 const registerHref = isHome ? '/get-involved#register' : '#register';
-const contactHref = 'mailto:b.janischowsky@4th-ir.com?subject=Contact%20AI%20Hub%2C%20Ghana&body=Hello%20AI%20Hub%20team%2C%0D%0A%0D%0AI%27m%20reaching%20out%20about%20...';
+const contactHref  = isHome ? '/get-involved#register' : '#register';
 ---
 
 <header class="site-header" id="nav">
   <div class="shell header-inner">
     <!-- Working-name placeholder only. No final logo or brand name has been approved. -->
     <a class="brand" href={logoHref} aria-label="AI Hub, Ghana — home">
-      <span class="brand-placeholder">
-        <span>AI HUB</span>
-        <span>GHANA</span>
-      </span>
+      <img
+        class="brand-logo"
+        src="/images/favicon/placeholder.svg"
+        width="180"
+        height="58"
+        alt="AI Hub Ghana"
+      >
     </a>
 
     <nav class="desktop-nav" aria-label="Primary navigation">
-      <a href={launchHref} class={isHome ? 'active' : ''}>The launch</a>
       <a href={whyHref}>Who we are</a>
       <a href={workHref}>What we do</a>
       <a href={contactHref}>Contact us</a>
@@ -47,7 +48,6 @@ const contactHref = 'mailto:b.janischowsky@4th-ir.com?subject=Contact%20AI%20Hub
   </div>
 
   <nav class="mobile-nav" id="mobile-menu" hidden aria-label="Mobile navigation">
-    <a href={launchHref}>The launch</a>
     <a href={whyHref}>Who we are</a>
     <a href={workHref}>What we do</a>
     <a href={registerHref}>Register for free</a>
