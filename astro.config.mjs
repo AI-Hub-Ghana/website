@@ -7,6 +7,9 @@ const site = process.env.PUBLIC_SITE_URL;
 export default defineConfig({
   ...(site ? { site } : {}),
   output: 'static',
+  redirects: {
+    '/register': '/get-involved#register',
+  },
   vite: {
     plugins: [tailwindcss()],
   },

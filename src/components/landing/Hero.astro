@@ -1,50 +1,1105 @@
 ---
-// Hero section
+interface Slide {
+  id: string;
+  eyebrow: string;
+  title: string;
+  description: string;
+  image: string;
+  alt: string;
+  meta: string;
+  detail: string;
+  label: string;
+}
+
+const slides: Slide[] = [
+  {
+    id: 'hub',
+    eyebrow: 'Launching at GABS 2026',
+    title: 'The bridge between <em>Ghana and Europe.</em>',
+    description: 'A new AI innovation centre connecting Ghanaian talent, companies and solutions with European organisations, clients and opportunities.',
+    image: '/hero-placeholder.svg',
+    alt: 'Placeholder for Ghanaian AI professionals collaborating',
+    meta: 'GABS 2026',
+    detail: 'Kempinski Hotel, Accra · November 2026',
+    label: 'The Hub',
+  },
+  {
+    id: 'ecosystem',
+    eyebrow: 'Connecting ecosystems',
+    title: "Ghana's AI ecosystem, <em>connected to the world.</em>",
+    description: 'Bringing together startups, researchers, engineers, investors and organisations to create meaningful cross-border AI partnerships.',
+    image: '/hero-placeholder.svg',
+    alt: 'Placeholder for Ghanaian technology ecosystem photography',
+    meta: 'Ghana ↔ Europe',
+    detail: 'Talent · Innovation · Partnerships',
+    label: 'The Ecosystem',
+  },
+  {
+    id: 'gabs',
+    eyebrow: 'Launching November 2026',
+    title: 'AI from Ghana. <em>On the global stage.</em>',
+    description: 'Meet the people, companies and ideas shaping Ghana\'s AI future at the German-African Business Summit 2026.',
+    image: '/hero-placeholder.svg',
+    alt: 'Placeholder for GABS 2026 launch photography',
+    meta: 'GABS 2026',
+    detail: 'Accra · November 2026',
+    label: 'GABS 2026',
+  },
+];
 ---
-<!-- =====================================================================
-     HERO
-     ===================================================================== -->
-<section class="shell pt-[clamp(28px,3.4vw,52px)] pb-[clamp(44px,5vw,80px)]">
-  <div class="grid lg:grid-cols-[minmax(0,1.08fr)_minmax(0,42%)] gap-x-[clamp(28px,4vw,72px)] gap-y-10 items-center">
 
-    <div class="flex flex-col gap-7 reveal">
-      <h1 class="display d-xl">
-        The bridge between Ghana and Europe.
-      </h1>
+<section
+  class="hub-hero shell"
+  data-hero
+  tabindex="-1"
+  role="region"
+  aria-roledescription="carousel"
+  aria-label="AI Hub Ghana highlights"
+>
+  <div class="hero-top-strip">
+    <span class="announcement-text">LAUNCHING AT GABS · NOVEMBER 2026</span>
+    <a
+      href="https://www.gabs2026.com/tickets"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="ticket-button"
+      aria-label="Get a Ticket for GABS 2026"
+    >
+      <span>Get a Ticket</span>
+      <svg class="ticket-arrow" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <use href="#i-arrow-up-right"/>
+      </svg>
+    </a>
+  </div>
 
-      <p class="lead">
-        A not-for-profit AI innovation centre in Accra. European organisations gain
-        trusted access to Ghanaian AI talent and solutions; Ghanaian companies,
-        entrepreneurs and AI professionals gain access to European clients,
-        projects and partnerships.
-      </p>
+  <div class="hero-main">
+    <div class="hero-copy" data-copy-container>
+      <div class="hero-title-wrap">
+        <h1 class="hero-title" data-title set:html={slides[0].title} />
+      </div>
 
-      <div class="flex flex-wrap items-center gap-x-7 gap-y-3">
-        <a href="#work" class="btn btn-ink btn-down">
-          What the Hub does <svg class="w-[15px] h-[15px]" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-arrow-down"/></svg>
+      <div class="hero-desc-wrap">
+        <p class="hero-description" data-description>
+          {slides[0].description}
+        </p>
+      </div>
+
+      <div class="hero-actions">
+        <a class="button button-primary" href="/register">
+          <span>Register interest</span>
+          <svg class="button-arrow-svg" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <use href="#i-arrow-up-right"/>
+          </svg>
         </a>
-        <a href="#partners" class="link">
-          Partner with the Hub <svg class="w-[15px] h-[15px]" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-arrow-up-right"/></svg>
+        <a class="button button-secondary" href="#why-hub-exists">
+          <span>Explore more</span>
+          <span class="button-arrow" aria-hidden="true">↓</span>
         </a>
       </div>
     </div>
 
-    <!-- Photo, held by two hooks -->
-    <div class="relative">
-      <div class="absolute accent-tr w-[29%] h-[24%] bg-gold hook-tr hook-s-bl pointer-events-none reveal" style="--d:220ms" aria-hidden="true"></div>
-      <div class="absolute accent-br w-[22%] h-[19%] bg-coral hook-br hook-s-tl pointer-events-none reveal" style="--d:320ms" aria-hidden="true"></div>
+    <div class="hero-visual" data-visual>
+      <div class="visual-stage">
+        <!-- Photo Frame with asymmetric editorial framing (120px 0 32px 32px) -->
+        <div class="visual-frame">
+          <div class="visual-media-wrap" data-media-wrap>
+            <img
+              class="visual-img is-current"
+              data-image
+              src={slides[0].image}
+              alt={slides[0].alt}
+              width="1200"
+              height="960"
+              loading="eager"
+              decoding="async"
+            />
+          </div>
 
-      <div class="relative aspect-[16/10] sm:aspect-[5/3] lg:aspect-[25/22] overflow-hidden hook-tl-br">
-        <div class="absolute inset-0 overflow-hidden">
-          <picture class="w-full h-full block">
-            <source srcset="/images/photos/team-portrait-02.webp" type="image/webp">
-            <img src="/images/photos/team-portrait-02.jpg" width="1122" height="1402" fetchpriority="high" decoding="async"
-                 alt="Colleagues around a table in Accra working on laptops, a wall screen behind them"
-                 class="w-full h-full object-cover crop-hero drift" data-scrub="through">
-          </picture>
+          <!-- Editorial floating meta pill (simplified & lighter) -->
+          <div class="visual-meta" data-visual-meta>
+            <div class="meta-brand-block">
+              <svg class="meta-sunburst" viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" stroke-width="2.3" stroke-linecap="round" aria-hidden="true">
+                <line x1="12" y1="2" x2="12" y2="6"></line>
+                <line x1="12" y1="18" x2="12" y2="22"></line>
+                <line x1="2" y1="12" x2="6" y2="12"></line>
+                <line x1="18" y1="12" x2="22" y2="12"></line>
+                <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line>
+                <line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line>
+                <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line>
+                <line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>
+              </svg>
+              <div class="meta-content">
+                <span class="meta-title" data-meta>{slides[0].meta}</span>
+                <span class="meta-detail" data-meta-detail set:html={slides[0].detail} />
+              </div>
+            </div>
+          </div>
         </div>
-        <span class="tag tag-teal absolute left-4 bottom-4 sm:left-6 sm:bottom-6 z-10">Launching Nov 2026</span>
       </div>
     </div>
   </div>
+
+  <div class="hero-bottom">
+    <div class="slide-navigation" role="tablist" aria-label="Hero carousel slides">
+      {slides.map((slide, index) => (
+        <button
+          class:list={['slide-tab', { active: index === 0 }]}
+          type="button"
+          role="tab"
+          id={`hero-tab-${slide.id}`}
+          aria-selected={index === 0}
+          aria-label={`Slide ${index + 1}: ${slide.label}`}
+          data-slide={index}
+        >
+          <span class="slide-number">0{index + 1}</span>
+          <span class="slide-line" aria-hidden="true"><span></span></span>
+          <span class="slide-label">{slide.label}</span>
+        </button>
+      ))}
+    </div>
+
+    <div class="hero-controls" aria-label="Carousel navigation controls">
+      <button class="control control-prev" type="button" aria-label="Previous slide">
+        <span aria-hidden="true">←</span>
+      </button>
+      <button class="control control-next" type="button" aria-label="Next slide">
+        <span aria-hidden="true">→</span>
+      </button>
+    </div>
+  </div>
 </section>
+
+<style>
+  .hub-hero {
+    --ink: var(--color-ink, #1d1d1b);
+    --muted: var(--color-muted, #6e675b);
+    --body: var(--color-body, #5a554c);
+    --paper: var(--color-paper, #f2f2ef);
+    --paper-alt: var(--color-paper-alt, #eaeae6);
+    --green: var(--color-teal, #2a7a5e);
+    --yellow: var(--color-gold, #eac15d);
+    --red: var(--color-coral, #bf4639);
+    --ease-cinema: cubic-bezier(0.22, 1, 0.36, 1);
+
+    position: relative;
+    /* Clean fit inside desktop viewport under navbar */
+    min-height: calc(100svh - 76px);
+    max-height: calc(100svh - 76px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-top: clamp(10px, 1.4vw, 20px);
+    padding-bottom: clamp(16px, 2.5vh, 32px);
+    color: var(--ink);
+    background: var(--paper);
+    isolation: isolate;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .hub-hero:focus-visible {
+    outline: none;
+  }
+
+  /* Top announcement strip right below navbar - centered with generous vertical spacing */
+  .hero-top-strip {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 12px;
+    padding-top: clamp(2px, 0.4vw, 4px);
+    margin-bottom: clamp(14px, 1.8vw, 24px);
+    margin-inline: auto;
+  }
+
+  .announcement-text {
+    font-size: clamp(10.5px, 0.88vw, 11.5px);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .ticket-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 13px;
+    border-radius: 999px;
+    background: transparent;
+    border: 1.5px solid rgba(29, 29, 27, 0.28);
+    color: var(--ink);
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    line-height: 1;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+  }
+
+  .ticket-button:hover {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--paper);
+    transform: translateY(-1px);
+  }
+
+  .ticket-arrow {
+    width: 12px;
+    height: 12px;
+    transition: transform 0.22s var(--ease-cinema);
+  }
+
+  .ticket-button:hover .ticket-arrow {
+    transform: translate(2px, -2px);
+  }
+
+  .hero-main {
+    width: 100%;
+    flex: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 0.96fr) minmax(340px, 1.04fr);
+    align-items: center;
+    gap: clamp(24px, 3.6vw, 56px);
+    margin-block: auto;
+  }
+
+  .hero-copy {
+    max-width: 560px;
+  }
+
+  .hero-title-wrap {
+    overflow: hidden;
+  }
+
+  .hero-title {
+    margin: 0;
+    font-size: clamp(38px, 4.6vw, 68px);
+    line-height: 1.04;
+    letter-spacing: -0.05em;
+    font-weight: 800;
+    text-wrap: balance;
+    color: var(--ink);
+    will-change: transform, opacity;
+  }
+
+  .hero-title :global(em) {
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: -0.035em;
+  }
+
+  .hero-desc-wrap {
+    overflow: hidden;
+  }
+
+  .hero-description {
+    max-width: 395px;
+    margin: clamp(14px, 1.8vw, 22px) 0 0;
+    color: var(--muted);
+    font-size: clamp(16.5px, 1.25vw, 19px);
+    line-height: 1.58;
+    letter-spacing: -0.015em;
+    text-wrap: pretty;
+    will-change: transform, opacity;
+  }
+
+  /* CTAs remain fixed and stable */
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    margin-top: clamp(18px, 2.2vw, 28px);
+  }
+
+  .button {
+    min-height: 46px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 999px;
+    padding: 0 22px 0 24px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .button:hover {
+    transform: translateY(-2px);
+  }
+
+  .button-arrow-svg {
+    width: 14px;
+    height: 14px;
+    transition: transform 0.22s var(--ease-cinema);
+  }
+
+  .button-primary {
+    background: var(--ink);
+    color: var(--paper);
+    min-width: 175px;
+    border: 1.5px solid var(--ink);
+  }
+
+  .button-primary:hover {
+    background: var(--green);
+    border-color: var(--green);
+  }
+
+  .button-primary:hover .button-arrow-svg {
+    transform: translate(2px, -2px);
+  }
+
+  .button-arrow {
+    font-size: 14px;
+    line-height: 1;
+    transition: transform 0.22s var(--ease-cinema);
+  }
+
+  .button-secondary {
+    background: transparent;
+    color: var(--ink);
+    border: none;
+    border-radius: 0;
+    padding: 0 4px;
+    min-width: auto;
+    min-height: 46px;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    text-decoration-thickness: 1.5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .button-secondary:hover {
+    background: transparent;
+    color: var(--green);
+    border-color: transparent;
+    transform: translateY(-2px);
+  }
+
+  .button-secondary:hover .button-arrow {
+    transform: translateY(3px);
+  }
+
+  /* Right column: Visual container */
+  .hero-visual {
+    position: relative;
+    min-width: 0;
+    width: 100%;
+    max-width: 560px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    box-sizing: border-box;
+  }
+
+  /* Stage wrapper for visual-frame */
+  .visual-stage {
+    position: relative;
+    width: 100%;
+    max-width: 510px;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  /* Photo Frame with asymmetric editorial shape: 120px 0 32px 32px (increased vertical height by 8-10%) */
+  .visual-frame {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    aspect-ratio: 1.15 / 1;
+    max-height: clamp(320px, 46vh, 435px);
+    border-radius: 120px 0 32px 32px;
+    background: var(--color-paper-alt, #eaeae6);
+    box-shadow: 0 16px 40px rgba(23, 23, 22, 0.08);
+  }
+
+  .visual-frame::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, transparent 55%, rgba(0, 0, 0, 0.45) 100%);
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  .visual-media-wrap {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .visual-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    will-change: transform, opacity;
+  }
+
+  /* Lighter, compact editorial metadata pill */
+  .visual-meta {
+    position: absolute;
+    z-index: 5;
+    left: 14px;
+    bottom: 12px;
+    display: inline-flex;
+    align-items: center;
+    max-width: calc(100% - 28px);
+    padding: 7px 13px;
+    color: #ffffff;
+    background: rgba(29, 29, 27, 0.78);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 12px;
+    pointer-events: none;
+  }
+
+  .meta-brand-block {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-width: 0;
+  }
+
+  .meta-sunburst {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  .meta-content {
+    min-width: 0;
+    will-change: transform, opacity;
+  }
+
+  .meta-title {
+    display: block;
+    font-size: clamp(11.5px, 1.05vw, 13px);
+    font-weight: 750;
+    letter-spacing: -0.015em;
+    color: #ffffff;
+    line-height: 1.15;
+    white-space: nowrap;
+  }
+
+  .meta-detail {
+    display: block;
+    margin-top: 1.5px;
+    color: rgba(255, 255, 255, 0.76);
+    font-size: clamp(8.5px, 0.75vw, 9.5px);
+    letter-spacing: 0;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  /* Bottom row: Slide tabs and arrow controls lifted higher up */
+  .hero-bottom {
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-top: clamp(6px, 1vw, 14px);
+    margin-bottom: clamp(4px, 0.8vw, 10px);
+    padding-top: 4px;
+  }
+
+  /* Slide navigation progress tabs */
+  .slide-navigation {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(110px, 180px));
+    gap: clamp(14px, 2.4vw, 38px);
+  }
+
+  .slide-tab {
+    position: relative;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--muted);
+    text-align: left;
+    cursor: pointer;
+    font: inherit;
+    transition: color 0.2s ease;
+  }
+
+  .slide-tab:hover {
+    color: var(--ink);
+  }
+
+  .slide-number {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 11px;
+    font-weight: 750;
+    letter-spacing: -0.01em;
+  }
+
+  .slide-line {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 2px;
+    margin-bottom: 7px;
+    background: rgba(29, 29, 27, 0.16);
+    overflow: hidden;
+    border-radius: 1px;
+  }
+
+  .slide-line > span {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 0%;
+    height: 100%;
+    background: var(--ink);
+    transform-origin: left center;
+  }
+
+  @keyframes heroProgress {
+    from {
+      width: 0%;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  .slide-tab.active .slide-line > span {
+    animation: heroProgress 6500ms linear forwards;
+  }
+
+  .slide-tab:not(.active) .slide-line > span {
+    width: 0% !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .slide-tab.active {
+    color: var(--ink);
+  }
+
+  .slide-label {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+  }
+
+  .hero-controls {
+    display: flex;
+    gap: 8px;
+  }
+
+  .control {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    border: 1.5px solid rgba(29, 29, 27, 0.22);
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+  }
+
+  .control:hover {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--paper);
+    transform: translateY(-1px);
+  }
+
+  .control:active {
+    transform: translateY(1px);
+  }
+
+  .control-next {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  .control-next:hover {
+    background: var(--green);
+    border-color: var(--green);
+  }
+
+  /* Responsive styling */
+  @media (max-width: 1040px) {
+    .hub-hero {
+      min-height: auto;
+      max-height: none;
+      padding-block: 22px 28px;
+      overflow: visible;
+    }
+
+    .hero-main {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .hero-copy {
+      max-width: 660px;
+    }
+
+    .hero-visual {
+      justify-self: start;
+      max-width: 480px;
+    }
+
+    .visual-stage {
+      max-width: 440px;
+      padding: 0;
+    }
+
+    .visual-frame {
+      max-height: 345px;
+      aspect-ratio: 1.1 / 1;
+      border-radius: 100px 0 28px 28px;
+    }
+
+    .hero-bottom {
+      margin-top: 20px;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .hub-hero {
+      padding-block: 14px 20px;
+      overflow-x: clip;
+      min-height: auto;
+      max-height: none;
+    }
+
+    .hero-top-strip {
+      gap: 6px;
+      margin-bottom: 8px;
+      flex-wrap: nowrap;
+      white-space: nowrap;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .announcement-text {
+      font-size: clamp(8px, 2.35vw, 10px);
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .ticket-button {
+      font-size: clamp(8.5px, 2.35vw, 10.5px);
+      padding: 3px 8px;
+      gap: 4px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .ticket-arrow {
+      width: 10px;
+      height: 10px;
+    }
+
+    .hero-main {
+      margin-top: 4px;
+      gap: 20px;
+    }
+
+    .hero-title {
+      font-size: clamp(32px, 9.5vw, 46px);
+      line-height: 1.02;
+      letter-spacing: -0.05em;
+    }
+
+    .hero-description {
+      margin-top: 12px;
+      font-size: 15px;
+      line-height: 1.56;
+      max-width: 100%;
+    }
+
+    .hero-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 18px;
+      width: 100%;
+    }
+
+    .hero-actions .button-secondary {
+      display: none !important;
+    }
+
+    .button {
+      width: 100%;
+      min-height: 44px;
+      font-size: 13px;
+    }
+
+    .hero-visual {
+      width: 100%;
+      max-width: 100%;
+      justify-self: center;
+    }
+
+    .visual-stage {
+      max-width: 380px;
+      margin: 0 auto;
+      padding: 0;
+    }
+
+    .visual-frame {
+      aspect-ratio: 1.08 / 1;
+      max-height: 300px;
+      border-radius: 72px 0 24px 24px;
+    }
+
+    .visual-meta {
+      left: 8px;
+      bottom: 8px;
+      padding: 5px 10px;
+      border-radius: 9px;
+      max-width: calc(100% - 16px);
+    }
+
+    .meta-title {
+      font-size: 11px;
+    }
+
+    .meta-detail {
+      font-size: 8px;
+      white-space: nowrap;
+    }
+
+    .hero-bottom {
+      margin-top: 16px;
+      align-items: center;
+    }
+
+    .slide-navigation {
+      width: 100%;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .slide-number {
+      font-size: 10px;
+    }
+
+    .slide-label {
+      font-size: 9px;
+    }
+
+    .hero-controls {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .visual-img,
+    .hero-title,
+    .hero-description,
+    .meta-content,
+    .button,
+    .control {
+      transition: none !important;
+      animation: none !important;
+      transform: none !important;
+      opacity: 1 !important;
+    }
+
+    .slide-line > span {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+</style>
+
+<script define:vars={{ slides }}>
+  const initHero = () => {
+    const hero = document.querySelector('[data-hero]');
+    if (!hero || hero.dataset.initialized) return;
+    hero.dataset.initialized = 'true';
+
+    const data = slides;
+    const title = hero.querySelector('[data-title]');
+    const description = hero.querySelector('[data-description]');
+    const mediaWrap = hero.querySelector('[data-media-wrap]');
+    const metaContent = hero.querySelector('.meta-content');
+    const metaTitle = hero.querySelector('[data-meta]');
+    const metaDetail = hero.querySelector('[data-meta-detail]');
+    const tabs = [...hero.querySelectorAll('[data-slide]')];
+    const prev = hero.querySelector('.control-prev');
+    const next = hero.querySelector('.control-next');
+
+    let current = 0;
+    let isTransitioning = false;
+    let reducedTimer;
+    const duration = 6500;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    const EASE_CINEMA = 'cubic-bezier(0.22, 1, 0.36, 1)';
+
+    const setTabState = () => {
+      tabs.forEach((tab, i) => {
+        const active = i === current;
+        tab.classList.toggle('active', active);
+        tab.setAttribute('aria-selected', String(active));
+        const line = tab.querySelector('.slide-line > span');
+        if (!line) return;
+
+        // Cancel previous animation and force clean reflow
+        line.style.animation = 'none';
+        void line.offsetWidth;
+
+        if (active && !reduced.matches) {
+          // Re-enables CSS keyframe heroProgress
+          line.style.animation = '';
+        }
+      });
+    };
+
+    const render = (index) => {
+      if (isTransitioning) return;
+      current = (index + data.length) % data.length;
+      const s = data[current];
+
+      if (reduced.matches) {
+        if (title) title.innerHTML = s.title;
+        if (description) description.textContent = s.description;
+        if (metaTitle) metaTitle.textContent = s.meta;
+        if (metaDetail) metaDetail.textContent = s.detail;
+        const currentImg = mediaWrap?.querySelector('.visual-img');
+        if (currentImg) {
+          currentImg.src = s.image;
+          currentImg.alt = s.alt;
+        }
+        setTabState();
+        return;
+      }
+
+      isTransitioning = true;
+      const transitionDuration = 800;
+
+      // -------------------------------------------------------------
+      // 1. CINEMATIC IMAGE CROSSFADE (1.04 -> 1, translateX 1.5% -> 0)
+      // -------------------------------------------------------------
+      const outgoingImg = mediaWrap?.querySelector('.visual-img');
+      const incomingImg = document.createElement('img');
+      incomingImg.className = 'visual-img is-next';
+      incomingImg.src = s.image;
+      incomingImg.alt = s.alt;
+      incomingImg.width = 1200;
+      incomingImg.height = 960;
+      incomingImg.decoding = 'async';
+
+      // Incoming starts: opacity 0, scale 1.04 -> 1, translateX +1.5% -> 0
+      incomingImg.style.opacity = '0';
+      incomingImg.style.transform = 'translate3d(1.5%, 0, 0) scale(1.04)';
+      incomingImg.style.zIndex = '2';
+      mediaWrap?.appendChild(incomingImg);
+
+      requestAnimationFrame(() => {
+        if (outgoingImg) {
+          outgoingImg.style.transition = `opacity ${transitionDuration}ms ${EASE_CINEMA}, transform ${transitionDuration}ms ${EASE_CINEMA}`;
+          outgoingImg.style.opacity = '0';
+          outgoingImg.style.transform = 'scale(1.02)';
+        }
+
+        incomingImg.style.transition = `opacity ${transitionDuration}ms ${EASE_CINEMA}, transform ${transitionDuration}ms ${EASE_CINEMA}`;
+        incomingImg.style.opacity = '1';
+        incomingImg.style.transform = 'translate3d(0, 0, 0) scale(1)';
+      });
+
+      // -------------------------------------------------------------
+      // 2. TEXT OUTGOING FADE
+      // -------------------------------------------------------------
+      if (title) {
+        title.style.transition = 'opacity 160ms ease, transform 160ms ease';
+        title.style.opacity = '0';
+        title.style.transform = 'translate3d(0, -8px, 0)';
+      }
+      if (description) {
+        description.style.transition = 'opacity 160ms ease, transform 160ms ease';
+        description.style.opacity = '0';
+        description.style.transform = 'translate3d(0, -6px, 0)';
+      }
+      if (metaContent) {
+        metaContent.style.transition = 'opacity 160ms ease, transform 160ms ease';
+        metaContent.style.opacity = '0';
+        metaContent.style.transform = 'translate3d(0, -6px, 0)';
+      }
+
+      // -------------------------------------------------------------
+      // 3. INCOMING STAGGERED VERTICAL REVEAL
+      // -------------------------------------------------------------
+      setTimeout(() => {
+        if (title) title.innerHTML = s.title;
+        if (description) description.textContent = s.description;
+        if (metaTitle) metaTitle.textContent = s.meta;
+        if (metaDetail) metaDetail.textContent = s.detail;
+
+        if (title) {
+          title.style.transition = 'none';
+          title.style.transform = 'translate3d(0, 18px, 0)';
+          title.style.opacity = '0';
+        }
+        if (description) {
+          description.style.transition = 'none';
+          description.style.transform = 'translate3d(0, 14px, 0)';
+          description.style.opacity = '0';
+        }
+        if (metaContent) {
+          metaContent.style.transition = 'none';
+          metaContent.style.transform = 'translate3d(0, 10px, 0)';
+          metaContent.style.opacity = '0';
+        }
+
+        requestAnimationFrame(() => {
+          if (title) {
+            title.style.transition = `opacity 550ms ${EASE_CINEMA} 40ms, transform 550ms ${EASE_CINEMA} 40ms`;
+            title.style.opacity = '1';
+            title.style.transform = 'translate3d(0, 0, 0)';
+          }
+
+          if (description) {
+            description.style.transition = `opacity 500ms ${EASE_CINEMA} 90ms, transform 500ms ${EASE_CINEMA} 90ms`;
+            description.style.opacity = '1';
+            description.style.transform = 'translate3d(0, 0, 0)';
+          }
+
+          if (metaContent) {
+            metaContent.style.transition = `opacity 450ms ${EASE_CINEMA} 130ms, transform 450ms ${EASE_CINEMA} 130ms`;
+            metaContent.style.opacity = '1';
+            metaContent.style.transform = 'translate3d(0, 0, 0)';
+          }
+        });
+      }, 170);
+
+      setTimeout(() => {
+        if (outgoingImg && outgoingImg.parentNode === mediaWrap) {
+          mediaWrap?.removeChild(outgoingImg);
+        }
+        incomingImg.className = 'visual-img is-current';
+        incomingImg.style.zIndex = '';
+        isTransitioning = false;
+      }, transitionDuration + 30);
+
+      setTabState();
+    };
+
+    const restartReduced = () => {
+      clearTimeout(reducedTimer);
+      if (reduced.matches) {
+        reducedTimer = setTimeout(() => {
+          go(1);
+        }, duration);
+      }
+    };
+
+    const go = (step) => {
+      render(current + step);
+      if (reduced.matches) {
+        restartReduced();
+      }
+    };
+
+    prev?.addEventListener('click', () => go(-1));
+    next?.addEventListener('click', () => go(1));
+
+    tabs.forEach((tab, i) => {
+      const line = tab.querySelector('.slide-line > span');
+      // When the progress bar finishes (reaches 100%), advance instantly with 0ms delay
+      line?.addEventListener('animationend', () => {
+        if (tab.classList.contains('active') && !isTransitioning) {
+          go(1);
+        }
+      });
+
+      tab.addEventListener('click', () => {
+        render(i);
+        if (reduced.matches) restartReduced();
+      });
+    });
+
+    hero.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') {
+        go(-1);
+      } else if (e.key === 'ArrowRight') {
+        go(1);
+      }
+    });
+
+    let touchStartX = 0;
+    let touchCurrentX = 0;
+    let isSwiping = false;
+
+    hero.addEventListener('touchstart', (e) => {
+      if (e.touches.length === 1) {
+        touchStartX = e.touches[0].screenX;
+        touchCurrentX = touchStartX;
+        isSwiping = true;
+      }
+    }, { passive: true });
+
+    hero.addEventListener('touchmove', (e) => {
+      if (!isSwiping || e.touches.length !== 1 || isTransitioning) return;
+      touchCurrentX = e.touches[0].screenX;
+      const dx = touchCurrentX - touchStartX;
+      if (Math.abs(dx) > 12 && mediaWrap) {
+        mediaWrap.style.transform = `translate3d(${dx * 0.15}px, 0, 0)`;
+      }
+    }, { passive: true });
+
+    hero.addEventListener('touchend', () => {
+      if (!isSwiping) return;
+      isSwiping = false;
+      const dx = touchCurrentX - touchStartX;
+      if (mediaWrap) {
+        mediaWrap.style.transition = `transform 300ms ${EASE_CINEMA}`;
+        mediaWrap.style.transform = 'translate3d(0, 0, 0)';
+      }
+      if (Math.abs(dx) > 45) {
+        go(dx > 0 ? -1 : 1);
+      }
+    }, { passive: true });
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') {
+        setTabState();
+      }
+    });
+
+    setTabState();
+    if (reduced.matches) {
+      restartReduced();
+    }
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHero);
+  } else {
+    initHero();
+  }
+
+  document.addEventListener('astro:after-swap', initHero);
+</script>
