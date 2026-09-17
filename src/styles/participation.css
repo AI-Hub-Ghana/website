@@ -99,23 +99,14 @@ summary:focus-visible,
 .brand:hover {
   color: #2a7a5e;
 }
-.brand-placeholder {
-  display: inline-flex;
-  flex-direction: column;
-  gap: 0.16em;
-  font-size: 22px;
-  line-height: 0.86;
-  font-weight: 800;
-  text-transform: uppercase;
+.brand-logo {
+  display: block;
+  height: 44px;
+  width: auto;
+  transition: opacity 0.2s;
 }
-.brand-placeholder > span:first-child {
-  letter-spacing: 0.021em;
-  margin-right: -0.021em;
-}
-.brand-placeholder > span:last-child {
-  font-size: 0.9464em;
-  letter-spacing: -0.02em;
-  margin-right: 0.02em;
+.brand:hover .brand-logo {
+  opacity: 0.75;
 }
 .desktop-nav {
   display: flex;
@@ -1110,5 +1101,16 @@ body.participation-page {
   .participation-grid {
     grid-template-columns: 1fr 1.3fr;
     gap: 30px;
+  }
+}
+@media (max-width: 820px) {
+  .brand-logo {
+    height: 34px;
+  }
+}
+
+@media (max-width: 420px) {
+  .brand-logo {
+    height: 28px;
   }
 }
