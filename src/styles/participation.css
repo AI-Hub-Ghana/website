@@ -314,16 +314,33 @@ body.participation-page {
 .participation-back {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 36px;
-  font-size: 14px;
-  font-weight: 650;
+  gap: 8px;
+  margin-bottom: 32px;
+  padding: 8px 18px 8px 14px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(11, 41, 38, 0.22);
+  background: transparent;
+  font-size: 13px;
+  font-weight: 700;
   color: #0b2926;
   text-decoration: none;
-  transition: color 0.18s;
+  cursor: pointer;
+  transition: background 0.22s ease, border-color 0.22s ease, color 0.22s ease, transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.participation-back .back-arrow {
+  display: inline-block;
+  font-size: 15px;
+  line-height: 1;
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .participation-back:hover {
-  color: #2a7a5e;
+  background: #0b2926;
+  border-color: #0b2926;
+  color: #f2f2ef;
+  transform: translateX(-3px);
+}
+.participation-back:hover .back-arrow {
+  transform: translateX(-3px);
 }
 .participation-grid {
   display: grid;
