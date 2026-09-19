@@ -1016,12 +1016,10 @@ h3 {
     padding-inline: 18px;
   }
   .hero-grid {
-    gap: 32px;
-    padding-top: 44px;
+    /* layout managed by refactor block at end of file */
+    gap: 40px;
   }
-  .hero-copy h1 {
-    font-size: 4.7vw;
-  }
+  /* hero-copy h1 font-size managed by refactor block */
   .event-eyebrow {
     font-size: 11px;
     margin-bottom: 20px;
@@ -1122,14 +1120,6 @@ h3 {
   }
   .menu-button {
     display: flex;
-  }
-  .hero-grid {
-    grid-template-columns: 1fr;
-    padding-block: 28px 40px;
-    gap: 24px;
-  }
-  .hero-copy h1 {
-    font-size: clamp(40px, 10vw, 56px);
   }
   .hero-copy {
     max-width: 100%;
@@ -1346,8 +1336,7 @@ h3 {
     display: none;
   }
   .hero-grid {
-    padding-block: 29px 35px;
-    gap: 25px;
+    /* layout managed by refactor block at end of file */
   }
   .event-eyebrow {
     font-size: 11px;
@@ -2306,3 +2295,108 @@ summary {
     font-size: 11.5px;
   }
 }
+
+/* Hero with the launch programme beside the headline (Ghana team layout, 2026-09-19). */
+.launch-hero { padding-bottom: 0; }
+.hero-grid {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 64px;
+  align-items: center;
+  padding: 64px 0;
+}
+/* Remove the max-width constraint on hero-actions — no text-link alongside the button any more */
+.hero-actions { margin-top: 32px; max-width: none; }
+.event-full-name { margin-top: 24px; }
+.hero-description { margin-top: 16px; max-width: 48ch; }
+.hero-programme {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  scroll-margin-top: 96px;
+}
+.hero-programme .session { padding: 32px; gap: 24px; }
+.hero-programme .session-date { min-width: 104px; padding-right: 24px; gap: 8px; }
+.hero-programme .session-date > span { font-size: 56px; }
+.hero-programme .session-date > div { font-size: 10px; letter-spacing: .08em; }
+.hero-programme .session-info h3 { font-size: 24px; margin-bottom: 8px; }
+.hero-programme .session-meta { margin-top: 16px; }
+@media (prefers-reduced-motion: no-preference) {
+  .hero-programme { animation: photo-entry .9s var(--launch-ease) .08s both; }
+}
+
+/* ≤1100px — tablet landscape */
+@media (max-width: 1100px) {
+  .hero-grid { gap: 40px; padding: 48px 0; }
+  .hero-copy h1 { font-size: 4.5vw; }
+  .hero-programme .session { padding: 24px; }
+  .hero-programme .session-date { min-width: 88px; padding-right: 16px; }
+  .hero-programme .session-date > span { font-size: 46px; }
+  .hero-programme .session-info h3 { font-size: 20px; }
+}
+
+/* ≤820px — single-column stack */
+@media (max-width: 820px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 32px; padding: 40px 0 48px; }
+  .hero-copy h1 { font-size: clamp(38px, 8vw, 54px); }
+  .hero-actions { max-width: none; }
+  .hero-programme { max-width: 640px; gap: 12px; }
+  .hero-programme .session { padding: 28px 24px; gap: 20px; }
+  .hero-programme .session-date { min-width: 88px; padding-right: 20px; }
+  .hero-programme .session-date > span { font-size: 50px; }
+  .hero-programme .session-info h3 { font-size: 21px; }
+}
+
+/* ≤520px — small phones */
+@media (max-width: 520px) {
+  .hero-grid { gap: 28px; padding: 28px 0 40px; }
+  .hero-copy h1 { font-size: clamp(36px, 10.5vw, 48px); line-height: 1.09; }
+  .hero-actions { margin-top: 24px; }
+  .hero-actions .button { width: 100%; justify-content: center; }
+  .hero-programme { gap: 10px; }
+  .hero-programme .session { padding: 20px 16px; gap: 16px; }
+  .hero-programme .session-date { min-width: 72px; padding-right: 16px; }
+  .hero-programme .session-date > span { font-size: 40px; }
+  .hero-programme .session-date > div { font-size: 9px; letter-spacing: .04em; }
+  .hero-programme .session-info h3 { font-size: 18px; }
+  .hero-programme .session-info > p { font-size: 13px; }
+  .hero-programme .session-meta { font-size: 12px; margin-top: 12px; }
+}
+
+/* ≤360px — very small phones */
+@media (max-width: 360px) {
+  .hero-grid { padding: 22px 0 32px; gap: 22px; }
+  .hero-copy h1 { font-size: clamp(32px, 11vw, 40px); }
+  .hero-programme .session { padding: 16px 12px; gap: 12px; }
+  .hero-programme .session-date { min-width: 60px; padding-right: 12px; }
+  .hero-programme .session-date > span { font-size: 34px; }
+  .hero-programme .session-info h3 { font-size: 16px; }
+}
+
+@media print { .hero-grid { padding-block: 24px; } }
+
+/* GABS blue strip closing the hero: summit logo, registration note, audiences. */
+.summit-strip { padding-block: 32px; }
+.summit-strip-top { display: flex; align-items: center; gap: 32px; }
+.summit-strip .summit-mark { padding-right: 32px; border-right: 1px solid #4d6b86; }
+.summit-strip .summit-mark img { width: 144px; }
+.summit-strip-top > p { font-size: 14px; line-height: 1.5; color: #d5e2eb; margin: 0; }
+.summit-strip .event-audiences { margin-top: 24px; padding-top: 24px; }
+@media (max-width: 820px) {
+  .summit-strip-top { flex-wrap: wrap; gap: 16px 24px; }
+  .summit-strip .summit-mark { padding-right: 24px; }
+}
+@media (max-width: 520px) {
+  .summit-strip { padding-block: 28px; }
+  .summit-strip-top { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .summit-strip .summit-mark { padding-right: 0; border-right: 0; }
+}
+
+/* Applied AI & Innovation Centre logo: wide lockup, sized by height. */
+.brand-logo { width: auto; height: 40px; }
+@media (max-width: 1100px) { .brand-logo { height: 32px; } }
+@media (max-width: 520px) { .brand-logo { width: auto; height: 28px; } }
+
+/* Less template, more brand (2026-09-19): one-ink headline, buttons in the brand's single-corner shape. */
+.hero-copy h1 > span { color: inherit; }
+.button, .nav-cta, .menu-button { border-radius: 0 0 24px 0; }
+.button:focus-visible, .nav-cta:focus-visible { outline-offset: 4px; }

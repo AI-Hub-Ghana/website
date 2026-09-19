@@ -1,8 +1,8 @@
 ---
-// Hero section — V3: Launch-programme hero (no photo, programme cards right)
+// Hero section — V4: headline left, event session cards right (2026-09-19 refactor)
 ---
 <!-- =====================================================================
-     LAUNCH HERO — two-column: copy left, programme cards right
+     LAUNCH HERO — two-column: copy left, session cards right
      ===================================================================== -->
 <section class="launch-hero" id="launch" aria-labelledby="hero-title">
   <div class="page-shell">
@@ -10,45 +10,44 @@
 
       <!-- LEFT: copy -->
       <div class="hero-copy">
-        <p class="event-eyebrow"><span aria-hidden="true"></span> AI Hub, Ghana · GABS 2026 side event</p>
         <h1 id="hero-title">Meet Ghana's AI.<br><span>Live in Accra.</span></h1>
-        <p class="event-full-name">The Hub's launch programme · 24–25 November 2026</p>
+        <p class="event-full-name">The Hub's launch programme · <time datetime="2026-11-24/2026-11-25">24–25 November 2026</time></p>
         <p class="hero-description">
           Meet the people shaping the Ghana–Europe AI connection,
           see Ghanaian AI solutions in action, and explore new partnerships.
         </p>
         <div class="hero-actions">
-          <a class="button button-teal hero-cta-full" href="/get-involved#register">Register for free</a>
+          <a class="button button-teal" href="/get-involved#register">Register for free</a>
         </div>
       </div>
 
       <!-- RIGHT: programme cards -->
-      <div class="hero-programme" aria-label="Launch programme">
+      <div class="hero-programme" id="programme" role="group" aria-label="Launch programme">
 
-        <article class="prog-card prog-card--launch">
-          <div class="prog-date">
-            <span class="prog-day">24</span>
-            <div class="prog-month">NOV<br>TUESDAY</div>
+        <article class="session session-launch">
+          <div class="session-date">
+            <span>24</span>
+            <div>NOV<br>TUESDAY</div>
           </div>
-          <div class="prog-body">
-            <h2 class="prog-title">Official launch</h2>
-            <p class="prog-desc">Meet the Hub and the people shaping the Ghana–Europe AI connection.</p>
-            <div class="prog-meta">
+          <div class="session-info">
+            <h3>Official launch</h3>
+            <p>Meet the Hub and the people shaping the Ghana–Europe AI connection.</p>
+            <div class="session-meta">
               <time datetime="2026-11-24T15:00:00Z">15:00–17:00 GMT</time>
               <span>Westerwelle Startup Haus, Accra</span>
             </div>
           </div>
         </article>
 
-        <article class="prog-card prog-card--showcase">
-          <div class="prog-date">
-            <span class="prog-day">25</span>
-            <div class="prog-month">NOV<br>WEDNESDAY</div>
+        <article class="session session-showcase">
+          <div class="session-date">
+            <span>25</span>
+            <div>NOV<br>WEDNESDAY</div>
           </div>
-          <div class="prog-body">
-            <h2 class="prog-title">Live AI showcase &amp; panel</h2>
-            <p class="prog-desc">Ghanaian AI solutions in action, followed by a discussion on Ghana–Europe collaboration.</p>
-            <div class="prog-meta">
+          <div class="session-info">
+            <h3>Live AI showcase &amp; panel</h3>
+            <p>Ghanaian AI solutions in action, followed by a discussion on Ghana–Europe collaboration.</p>
+            <div class="session-meta">
               <time datetime="2026-11-25T10:00:00Z">10:00–12:00 GMT</time>
               <span>Kempinski Hotel Gold Coast City, Accra</span>
             </div>
