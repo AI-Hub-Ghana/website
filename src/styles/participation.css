@@ -101,7 +101,7 @@ summary:focus-visible,
 }
 .brand-logo {
   display: block;
-  height: 44px;
+  height: 40px;
   width: auto;
   transition: opacity 0.2s;
 }
@@ -118,24 +118,31 @@ summary:focus-visible,
 .desktop-nav a {
   font-size: 13px;
   font-weight: 600;
-  position: relative;
   color: #1d1d1b;
+  position: relative;
   display: inline-flex;
   align-items: center;
+  padding-block: 14px;
 }
 .desktop-nav a:hover,
 .desktop-nav a.active {
   color: #2a7a5e;
 }
-.desktop-nav a.active::after {
-  content: "";
+.desktop-nav a::after {
   position: absolute;
-  bottom: -4px;
-  left: 0;
-  right: 0;
+  content: "";
   height: 2px;
   background: #2a7a5e;
-  border-radius: 1px;
+  bottom: 7px;
+  left: 0;
+  right: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s;
+}
+.desktop-nav a:hover::after,
+.desktop-nav a.active::after {
+  transform: scaleX(1);
 }
 .menu-button {
   display: none;
@@ -153,6 +160,7 @@ summary:focus-visible,
 }
 .nav-cta {
   display: inline-flex;
+  gap: 0;
   align-items: center;
   justify-content: center;
   min-height: 44px;
@@ -196,7 +204,7 @@ summary:focus-visible,
   font-weight: 600;
   padding: 8px 0;
   color: #1d1d1b;
-  border-bottom: 1px solid #e5e5e0;
+  border-bottom: 1px solid #dfdfdc;
 }
 .mobile-nav a:last-child {
   border-bottom: none;
@@ -204,6 +212,10 @@ summary:focus-visible,
 .mobile-nav a:hover {
   color: #2a7a5e;
 }
+
+/* Brand shape: single-corner radius — same on all pages (2026-09-19 refactor). */
+.button, .nav-cta, .menu-button { border-radius: 0 0 24px 0; }
+.button:focus-visible, .nav-cta:focus-visible { outline-offset: 4px; }
 
 /* ---- Primary CTA button ------------------------------------------------ */
 .button {
@@ -1105,7 +1117,7 @@ body.participation-page {
 }
 @media (max-width: 820px) {
   .brand-logo {
-    height: 34px;
+    height: 32px;
   }
 }
 
