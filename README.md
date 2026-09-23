@@ -72,7 +72,7 @@ tests/
 
 public/
 ├── images/
-│   ├── photos/                   # High-res photos (photo-pair-close, photo-three-bright)
+│   ├── photos/                   # WebP photos (photo-pair-close[-600], photo-three-bright)
 │   ├── partners/                 # GABS 2026 logos
 │   └── favicon/                  # Favicons & site manifest
 └── robots.txt
