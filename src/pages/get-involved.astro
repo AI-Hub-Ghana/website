@@ -15,6 +15,11 @@ const selectedInterests = Astro.url.searchParams.getAll('interest');
   printPageSize="1600px 4200px"
   currentPage="get-involved"
   mainClass="page-shell participation-main"
+  preloadImage={{
+    href: '/images/photos/photo-pair-close.webp',
+    imagesrcset: '/images/photos/photo-pair-close-600.webp 600w, /images/photos/photo-pair-close.webp 1200w',
+    imagesizes: '(max-width: 820px) 100vw, 600px',
+  }}
 >
   <div>
     <a class="participation-back" href="/">
@@ -31,9 +36,13 @@ const selectedInterests = Astro.url.searchParams.getAll('interest');
         <figure class="participation-photo">
           <img
             src="/images/photos/photo-pair-close.webp"
+            srcset="/images/photos/photo-pair-close-600.webp 600w, /images/photos/photo-pair-close.webp 1200w"
+            sizes="(max-width: 820px) 100vw, 600px"
             alt="Illustrative scene of two professionals collaborating at a laptop"
             width="1200"
             height="800"
+            loading="eager"
+            fetchpriority="high"
             decoding="async"
           />
           <figcaption>Illustrative image</figcaption>
