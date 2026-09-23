@@ -16,6 +16,11 @@ interface Props {
   currentPage?: 'home' | 'get-involved';
   mainClass?: string;
   noindex?: boolean;
+  preloadImage?: {
+    href: string;
+    imagesrcset?: string;
+    imagesizes?: string;
+  };
 }
 
 const {
@@ -27,6 +32,7 @@ const {
   currentPage = 'home',
   mainClass = '',
   noindex = false,
+  preloadImage,
 } = Astro.props;
 
 const isHome = currentPage === 'home';
@@ -68,6 +74,18 @@ const socialImageUrl = Astro.site && ogImage ? new URL(ogImage, Astro.site).href
   <link rel="icon" href="/images/favicon/favicon-48.png" type="image/png" sizes="48x48">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon-180.png">
   <link rel="manifest" href="/images/favicon/site.webmanifest">
+
+  {preloadImage && (
+    <link
+      rel="preload"
+      as="image"
+      href={preloadImage.href}
+      imagesrcset={preloadImage.imagesrcset}
+      imagesizes={preloadImage.imagesizes}
+      type="image/webp"
+      fetchpriority="high"
+    />
+  )}
 
   <!-- Google Fonts — Mona Sans variable font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
