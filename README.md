@@ -65,15 +65,14 @@ src/
     └── print.css                 # Print media stylesheet
 
 api/
-├── registrations.js              # Serverless endpoint for POST /api/registrations
-└── register.js                   # Alias endpoint for POST /api/register
+└── register.js                   # Serverless handler for POST /api/register (and /api/registrations alias)
 
 tests/
 └── registration.test.cjs         # Contract test suite for validation, escaping & API responses
 
 public/
 ├── images/
-│   ├── photos/                   # High-res photos (team-wide-02, photo-three-bright, photo-pair-close)
+│   ├── photos/                   # High-res photos (photo-pair-close, photo-three-bright)
 │   ├── partners/                 # GABS 2026 logos
 │   └── favicon/                  # Favicons & site manifest
 └── robots.txt
@@ -83,7 +82,7 @@ public/
 
 ## Registration Integration (Google Sheets API)
 
-Form submissions on `/get-involved` post to `POST /api/registrations`. On Vercel, requests are handled by the serverless function in `api/registrations.js`.
+Form submissions on `/get-involved` post to `POST /api/register`. On Vercel, requests are handled by the serverless function in `api/register.js`. The path `/api/registrations` is an alias that routes to the same handler.
 
 ### 12-Column Schema
 
@@ -121,7 +120,7 @@ Configure the following environment variables in your Vercel Project Settings:
 | `GOOGLE_SHEET_NAME` | *(Optional)* Tab name if `GOOGLE_SHEET_RANGE` is not explicitly set |
 | `UPSTASH_REDIS_REST_URL` | *(Optional)* Upstash Redis REST URL for distributed rate limiting across serverless instances |
 | `UPSTASH_REDIS_REST_TOKEN` | *(Optional)* Upstash Redis REST Bearer token |
-| `PUBLIC_SITE_URL` | *(Optional but recommended)* Production origin for absolute canonical, Open Graph and structured-data URLs |
+| `PUBLIC_SITE_URL` | **Required per environment.** The deployment origin used for canonical URLs, Open Graph, structured-data, and sitemap generation. Set `https://aihubghana.org` in Production. Set the preview deployment URL on staging, or leave unset to suppress canonical/sitemap output. |
 
 ---
 
@@ -144,8 +143,15 @@ npm run check
 npm run build
 ```
 
-Deploying to Vercel automatically deploys the static frontend to the global Edge network and wires `api/registrations.js` as a serverless endpoint.
+Deploying to Vercel automatically deploys the static frontend to the global Edge network and wires `api/register.js` as a serverless endpoint.
 
+### Environment configuration
 
-### SEO configuration
-Set `PUBLIC_SITE_URL` to the production site origin if you want Astro to emit absolute canonical and structured-data URLs.
+Set `PUBLIC_SITE_URL` in each Vercel environment:
+
+| Environment | Value |
+|---|---|
+| Production | `https://aihubghana.org` |
+| Preview / staging | Preview deployment URL, or leave unset |
+
+When unset, canonical URLs, Open Graph absolute URLs, and the sitemap are omitted from the build — safe for preview deployments that should not affect search indexing.

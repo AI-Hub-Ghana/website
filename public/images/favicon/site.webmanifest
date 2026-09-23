@@ -1,6 +1,9 @@
 {
-  "name": "AI Hub Ghana",
+  "name": "AI Hub, Ghana",
   "short_name": "AI Hub Ghana",
+  "description": "The AI Hub, Ghana|launch and live AI showcase at GABS 2026 in Accra.",
+  "start_url": "/",
+  "scope": "/",
   "icons": [
     {
       "src": "/images/favicon/site-icon-192.png",
@@ -11,6 +14,12 @@
       "src": "/images/favicon/site-icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
+    },
+    {
+      "src": "/images/favicon/site-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
   "theme_color": "#F2F2EF",
