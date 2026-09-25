@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/common/Icon.astro';
 import countries from '../data/countries.json';
 
 const title = "Register for free — AI Hub, Ghana";
@@ -23,7 +24,7 @@ const selectedInterests = Astro.url.searchParams.getAll('interest');
 >
   <div>
     <a class="participation-back" href="/">
-      <span aria-hidden="true">←</span> Back to the Hub
+      <Icon name="arrow-left" class="w-[15px] h-[15px]" strokeWidth={2.2} aria-hidden="true" /> Back to the Hub
     </a>
 
     <div class="participation-grid">

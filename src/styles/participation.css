@@ -214,8 +214,15 @@ summary:focus-visible,
 }
 
 /* Brand shape: single-corner radius — same on all pages (2026-09-19 refactor). */
-.button, .nav-cta, .menu-button { border-radius: 0 0 24px 0; }
-.button:focus-visible, .nav-cta:focus-visible { outline-offset: 4px; }
+.button,
+.nav-cta,
+.menu-button {
+  border-radius: 0 0 24px 0;
+}
+.button:focus-visible,
+.nav-cta:focus-visible {
+  outline-offset: 4px;
+}
 
 /* ---- Primary CTA button ------------------------------------------------ */
 .button {
@@ -317,16 +324,25 @@ body.participation-page {
 .participation-back {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 6px;
   margin-bottom: 36px;
   font-size: 14px;
   font-weight: 650;
   color: #0b2926;
-  text-decoration: none;
-  transition: color 0.18s;
+  text-decoration: underline;
+  text-decoration-color: #aaa79f;
+  text-underline-offset: 6px;
+  transition: color 0.18s, text-decoration-color 0.18s;
+}
+.participation-back svg {
+  transition: transform 0.22s var(--ease-brand, ease);
 }
 .participation-back:hover {
   color: #2a7a5e;
+  text-decoration-color: currentColor;
+}
+.participation-back:hover svg {
+  transform: translateX(-2px);
 }
 .participation-grid {
   display: grid;
