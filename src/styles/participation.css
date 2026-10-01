@@ -332,7 +332,9 @@ body.participation-page {
   text-decoration: underline;
   text-decoration-color: #aaa79f;
   text-underline-offset: 6px;
-  transition: color 0.18s, text-decoration-color 0.18s;
+  transition:
+    color 0.18s,
+    text-decoration-color 0.18s;
 }
 .participation-back svg {
   transition: transform 0.22s var(--ease-brand, ease);
@@ -979,28 +981,6 @@ body.participation-page {
 }
 .participation-image-note p {
   margin: 8px 0 0;
-}
-
-/* ---- Footer inner ------------------------------------------------------ */
-.participation-footer-inner {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 22px;
-  padding-block: 27px;
-  border-top: 1px solid #ccd5cb;
-}
-.participation-footer-inner p,
-.participation-footer-inner a {
-  font-size: 12px;
-}
-.participation-footer-inner a {
-  text-decoration: none;
-}
-.participation-footer-inner a:hover {
-  text-decoration: underline;
-  text-underline-offset: 4px;
 }
 
 /* Bot honeypot: present in the DOM for spam detection but invisible and non-interactive. */

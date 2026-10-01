@@ -1,12 +1,13 @@
 ---
 // Footer — V2: Light footer for home, minimal for get-involved
 interface Props {
-  currentPage?: 'home' | 'get-involved';
+  currentPage?: 'home' | 'get-involved' | 'not-found';
 }
 
 const { currentPage = 'home' } = Astro.props;
 const isHome = currentPage === 'home';
 const logoHref = isHome ? '#main' : '/';
+const privacyHref = currentPage === 'not-found' ? '/get-involved#privacy' : '#privacy';
 ---
 
 {isHome && (
@@ -31,14 +32,44 @@ const logoHref = isHome ? '#main' : '/';
 )}
 
 {!isHome && (
-  <footer class="site-footer">
+  <footer class="site-footer compact-footer">
     <div class="page-shell participation-footer-inner">
       <p>© 2026 AI Hub, Ghana · Accra</p>
       <nav aria-label="Footer">
         <a href="/">Explore the Hub</a>
         <a href="/#launch">The launch</a>
-        <a href="#privacy">Data on this page</a>
+        <a href={privacyHref}>Data on this page</a>
       </nav>
     </div>
   </footer>
 )}
+
+<style>
+  .site-footer.compact-footer {
+    padding: 0;
+  }
+
+  .participation-footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 22px;
+    padding-block: 27px;
+    border-top: 1px solid #ccd5cb;
+  }
+
+  .participation-footer-inner p,
+  .participation-footer-inner a {
+    font-size: 12px;
+  }
+
+  .participation-footer-inner a {
+    text-decoration: none;
+  }
+
+  .participation-footer-inner a:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+</style>
