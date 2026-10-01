@@ -15,7 +15,7 @@ interface Props {
   canonical?: string;
   ogImage?: string;
   printPageSize?: string;
-  currentPage?: 'home' | 'get-involved';
+  currentPage?: 'home' | 'get-involved' | 'not-found';
   mainClass?: string;
   noindex?: boolean;
   preloadImage?: {
@@ -37,8 +37,8 @@ const {
   preloadImage,
 } = Astro.props;
 
-const isHome = currentPage === 'home';
-const bodyClass = isHome ? 'launch-page light-refinement' : 'participation-page';
+const isLaunchPage = currentPage !== 'get-involved';
+const bodyClass = isLaunchPage ? 'launch-page light-refinement' : 'participation-page';
 
 const canonicalUrl = canonical || (Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined);
 const socialImageUrl = Astro.site && ogImage ? new URL(ogImage, Astro.site).href : ogImage;
@@ -95,10 +95,10 @@ const socialImageUrl = Astro.site && ogImage ? new URL(ogImage, Astro.site).href
   <link href="https://fonts.googleapis.com/css2?family=Mona+Sans:wdth,wght@75..125,400..800&display=swap" rel="stylesheet">
 
   <!-- Launch stylesheet (home page only) -->
-  {isHome && <link rel="stylesheet" href={launchCssUrl}>}
+  {isLaunchPage && <link rel="stylesheet" href={launchCssUrl}>}
 
   <!-- Page-specific participation styles -->
-  {!isHome && <link rel="stylesheet" href={participationCssUrl}>}
+  {!isLaunchPage && <link rel="stylesheet" href={participationCssUrl}>}
 
   <!-- Toast notification styles (all pages) -->
   <link rel="stylesheet" href={toastCssUrl}>

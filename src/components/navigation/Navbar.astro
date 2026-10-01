@@ -1,18 +1,19 @@
 ---
 // Navbar — V2: working-name logotype, event-focused nav links
 interface Props {
-  currentPage?: 'home' | 'get-involved';
+  currentPage?: 'home' | 'get-involved' | 'not-found';
 }
 
 const { currentPage = 'home' } = Astro.props;
 const isHome = currentPage === 'home';
+const isGetInvolved = currentPage === 'get-involved';
 const logoHref = '/';
 
-// On home: anchor links. On get-involved: cross-page links
+// Use homepage anchors from every route except the homepage itself.
 const whyHref      = isHome ? '#why'    : '/#why';
 const workHref     = isHome ? '#work'   : '/#work';
-const registerHref = isHome ? '/get-involved#register' : '#register';
-const contactHref  = isHome ? '/get-involved#register' : '#register';
+const registerHref = isGetInvolved ? '#register' : '/get-involved#register';
+const contactHref  = isGetInvolved ? '#register' : '/get-involved#register';
 ---
 
 <header class="site-header" id="nav">
