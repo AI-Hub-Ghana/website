@@ -120,7 +120,7 @@ Configure the following environment variables in your Vercel Project Settings:
 | `GOOGLE_SHEET_NAME` | *(Optional)* Tab name if `GOOGLE_SHEET_RANGE` is not explicitly set |
 | `UPSTASH_REDIS_REST_URL` | *(Optional)* Upstash Redis REST URL for distributed rate limiting across serverless instances |
 | `UPSTASH_REDIS_REST_TOKEN` | *(Optional)* Upstash Redis REST Bearer token |
-| `PUBLIC_SITE_URL` | **Required per environment.** The deployment origin used for canonical URLs, Open Graph, structured-data, and sitemap generation. Set `https://aihubghana.org` in Production. Set the preview deployment URL on staging, or leave unset to suppress canonical/sitemap output. |
+| `PUBLIC_SITE_URL` | Optional local-build origin for canonical URLs, Open Graph, structured data, and sitemap generation. Vercel production builds always use `https://aihubghana.org`; Vercel preview builds ignore this variable. |
 
 ---
 
@@ -147,11 +147,11 @@ Deploying to Vercel automatically deploys the static frontend to the global Edge
 
 ### Environment configuration
 
-Set `PUBLIC_SITE_URL` in each Vercel environment:
+Canonical and indexing behavior is selected from Vercel's built-in `VERCEL_ENV`:
 
-| Environment | Value |
+| Environment | Canonical and sitemap behavior |
 |---|---|
-| Production | `https://aihubghana.org` |
-| Preview / staging | Preview deployment URL, or leave unset |
+| Production | Uses `https://aihubghana.org` and generates the production sitemap. |
+| Preview | Emits `noindex,nofollow` and omits canonical URLs and the sitemap, regardless of `PUBLIC_SITE_URL`. |
 
-When unset, canonical URLs, Open Graph absolute URLs, and the sitemap are omitted from the build — safe for preview deployments that should not affect search indexing.
+No preview-specific environment variable changes are required. Keep the page-level `noindex` setting for pages such as the 404 page; it remains effective on production builds.
