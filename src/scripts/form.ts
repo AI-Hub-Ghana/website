@@ -50,7 +50,7 @@ function initForm() {
     window.location.href =
       'mailto:b.janischowsky@4th-ir.com' +
       '?subject=' +
-      encodeURIComponent('Register interest — AI Hub, Ghana') +
+      encodeURIComponent('Register interest — AI Hub Ghana') +
       '&body=' +
       encodeURIComponent(body);
   });

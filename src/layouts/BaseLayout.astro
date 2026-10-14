@@ -54,7 +54,7 @@ const socialImageUrl = Astro.site && ogImage ? new URL(ogImage, Astro.site).href
   <title>{title}</title>
   <meta name="description" content={description}>
   <meta name="theme-color" content="#F2F2EF">
-  <meta property="og:site_name" content="AI Hub, Ghana">
+  <meta property="og:site_name" content="AI Hub Ghana">
   <meta property="og:locale" content="en_GB">
   {(noindex || isVercelPreview) && <meta name="robots" content="noindex,nofollow">}
 
@@ -67,12 +67,12 @@ const socialImageUrl = Astro.site && ogImage ? new URL(ogImage, Astro.site).href
   {canonicalUrl && <meta property="og:url" content={canonicalUrl}>}
   {socialImageUrl && <meta property="og:image" content={socialImageUrl}>}
   {socialImageUrl && <meta property="og:image:type" content="image/png">}
-  {socialImageUrl && <meta property="og:image:alt" content="AI Hub, Ghana">}
+  {socialImageUrl && <meta property="og:image:alt" content="AI Hub Ghana">}
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content={title}>
   <meta name="twitter:description" content={description}>
   {socialImageUrl && <meta name="twitter:image" content={socialImageUrl}>}
-  {socialImageUrl && <meta name="twitter:image:alt" content="AI Hub, Ghana">}
+  {socialImageUrl && <meta name="twitter:image:alt" content="AI Hub Ghana">}
 
   <!-- Favicon -->
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -116,7 +116,7 @@ const socialImageUrl = Astro.site && ogImage ? new URL(ogImage, Astro.site).href
   <script type="application/ld+json" is:inline set:html={JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Event',
-    name: 'AI Hub, Ghana — Live AI showcase & panel discussion',
+    name: 'AI Hub Ghana: Live AI Showcase and Panel Discussion',
     description,
     startDate: '2026-11-25T10:00:00Z',
     endDate: '2026-11-25T12:00:00Z',
@@ -127,7 +127,7 @@ const socialImageUrl = Astro.site && ogImage ? new URL(ogImage, Astro.site).href
       name: 'Kempinski Hotel Gold Coast City',
       address: { '@type': 'PostalAddress', addressLocality: 'Accra', addressCountry: 'GH' }
     },
-    organizer: { '@type': 'Organization', name: 'AI Hub, Ghana' },
+    organizer: { '@type': 'Organization', name: 'AI Hub Ghana' },
     image: socialImageUrl ? [socialImageUrl] : undefined,
     url: canonicalUrl
   })}></script>

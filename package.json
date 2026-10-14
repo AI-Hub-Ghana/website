@@ -2,7 +2,7 @@
   "name": "ai-hub-ghana-site",
   "version": "1.0.0",
   "private": true,
-  "description": "AI Hub, Ghana — static two-page site (landing + register interest)",
+  "description": "AI Hub Ghana — static two-page site (landing + register interest)",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",

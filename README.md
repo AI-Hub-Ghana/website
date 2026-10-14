@@ -1,6 +1,6 @@
-# AI Hub, Ghana — Website
+# AI Hub Ghana — Website
 
-A two-page event and registration website for the **AI Hub, Ghana Launch & Live AI Showcase at GABS 2026** in Accra.
+A two-page event and registration website for the **AI Hub Ghana Launch & Live AI Showcase at GABS 2026** in Accra.
 
 Built with **Astro 7** and **Tailwind CSS v4**, featuring an event-first UI and a serverless Google Sheets registration backend.
 
