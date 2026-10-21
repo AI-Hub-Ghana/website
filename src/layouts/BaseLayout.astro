@@ -113,6 +113,14 @@ const socialImageUrl = Astro.site && ogImage ? new URL(ogImage, Astro.site).href
   <style media="print" is:inline set:html={`@page { size: ${printPageSize}; margin: 0; }`}></style>
 
   <!-- Structured data -->
+  {currentPage === 'home' && canonicalUrl && (
+    <script type="application/ld+json" is:inline set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      name: 'AI Hub Ghana',
+      url: new URL('/', canonicalUrl).href
+    })}></script>
+  )}
   <script type="application/ld+json" is:inline set:html={JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Event',
