@@ -112,15 +112,13 @@ const socialImageUrl = Astro.site && ogImage ? new URL(ogImage, Astro.site).href
   <!-- Page-specific continuous print height -->
   <style media="print" is:inline set:html={`@page { size: ${printPageSize}; margin: 0; }`}></style>
 
-  <!-- Structured data -->
-  {currentPage === 'home' && canonicalUrl && (
-    <script type="application/ld+json" is:inline set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'WebSite',
-      name: 'AI Hub Ghana',
-      url: new URL('/', canonicalUrl).href
-    })}></script>
-  )}
+  <!-- Structured data: WebSite (always present so Google can resolve the site name) -->
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'AI Hub Ghana',
+    url: 'https://aihubghana.org'
+  })}></script>
   <script type="application/ld+json" is:inline set:html={JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Event',
@@ -155,8 +153,6 @@ const socialImageUrl = Astro.site && ogImage ? new URL(ogImage, Astro.site).href
   </main>
 
   <Footer currentPage={currentPage} />
-
-  <Analytics />
 
   <Analytics />
 
