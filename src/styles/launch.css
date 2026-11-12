@@ -2418,6 +2418,18 @@ summary {
   .summit-strip-top { flex-direction: column; align-items: flex-start; gap: 16px; }
   .summit-strip .summit-mark { padding-right: 0; border-right: 0; }
 }
+/* Button on the dark-navy summit strip uses a white outline style so it reads cleanly against the background. */
+.summit-strip .button {
+  background: transparent;
+  color: #fff;
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
+  flex: none;
+}
+.summit-strip .button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.7);
+}
 
 /* Applied AI & Innovation Centre logo: wide lockup, sized by height. */
 .brand-logo { width: auto; height: 40px; }
